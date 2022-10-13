@@ -9,11 +9,20 @@ class ProductsController < ApplicationController
     product
   end
 
-  def new; end
+  def new
+    @product = Product.new
+  end
 
   def edit; end
 
-  def create; end
+  def create
+    @product = Product.new(product_params)
+    if @product.save
+      redirect_to @product
+    else
+      render 'new'
+    end
+  end
 
   def update; end
 
