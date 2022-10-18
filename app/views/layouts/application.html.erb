@@ -11,6 +11,13 @@
   </head>
 
   <body>
-    <%= yield %>
+     <%= render 'shared/header' %>
+
+    <div class="start-block container">
+      <%= render 'shared/messages' %>
+      <%= yield %>
+    </div>
+
+    <%= render 'shared/footer' %>
   </body>
 </html>

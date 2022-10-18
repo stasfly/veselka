@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-  validates :name, length: { maximum: 100 }
+  validates :name, length: { maximum: 100 }, presence: true
   validates :description, length: { in: 3..1200,
                                     too_long: '%<count>s characters is max allowed',
                                     too_short: '%<count>s characters is min allowed' },

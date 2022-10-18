@@ -1,5 +1,4 @@
 <h1>Products#index</h1>
-<p>Find me in app/views/products/index.html.erb</p>
 <div product, table>
   <table>
     <thead>
@@ -21,6 +20,8 @@
         <td><%= product.product_type %></td>
         <td><%= product.description %></td>
         <td><%= link_to('show', product_path(product)) %></td>
+        <td><%= link_to('edit', edit_product_path(product)) %></td>
+        <td><%= link_to('delete', product_path(product), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %></td>
       </tbody>
     <% end %>
   </table>

@@ -13,20 +13,33 @@ class ProductsController < ApplicationController
     @product = Product.new
   end
 
-  def edit; end
+  def edit
+    product
+  end
 
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to @product
+      redirect_to @product, notice: 'Product was created'
     else
-      render 'new'
+      render 'new', notice: 'Incorrect input!'
     end
   end
 
-  def update; end
+  def update
+    product
+    if product.update(product_params)
+      redirect_to @product, notice: 'Product was updated'
+    else
+      render :edit, status: 'wrong input'
+    end
+  end
 
-  def delete; end
+  def destroy
+    product
+    @product.destroy
+    redirect_to products_path, notice: 'Item destroyed'
+  end
 
   private
 
