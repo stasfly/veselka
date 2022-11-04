@@ -1,12 +1,13 @@
-<footer class="footer">
+<footer>
   <div class="footer-container">
-    <ul class="footer-links">
-      <li class="footer-links_item"><%= link_to 'link a', '#' %></li>
-      <li class="footer-links_item"><%= link_to 'link b', '#' %></li>
-    </ul>
-    <%= link_to root_path do %>
-      <%= image_tag('veselka_logo.jpg', class: 'logo-main') %>
-    <% end %>
+    <div class="logo">
+      <%= link_to root_path do %>
+        <%= image_tag('veselka_logo.jpg', class: 'logo-main') %>
+      <% end %>
+    </div>
+    <div class="footer-link-container">
+      <div class="footer-links_item"><%= link_to 'link a', '#' %></div>
+      <div class="footer-links_item"><%= link_to 'link b', '#' %></div>
     </div>
     <div class="copyright">
       <p>© <%= Time.zone.now.year %>Veselka</p>

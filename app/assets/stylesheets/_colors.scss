@@ -1,1 +1,23 @@
 $base-color: #046003;
+$header-bk: rgba(168, 206, 184, 0.5);
+$header-text-col: rgb(14, 54, 32);
+
+@mixin header-footer-container {
+  background-color: $header-bk;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: large;
+}
+@mixin header-footer-link {
+  display: block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: $header-text-col;
+  padding-right: 12px;
+  
+  &:hover {
+    color: darkred;
+    font-size: 1.3em;
+  }
+}
+

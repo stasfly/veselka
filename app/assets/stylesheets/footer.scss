@@ -1,0 +1,57 @@
+@import 'colors';
+@import 'fonts';
+
+footer {
+  height: 10vh;
+  @include header-footer-container;
+  border: 2px solid red;
+  
+  & .footer-container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    block-size: inherit;
+    border: 2px solid gray;
+
+    & .logo{
+      flex-basis: 100px;
+      flex-grow: 1;
+      flex-shrink: 1;
+      text-align: end;
+      border: 2px solid blue;
+    }
+
+    & .footer-link-container{
+      flex-basis: 100px;
+      flex-grow: 3;
+      flex-shrink: 2;
+      display: flex;
+      height: inherit;
+      align-items: flex-end;
+      background-color: rgb(219, 210, 143);
+      
+      & div{
+        height: inherit;
+        margin: 10px;
+        align-self: center;
+        text-align: center;
+        border: 2px dotted green;
+      }
+      
+      & a {
+        @include header-footer-link;
+      } 
+    }
+
+    & .copyright{
+      flex-basis: 100px;
+      flex-grow: 1;
+      flex-shrink: 1;
+      border: 2px solid blue;
+      align-self: flex-end;
+    }
+  }
+
+}

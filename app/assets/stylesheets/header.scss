@@ -2,31 +2,61 @@
 @import 'fonts';
 
 .header {
-  width: 100%;
+  width: 100vw;
   position: fixed;
   z-index: 3;
-  margin-bottom: auto;
+  margin: 0px;
+  @include header-footer-container
 }
 
 .header-container {
-  font-size: 1em;
-  max-width: 1500px;
-  padding: 0 80px;
-  margin: 0 auto;
-  background-color: $base-color;
-  border-radius: 0 0 0 0;
-  font-family: $font_main_company;
   display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
   justify-content: space-between;
+  block-size: inherit;
+  align-items: center;
+  padding: 10px;
 
-  ul li {
-    display: inline;
-    margin-left: 15px;
-    font-size: 1.5em;
-    border: solid, lightblue;
-    
-    a {
-      color: lightblue;
+  & .logo {
+    flex-basis: 200px;
+    flex-grow: 1;
+    flex-shrink: 2;
+    align-self: flex-start;
+  }
+
+  & .header-menu {
+    flex: 350px 3 1;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    & a {
+      @include header-footer-link;
+    }
+
+    & .link-block {
+      height: 50px;
+      flex: 200px 2 1;
+      flex-wrap: nowrap;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      align-content: center;
+      column-gap: 35px;
+      text-align: right;
+
+      div {
+        height: inherit;
+        width: 80px;
+        text-align: center;               
+      }
+    }
+
+    & .menu-item{
+      flex: 75px 1 2;
+      height: 45px;
+      text-align: right;
     }
   }
 }
