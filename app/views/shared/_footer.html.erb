@@ -1,16 +1,54 @@
 <footer>
   <div class="footer-container">
-    <div class="logo">
-      <%= link_to root_path do %>
-        <%= image_tag('veselka_logo.jpg', class: 'logo-main') %>
-      <% end %>
+    <div class="gap-footer"></div>
+    <div class="footer-container">
+      <div class="contacts">
+        <h3>Contacts</h3>
+        <ul>
+          <li><%= link_to 'Phone 1: 050-XX-XX-XXX', '#' %></li>
+          <li><%= link_to 'Phone 2:', '#' %></li>
+          <li><%= link_to 'Phone 3:', '#' %></li>
+          <li><%= link_to 'email: email@email.com', '#' %></li>
+        </ul>
+      </div>
+      <div class="info">
+        <h3>Information</h3>
+        <ul>
+          <li><%= link_to 'Our schedule: Mn-Fr 9:00-18:00', '#' %></li>
+          <li><%= link_to 'How to charge', '#' %></li>
+          <li><%= link_to 'Payment & delivery', '#' %></li>
+          <li><%= link_to 'Warranty', '#' %></li>
+        </ul>
+      </div>
+      <div class="service">
+        <h3>Service</h3>
+        <ul>
+          <li><%= link_to 'Cutting', '#' %></li>
+          <li><%= link_to 'Edge coating', '#' %></li>
+          <li><%= link_to 'Packing', '#' %></li>
+          <li><%= link_to 'Ingeneering', '#' %></li>
+        </ul>
+      </div>
+      <div class="account">
+        <h3>Account</h3>
+        <ul>
+          <li><%= link_to 'My account', '#' %></li>
+          <li><%= link_to 'Order history', '#' %></li>
+          <li><%= link_to 'List of desired items', '#' %></li>
+          <li><%= link_to 'Advertise emainling', '#' %></li>
+        </ul>
+      </div>
+      <div class="social">
+        <h3>Social networks</h3>
+        <ul>
+          <li><%= link_to 'Facebook', '#' %></li>
+          <li><%= link_to 'Telegram', '#' %></li>
+          <li><%= link_to 'Instagram', '#' %></li>
+        </ul>
+      </div>
     </div>
-    <div class="footer-link-container">
-      <div class="footer-links_item"><%= link_to 'link a', '#' %></div>
-      <div class="footer-links_item"><%= link_to 'link b', '#' %></div>
-    </div>
-    <div class="copyright">
-      <p>© <%= Time.zone.now.year %>Veselka</p>
-    </div>
+    <div class="gap-footer"></div>
   </div>
+    <div class="footer-basement">
+    </div>
 </footer>

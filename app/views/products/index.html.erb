@@ -1,5 +1,16 @@
 <h1>Products#index</h1>
-<div product, table>
+<div class="product-index">
+  <% @products.each do |product| %>
+    <div class="product-item">
+      <div class="item-img"><img src="#" alt="No img yet"></div>
+      <div class="item-description">
+        <div class="item-name"><%= product.name %></div>
+        <div class="item-code">Code: <%= product.product_code %></div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div>
   <table>
     <thead>
       <tr>

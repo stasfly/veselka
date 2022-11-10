@@ -3,18 +3,37 @@
 
 <div class="header">
   <div class="header-container">
-    <div class="logo">
-      <%= link_to root_path do %>
-        <%= image_tag('veselka_logo.jpg', class: 'logo-main') %>
-      <% end %>
+    <div class="gap-1"></div>
+    <div class="link-block">
+      <div><%= link_to 'About us', '#' %></div>  
+      <div><%= link_to 'Payment', '#' %></div>  
+      <div><%= link_to 'Contact', '#' %></div>  
+      <div><%= link_to 'About project', '#' %></div>  
     </div>
-    <div class="header-menu">
-      <div class="link-block">
-        <div><%= link_to 'link1', '#' %></div>  
-        <div><%= link_to 'link2', '#' %></div>  
-        <div><%= link_to 'link3', '#' %></div>  
+    <div class="gap-1"></div>
+    <div class="menu-item"><%= link_to 'menu', '#' %></div>
+    <div class="languages">
+      <div><%= link_to 'UK', '#' %></div>
+      <div><span> | </span></div>
+      <div><%= link_to 'EN', '#' %></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="gap-2"></div>
+    <div class="search-container">
+      <div class="logo">
+        <%= link_to root_path do %>
+          <%= image_tag('veselka_logo.jpg', class: 'logo-main') %>
+        <% end %>
       </div>
-        <div class="menu-item"><%= link_to 'menu', '#' %></div>
+      <div id="company-info">
+        <ul>
+          <li>Company address</li>
+          <li>Working time</li>
+        </ul>
+      </div>
+      <div class="search-bar">Here will be a search bar</div>
     </div>
+    <div class="gap-2"></div>
   </div>
 </div>

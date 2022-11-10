@@ -11,11 +11,24 @@
   </head>
 
   <body>
-     <%= render 'shared/header' %>
-
+    <%= render 'shared/header' %>
     <div class="start-block container">
+      <div class="header-msg-container">Important information!</div>
       <%= render 'shared/messages' %>
-      <%= yield %>
+      <div class="content-container">
+        <div class="sidebar-container">
+          <div id="categories">Categories</div>
+          <div class="category"><%= link_to 'Category 1', '#' %></div>
+          <div class="category"><%= link_to 'Category 2', '#' %></div>
+          <div class="category"><%= link_to 'Category extra', '#' %></div>
+          <div class="category"><%= link_to 'Category 4', '#' %></div>
+          <div class="category"><%= link_to 'Category 5', '#' %></div>
+        </div>
+        <div class="yield-container">
+          <%= yield %>
+        </div>
+        <div class="filter-container"></div>
+      </div>
     </div>
 
     <%= render 'shared/footer' %>
