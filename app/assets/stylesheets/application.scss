@@ -4,7 +4,7 @@
 @import 'header';
 @import 'footer';
 @import 'products/index';
-// @import 'footer';
+@import 'products/show';
 
 body {
   margin: 0 0 0 0;
@@ -25,6 +25,9 @@ body {
   text-align: center;
 }
 
+.gap-3 {
+  flex: 1 10 150px;
+}
 .content-container {
   display: flex;
   flex-flow: row nowrap;
@@ -35,6 +38,7 @@ body {
     flex: 1 2 200px;
     align-items: center;
     justify-content: space-between;
+    margin-top: 15px;
     margin-right: 10px;
     display: flex;
     background-color: $back4;
@@ -64,6 +68,8 @@ body {
 
   & .yield-container {
     flex: 2 1 1000px;
+    background-color: $back3;
+    margin: 15px;
     border: 1px solid black;
   }
 
@@ -84,5 +90,5 @@ body {
 
 .start-block {
   padding-top: 0px;
-  min-height: 70vh;
+  min-height: 58vh;
 }

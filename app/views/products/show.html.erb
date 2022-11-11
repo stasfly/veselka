@@ -1,9 +1,17 @@
-<div>
-  <%= @product.id %>
-  <%= @product.name %>
-  <%= @product.description %>
+<div class="show-container">
+  <div class="show-row">
+    <div class="show-img col-7"><img src="#" alt="No img yet"></div>
+    <div class="property-block col-5">
+      <div><h4>Product name: <%= @product.name %></h4></div>
+      <div><h4>Product code: <%= @product.product_code %></h4></div>
+      <div><h4>Price: </h4></div>
+      <div><%= link_to('Buy', '#') %></div>
+    </div>
+  </div>
+  <div class="show-row">
+    <div><h4>Description</h4><%= @product.description %></div>
+  </div>
 </div>
-<div>
-  <%= link_to 'back', :back %>
-  <%= link_to 'index', products_path %>
+<div class="show-control">
+  <span><%= link_to 'back', :back %>  |  <%= link_to 'index', products_path %></span>
 </div>

@@ -4,7 +4,7 @@
     <div class="product-item">
       <div class="item-img"><img src="#" alt="No img yet"></div>
       <div class="item-description">
-        <div class="item-name"><%= product.name %></div>
+        <div class="item-name"><%= link_to(product.name, product_path(product)) %></div>
         <div class="item-code">Code: <%= product.product_code %></div>
       </div>
     </div>
