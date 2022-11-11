@@ -1,5 +1,5 @@
 <div>
-  <%= form_with model: product do |form| %>
+  <%= form_with model: @product, local: true do |form| %>
     <div>
       <%= form.label :name %>
       <%= form.text_field :name %>

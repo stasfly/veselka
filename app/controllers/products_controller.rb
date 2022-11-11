@@ -19,10 +19,12 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    if @product.save
+    if @product.valid?
+      @product.save
       redirect_to @product, notice: 'Product was created'
     else
-      render 'new', notice: 'Incorrect input!'
+      flash.now[:message] = 'Sorry, Incorrect input!'
+      render :new, notice: 'Incorrect input!'
     end
   end
 
@@ -31,6 +33,7 @@ class ProductsController < ApplicationController
     if product.update(product_params)
       redirect_to @product, notice: 'Product was updated'
     else
+      flash.now[:message] = 'Sorry, Incorrect input!'
       render :edit, status: 'wrong input'
     end
   end
