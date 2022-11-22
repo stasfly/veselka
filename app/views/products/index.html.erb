@@ -1,0 +1,40 @@
+<h1>Products#index</h1>
+<div class="product-index">
+  <% @products.each do |product| %>
+    <div class="product-item">
+      <div class="item-img"><img src="#" alt="No img yet"></div>
+      <div class="item-description">
+        <div class="item-name"><%= product.name %></div>
+        <div class="item-code">Code: <%= product.product_code %></div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Prod.Code</th>
+        <th>Prod.Type</th>
+        <th>Descr.</th>
+        <th>Show</th>
+        <th></th>
+      </tr>
+    </thead>
+    <% @products.each do |product| %>
+      <tbody>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td><%= product.product_code %></td>
+        <td><%= product.product_type %></td>
+        <td><%= product.description %></td>
+        <td><%= link_to('show', product_path(product)) %></td>
+        <td><%= link_to('edit', edit_product_path(product)) %></td>
+        <td><%= link_to('delete', product_path(product), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %></td>
+      </tbody>
+    <% end %>
+  </table>
+  <div><%= link_to('create item', new_product_path) %></div>
+</div>

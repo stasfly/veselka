@@ -1,0 +1,49 @@
+@import 'colors';
+@import 'fonts';
+
+h3 {
+  text-align: center;
+  color: $color3;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+li {
+  padding: 5px 10px 5px 10px;
+}
+
+a {
+  text-decoration: none;
+  color: $color3;
+  
+  &:hover {
+    color: $color2;
+    font-size: 1.0em;
+    text-decoration: underline;
+  }
+}
+
+.gap-3 {
+  flex: 1 10 10vh;
+  border: 1px solid rgb(84, 41, 186);
+  height: inherit;
+}
+
+footer {
+  background-color: $back4;
+
+  & .footer-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    & > div {
+      flex: 5 1 auto;
+      margin-right: 10px;
+      // border: 1px dotted yellow;
+    }
+  }
+}

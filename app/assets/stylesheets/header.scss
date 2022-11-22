@@ -1,0 +1,122 @@
+@import 'colors';
+@import 'fonts';
+
+.gap-1 {
+  flex: 1 15 150px;
+  // border: 1px solid rgb(84, 41, 186);
+  height: inherit;
+}
+
+.gap-2 {
+  flex: 1 10 10vh;
+  // border: 1px solid rgb(84, 41, 186);
+  height: inherit;
+}
+
+.header {
+  width: 100vw;
+  // position: fixed;
+  z-index: 3;
+  margin: 0px 0 0 0;
+
+  & .header-container {
+    position: fixed;
+    width: inherit;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    height: 60px;
+    background-color: $back2;
+    color: white;
+    align-items: stretch;
+    
+    & > div {
+      text-align: center;
+      line-height: 35px;
+      width: 25vh;
+      // border: 1px solid green;
+  
+      &.link-block {
+        flex: 3 1 65vh;
+        // border: 1px solid green;
+        padding: 3px;
+        display: flex;
+        
+        & > div {
+          // border: 1px solid yellow;
+          width: 15vh;
+          align-self: center;
+          text-align: center;
+        }
+      }
+
+      &.languages {
+        flex: 3 1 5vh;
+        align-self: center;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: end;
+        padding-right: 25px;
+        // border: 1px solid blue;
+        
+        & > div {
+          // border: 1px dotted yellow;
+          width: 3vh;
+          align-self: center;
+          text-align: center;
+        }
+      }
+  
+      &.menu-item {
+        flex: 1 1 25vh;
+        align-self: center;
+        
+        & a {
+          font-size: 1.3em;
+
+          &:hover {
+            font-size: 1.6em;
+          }
+        }
+      }
+    }
+
+    & a {
+      color: white;
+      text-decoration: none;
+
+      &:hover {
+        color: $color2;
+        font-weight: bold;
+        font-size: 1.3em;
+      }
+    }
+  }
+
+  & .container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    padding-top: 60px;
+    height: 95px;
+    margin-bottom: 30px;
+    background-color: $back3;
+    color: $color1;
+    align-items: center;
+    
+    & .search-container {
+      flex: 4 1 80vh;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+
+      & > div {
+        text-align: center;
+        line-height: 35px;
+        width: auto;
+        border: 1px dotted #801500;
+      }
+    }
+  }
+}
