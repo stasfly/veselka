@@ -5,6 +5,7 @@
 @import 'footer';
 @import 'products/index';
 @import 'products/show';
+@import 'products/_form';
 
 body {
   margin: 0 0 0 0;
@@ -23,6 +24,13 @@ body {
   background-color: $back3;
   color: $color4;
   text-align: center;
+}
+
+.notice {
+  color: blue;
+  background-color: lightgreen;
+  font-size: 1.25em;
+  padding: 5px 0 5px 0;
 }
 
 .gap-3 {

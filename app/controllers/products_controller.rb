@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
       @product.save
       redirect_to @product, notice: 'Product was created'
     else
-      flash.now[:message] = 'Sorry, Incorrect input!'
+      # flash.now[:message] = 'Sorry, Incorrect input!'
       render :new, notice: 'Incorrect input!'
     end
   end
