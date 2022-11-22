@@ -13,9 +13,16 @@
   <body>
     <%= render 'shared/header' %>
     <div class="start-block container">
-      <div class="header-msg-container">Important information!</div>
-      <%= render 'shared/messages' %>
+      <div class="header-msg-container">
+        <% if flash.any? %>
+          <%= render 'shared/messages' %>
+        <% else %>
+         <%= 'Important information!' %>
+        <% end %>
+        <% render 'shared/messages' %>
+      </div>
       <div class="content-container">
+        <div class="gap-3"></div>
         <div class="sidebar-container">
           <div id="categories">Categories</div>
           <div class="category"><%= link_to 'Category 1', '#' %></div>
@@ -28,6 +35,7 @@
           <%= yield %>
         </div>
         <div class="filter-container"></div>
+        <div class="gap-3"></div>
       </div>
     </div>
 

@@ -1,24 +1,11 @@
 <div>
-  <%= form_with model: product do |form| %>
-    <div>
-      <%= form.label :name %>
-      <%= form.text_field :name %>
+  <%= simple_form_for @product, data: { turbo: false } do |form| %>
+    <%= form.input :name %>
+    <%= form.input :product_type %>
+    <%= form.input :product_code, hint: 'Only digits' %>
+    <%= form.input :description %>
+    <div class="btn-container">
+      <%= form.button :submit, class: 'submit-btn' %>
     </div>
-    <div>
-      <%= form.label :product_type %>
-      <%= form.text_field :product_type %>
-    </div>
-    <div>
-      <%= form.label :product_code %>
-      <%= form.text_field :product_code %>
-    </div>
-    <div>
-      <%= form.label :description %>
-      <%= form.text_area :description, size: '50*30' %>
-    </div>
-    <div>
-      <%= form.submit %>
-    </div>
-    <div>
   <%  end %>
 </div>

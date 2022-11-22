@@ -1,0 +1,70 @@
+@import 'colors';
+@import 'fonts';
+
+.error {
+  color: red;
+  
+}
+.btn-container {
+  display: flex;
+  width: inherit;
+  height: 4em;
+  align-items: center;
+  justify-content: flex-start;
+
+  & .submit-btn {
+    color: $color3;
+    background-color: $back2;
+    // margin: 1em;
+    font-size: 1.15em;
+    border-radius: 5px;
+    flex: 0 0 200px;
+    height: 40px;
+    vertical-align: middle;
+    justify-self: center;
+    transition: all 100ms;
+  
+    &:hover {
+      color: $color2;
+      font-size: 1.3em;
+      // border-color: $color2;
+      border-radius: 15px;
+    }
+  }
+}
+
+div.input {
+  & label {
+    display: inline-block;
+    width: 150px;
+    height: 2em;
+    margin: 0.2em;
+    vertical-align: top;
+  }
+
+  & abbr {
+    color: red;
+    text-decoration: none;
+  }
+
+  & span {
+    vertical-align: top;
+    margin-left: 1em;
+  }
+
+  & textarea {
+    height: 10em;
+  }
+
+  
+}
+
+#new_product {
+  display: block;
+
+  & > div {
+    // border: 1px solid blue;
+    margin-left: 15px;
+
+  }
+}
