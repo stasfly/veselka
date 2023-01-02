@@ -10,12 +10,12 @@ default: &default
   
 development:
   <<: *default
-  database: 'vexelka_development'
+  database: 'veselka_development'
 
 production:
   <<: *default
-  database: 'vexelka_production'
+  database: 'veselka_production'
   
 test:
   <<: *default
-  database: 'vexelka_test'
+  database: 'veselka_test'

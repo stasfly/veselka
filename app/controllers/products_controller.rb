@@ -3,6 +3,7 @@
 class ProductsController < ApplicationController
   def index
     products
+    # binding.pry
   end
 
   def show
