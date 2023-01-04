@@ -12,9 +12,18 @@
     </div>
     <div class="gap-1"></div>
     <div class="menu-item"><%= link_to 'menu', '#' %></div>
+    <div class="devise-menu">
+      <% if user_signed_in? %>
+        <div><%= button_to "Sign out", destroy_user_session_path, method: :delete %></div>
+      <% else %>
+        <div><%= link_to "Sign in", new_user_session_path, method: :post %></div>
+        <div class="vertical-rod"><span><%= ' | ' %></span></div>
+        <div><%= link_to "Sign up", new_user_registration_path, method: :post %></div>
+      <% end %>
+    </div>
     <div class="languages">
       <div><%= link_to 'UK', '#' %></div>
-      <div><span> | </span></div>
+      <div class="vertical-rod"><span> | </span></div>
       <div><%= link_to 'EN', '#' %></div>
     </div>
   </div>
