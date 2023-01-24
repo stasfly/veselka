@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationMailer < ActionMailer::Base
-  default from: 'veselka@example.com'
+  default from: 'stasfly.ruby.developer@gmail.com'
   layout 'mailer'
 end
