@@ -48,8 +48,9 @@ gem 'bootsnap', require: false
 gem 'sassc-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem 'aws-sdk-s3', require: false
 gem 'devise', '~> 4.8'
+gem 'image_processing', '~> 1.2'
 gem 'normalize-rails', '~> 8.0'
 gem 'pry', '~> 0.14.1'
 gem 'rubocop', '~> 1.36', require: false

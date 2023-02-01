@@ -1,2 +1,14 @@
 <h1>New item form</h1>
-<%= render 'form', product: @product %>
+<div>
+  <%= simple_form_for @product, data: { turbo: false } do |form| %>
+    <%= form.input :name %>
+    <%= form.input :product_type %>
+    <%= form.input :product_code, hint: 'Only digits' %>
+    <%= form.input :description %>
+    <div class="form-separator"></div>
+    <%= form.file_field :images, multiple: true %>
+    <div class="btn-container">
+      <%= form.button :submit, class: 'submit-btn' %>
+    </div>
+  <%  end %>
+</div>

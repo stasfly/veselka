@@ -1,6 +1,12 @@
 <div class="show-container">
   <div class="show-row">
-    <div class="show-img col-7"><img src="#" alt="No img yet"></div>
+    <div class="show-img col-7">
+      <% if @product.images.attached? %>
+        <% @product.images.each do |img| %>
+          <div><%= image_tag(img.variant(resize_to_limit: [200, 200])) %></div>
+        <% end %> 
+      <% end %>
+    </div>
     <div class="property-block col-5">
       <div><h4>Product name: <%= @product.name %></h4></div>
       <div><h4>Product code: <%= @product.product_code %></h4></div>
