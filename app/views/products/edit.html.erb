@@ -1,2 +1,30 @@
 <h1>Edit item</h1>
-<%= render 'form', product: @product %>
+<div>
+  <%= simple_form_for @product, data: { turbo: true } do |form| %>
+    <%= form.input :name %>
+    <%= form.input :product_type %>
+    <%= form.input :product_code, hint: 'Only digits' %>
+    <%= form.input :description %>
+    <div class="form-separator"></div>
+    <div class="images-block">
+      <% if @product.images.attached? %>
+        <% @product.images.each do |img| %>
+          <div class="img-item">
+            <div><%= image_tag img.variant(resize_to_limit: [100, 100]) %></div>
+            <div><%= link_to('Delete image', purge_one_attachment_product_path(img), data: {turbo_method: :delete}) %></div>
+            <%= form.hidden_field :images, multiple: true, value: img.signed_id %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="form-separator"></div>
+    <% if @product.images.attached? %>
+      <%= link_to('delete all images', purge_all_attachments_product_path(@product), data: {turbo_method: :delete}) %>
+    <% end %>
+    <div class="form-separator"></div>
+    <%= form.file_field :images, multiple: true %>
+    <div class="btn-container">
+      <%= form.button :submit, class: 'submit-btn' %>
+    </div>
+  <%  end %>
+</div>

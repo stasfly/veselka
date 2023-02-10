@@ -31,6 +31,7 @@ class ProductsController < ApplicationController
 
   def update
     product
+    # binding.pry
     if product.update(product_params)
       redirect_to @product, notice: 'Product was updated'
     else
@@ -45,10 +46,23 @@ class ProductsController < ApplicationController
     redirect_to products_path, notice: 'Item destroyed'
   end
 
+  def purge_one_attachment
+    # binding.pry
+    attachment = ActiveStorage::Attachment.find(params[:id])
+    attachment.purge
+    redirect_back fallback_location: root_path, notice: 'Image has been deleted'
+  end
+
+  def purge_all_attachments
+    # binding.pry
+    product.images.purge
+    redirect_back fallback_location: root_path, notice: 'All images have been deleted'
+  end
+
   private
 
   def products
-    @products = Product.all
+    @products = Product.all.with_attached_images
   end
 
   def product
@@ -56,6 +70,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :product_type, :description, :product_code)
+    params.require(:product).permit(:name, :product_type, :description, :product_code, images: [])
   end
 end
