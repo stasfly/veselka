@@ -1,0 +1,21 @@
+<h1>User#index</h1>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>email</th>
+    <th>roles</th>
+    <th>show</th>
+    <th>edit</th>
+    <th>destroy</th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <th><%= user.id %></th>
+      <th><%= user.email %></th>
+      <th><%= user.roles.pluck(:name) %></th>
+      <th><%= link_to 'show',  user_path(user) %></th>
+      <th><%= link_to 'edit',  edit_user_registration_path(user) %></th>
+      <th><%= button_to "Delete * account", user_destroy_path(user), form: { data: { confirm: "Are you sure?" } }, method: :delete %></th>
+    </tr>
+  <% end %>
+</table>
