@@ -1,2 +1,5 @@
 <h1>User</h1>
-<%= @user.email %>
+<p><%= @user.email %></p>
+<p><%= @user.roles.pluck(:name) %></p>
+
+<%= link_to "Back", :back %>

@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+require 'factory_bot_rails'
+
+user = User.new(
+  email: 'admin@admin.com',
+  password: 'qwerty',
+  password_confirmation: 'qwerty')
+user.add_role :admin
+user.save
+
+FactoryBot.create_list(:product, 8)
+FactoryBot.create_list(:user, 2)

@@ -1,0 +1,13 @@
+
+<h2>User: <%= @user.email %></h2>
+  
+<%= simple_form_for @user, url: user_update_path(@user), html: { method: :put } do |f| %>
+  <div class="form-inputs">
+  <%= f.association :roles, as: :check_boxes %>
+    
+  <div class="form-actions">
+    <%= f.button :submit, "Update roles" %>
+  </div>
+<% end %>
+
+<%= link_to "Back", :back %>
