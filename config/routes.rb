@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  # scope 'admin' do
+    get 'admins/index', as: 'users'
+    get 'admins/show', as: 'user'
+    get 'admins/edit', as: 'user_edit'
+    put 'admins/update', as: 'user_update'
+    delete 'admins/destroy', as: 'user_destroy'
+  # end
+
   devise_for :users
   root "products#index"
   resources :products do
