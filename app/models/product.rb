@@ -23,5 +23,8 @@ class Product < ApplicationRecord
   #                     size:
   #                                   { less_than: 5.megabytes,
   #                                     message: "should be less than 5MB" }
+  belongs_to :product_category
+
   has_many_attached :images
+  has_one :product_inventory
 end
