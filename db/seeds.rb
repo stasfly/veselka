@@ -15,5 +15,41 @@ user = User.new(
 user.add_role :admin
 user.save
 
-FactoryBot.create_list(:product, 8)
-FactoryBot.create_list(:user, 2)
+3.times do |n|
+  user = User.new(
+    email: "u#{n}@u.com",
+    password: 'qwerty',
+    password_confirmation: 'qwerty')
+  user.add_role :user
+  user.save
+  user.cart = Cart.create
+end
+
+3.times do |n|
+  ProductCategory.create(name: "Cat#{n}")
+end
+
+product_categories = ProductCategory.all
+10.times do |n|
+  product = Product.new(
+    name: "item#{n}",
+    description: Faker::Lorem.paragraph,
+    sku: "sku#{n}",
+    price: rand(1000)
+  )
+  product.product_category_id = product_categories.sample.id
+  product.save
+end
+
+products = Product.all
+carts = Cart.all
+20.times do |n|
+  cart_item = CartItem.new(
+    cart_id: carts.sample.id,
+    product_id: products.sample.id,
+    quantity: rand(10)
+  )
+  cart_item.save  
+end
+# FactoryBot.create_list(:product, 8)
+# FactoryBot.create_list(:user, 2)

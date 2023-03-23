@@ -10,6 +10,9 @@ class User < ApplicationRecord
   # validates :password, confirmation: true, length: { minimum: 6, too_short: '%<count>s characters is min allowed' }, allow_blank: true
   # validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
+  has_many :orders
+  has_one :cart, dependent: :destroy
+
   after_create :send_welcome_email, :asign_default_role
 
   def send_welcome_email
