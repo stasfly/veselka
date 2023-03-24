@@ -15,5 +15,5 @@ class Product < ApplicationRecord
   belongs_to :product_category
 
   has_many_attached :images
-  has_one :product_inventory
+  has_one :product_inventory, dependent: :destroy
 end

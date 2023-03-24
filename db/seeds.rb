@@ -39,6 +39,7 @@ product_categories = ProductCategory.all
   )
   product.product_category_id = product_categories.sample.id
   product.save
+  product_inventory = ProductInventory.create(quantity: rand(20), product_id: product.id)
 end
 
 products = Product.all

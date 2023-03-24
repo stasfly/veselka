@@ -9,9 +9,14 @@
     </div>
     <div class="property-block col-5">
       <div><h4>Product name: <%= @product.name %></h4></div>
-      <div><h4>Product code: <%= @product.product_code %></h4></div>
-      <div><h4>Price: </h4></div>
-      <div><%= link_to('Buy', '#') %></div>
+      <div><h4>Product sku: <%= @product.sku %></h4></div>
+      <div><h4>Price: <%= @product.price %></h4></div>
+      <%= simple_form_for @cart_item, url: cart_items_path do |f| %>
+        <%= f.input :quantity, collection: 1..ProductInventory.find_by(product_id: @product.id).quantity %>
+        <%= f.hidden_field :cart_id, value: current_user.cart.id %>
+        <%= f.hidden_field :product_id, value: @product.id %>
+        <%= f.button :submit, value: 'Put to cart' %>
+      <% end %>
     </div>
   </div>
   <div class="show-row">

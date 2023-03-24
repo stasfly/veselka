@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :cart_items, only: [:create, :update, :destroy]
+  resources :carts, only: [:show]
+  resources :orders, only: [:show, :create]
+  # get 'carts/show'
+  # get 'orders/show'
+  # post 'orders/create'
   # scope 'admin' do
     get 'admins/index', as: 'users'
     get 'admins/show', as: 'user'

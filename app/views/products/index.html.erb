@@ -9,7 +9,7 @@
       </div>
       <div class="item-description">
         <div class="item-name"><%= link_to(product.name, product_path(product)) %></div>
-        <div class="item-code"><%= link_to "Code: #{product.product_code}", product_path(product)%></div>
+        <div class="item-code"><%= link_to "Code: #{product.sku}", product_path(product)%></div>
       </div>
     </div>
   <% end %>
@@ -21,7 +21,7 @@
         <th>Id</th>
         <th>Name</th>
         <th>Prod.Code</th>
-        <th>Prod.Type</th>
+        <th>Prod.Cat</th>
         <th>Descr.</th>
         <th>Show</th>
         <th></th>
@@ -31,8 +31,8 @@
       <tbody>
         <td><%= product.id %></td>
         <td><%= product.name %></td>
-        <td><%= product.product_code %></td>
-        <td><%= product.product_type %></td>
+        <td><%= product.sku %></td>
+        <td><%= product.product_category.name %></td>
         <td><%= product.description %></td>
         <td><%= link_to('show', product_path(product)) %></td>
         <td><%= link_to('edit', edit_product_path(product)) %></td>

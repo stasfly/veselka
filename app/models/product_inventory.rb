@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class ProductInventory < ApplicationRecord
-  belongs_to :product
+  belongs_to :product, dependent: :destroy
 end

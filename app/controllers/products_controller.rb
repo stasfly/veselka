@@ -8,6 +8,9 @@ class ProductsController < ApplicationController
 
   def show
     product
+    # @cart_item =  CartItem.where("cart_id = ? AND product_id = ?", current_user.cart.id, product.id) || CartItem.new(product_id: product.id, cart_id: current_user.cart.id)
+    @cart_item = CartItem.new(product_id: product.id, cart_id: current_user.cart.id)
+    # binding.pry
   end
 
   def new
@@ -70,6 +73,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :sku, :price, images: [])
+    params.require(:product).permit(:name, :description, :sku, :price, :product_category_id, images: [])
   end
 end

@@ -88,6 +88,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_100630) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_product_inventories_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -95,12 +97,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_100630) do
     t.text "description"
     t.string "sku"
     t.decimal "price", precision: 6, scale: 2
-    t.bigint "product_category_id"
-    t.bigint "product_inventory_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "product_category_id"
     t.index ["product_category_id"], name: "index_products_on_product_category_id"
-    t.index ["product_inventory_id"], name: "index_products_on_product_inventory_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -145,6 +145,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_100630) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_inventories", "products"
   add_foreign_key "products", "product_categories"
-  add_foreign_key "products", "product_inventories"
 end
