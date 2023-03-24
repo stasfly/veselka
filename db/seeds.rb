@@ -22,7 +22,7 @@ user.save
     password_confirmation: 'qwerty')
   user.add_role :user
   user.save
-  user.cart = Cart.create
+  # user.cart = Cart.create
 end
 
 3.times do |n|

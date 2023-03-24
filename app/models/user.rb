@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :orders
   has_one :cart, dependent: :destroy
 
-  after_create :send_welcome_email, :asign_default_role
+  after_create :send_welcome_email, :asign_default_role, :new_user_cart_create
 
   def send_welcome_email
     UserMailer.welcome(self).deliver_now
@@ -23,5 +23,9 @@ class User < ApplicationRecord
 
   def asign_default_role
     add_role(:user) unless has_any_role?
+  end
+
+  def new_user_cart_create
+    self.cart = Cart.create
   end
 end
