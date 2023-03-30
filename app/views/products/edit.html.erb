@@ -2,8 +2,11 @@
 <div>
   <%= simple_form_for @product, data: { turbo: true } do |form| %>
     <%= form.input :name %>
-    <%= form.input :product_type %>
-    <%= form.input :product_code, hint: 'Only digits' %>
+    <%= form.input :sku %>
+    <%= form.input :price, hint: 'Only digits' %>
+    <%= simple_fields_for :inventory_quantity do |q| %>
+      <%= q.input :quantity, as: :integer, hint: 'Add quantity to stock. Integer only' %>
+    <% end %>
     <%= form.input :description %>
     <div class="form-separator"></div>
     <div class="images-block">

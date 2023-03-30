@@ -12,10 +12,14 @@
       <div><h4>Product sku: <%= @product.sku %></h4></div>
       <div><h4>Price: <%= @product.price %></h4></div>
       <%= simple_form_for @cart_item, url: cart_items_path do |f| %>
-        <%= f.input :quantity, collection: 0..ProductInventory.find_by(product_id: @product.id).quantity %>
         <%= f.hidden_field :cart_id, value: current_user.cart.id %>
         <%= f.hidden_field :product_id, value: @product.id %>
-        <%= f.button :submit, value: 'Put to cart' %>
+        <% if @product_inventory.quantity > 0 %>
+          <%= f.input :quantity, collection: 0..@product_inventory.quantity, hint: "#{@product_inventory.quantity} items in stock" %>
+          <%= f.button :submit, value: 'Put to cart' %>
+        <% else %>
+          <%= f.label :quantity, 'Item is out of stock' %>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -21,6 +21,8 @@ class Order < ApplicationRecord
         item_cost: cart_item_cost
       )
       order_cost += cart_item.quantity * cart_item_cost
+      product_inventory = ProductInventory.find_by(product_id: cart_item.product_id)
+      product_inventory.update(quantity: (product_inventory.quantity - cart_item.quantity)) 
       cart_item.delete
     end
     self.update(cost: order_cost)

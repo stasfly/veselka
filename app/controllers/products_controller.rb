@@ -7,12 +7,12 @@ class ProductsController < ApplicationController
 
   def index
     products
+    product_inventories
   end
 
   def show
-    # product
     @cart_item = CartItem.new(product_id: product.id, cart_id: current_user.cart.id)
-    # binding.pry
+    product_inventory
   end
 
   def new
@@ -20,13 +20,10 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    # product
   end
 
   def create
     @product = Product.new(product_params)
-    # @product.quantity = params[:inventory_quantity][:quantity]
-    # binding.pry
     if @product.valid?
       @product.save
       params[:inventory_quantity][:quantity] = 0 if params[:inventory_quantity][:quantity] = nil
@@ -38,8 +35,11 @@ class ProductsController < ApplicationController
   end
 
   def update
-    # product
     if product.update(product_params)
+      product_inventory = ProductInventory.find_by(product_id: @product.id)
+      stock_quantity =  product_inventory.quantity + params[:inventory_quantity][:quantity].to_i
+      stock_quantity = 0 if stock_quantity < 0
+      product_inventory.update(quantity: stock_quantity)
       redirect_to @product, notice: 'Product was updated'
     else
       flash.now[:message] = 'Sorry, Incorrect input!'
@@ -48,7 +48,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    # product
     @product.destroy
     redirect_to products_path, notice: 'Item destroyed'
   end
@@ -76,6 +75,14 @@ class ProductsController < ApplicationController
 
   def product
     @product ||= Product.find(params[:id])
+  end
+
+  def product_inventories
+    @product_inventories ||= ProductInventory.all  
+  end
+
+  def product_inventory
+    @product_inventory ||= ProductInventory.find_by(product_id: product.id) 
   end
 
   def product_params
