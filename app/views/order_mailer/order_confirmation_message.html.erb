@@ -1,0 +1,30 @@
+<h3>Dear customer. You just have made an order in our company. Thank you for your choice.</h3>
+<h2>Order's ID: </h2><%= @order.id %>
+<h3>Order details:</h3>
+<table>
+  <thead>
+    <tr>
+      <th>№:</th>
+      <th>Item name</th>
+      <th>Sku</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% i = 1 %>
+    <% @order.order_item_ids.map do |order_item_id| %>
+      <% order_item =  OrderItem.find(order_item_id) %>
+      <% product =  Product.find(order_item.product_id) %>
+      <td><%= i %></td>
+      <td><%= product.name %></td>
+      <td><%= product.sku %></td>
+      <td><%= product.price %></td>
+      <td><%= order_item.quantity %></td>
+      <td><%= order_item.item_cost %></td>
+      <% i += 1 %>
+    <% end %>
+  </tbody>
+</table>
+<div><%= link_to('Back to the site', root_url) %></div>

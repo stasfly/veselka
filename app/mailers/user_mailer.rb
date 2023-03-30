@@ -13,3 +13,4 @@ class UserMailer < ApplicationMailer
     mail to: user.email
   end
 end
+ 

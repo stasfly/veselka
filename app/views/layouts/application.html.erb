@@ -30,7 +30,9 @@
           <div class="category"><%= link_to 'Category extra', '#' %></div>
           <div class="category"><%= link_to 'Category 4', '#' %></div>
           <div class="category"><%= link_to 'Category 5', '#' %></div>
-          <div><%= link_to 'Cart', cart_path(current_user.cart.id) %></div>
+          <% if current_user != nil %>
+            <div><%= link_to 'Cart', cart_path(current_user.cart.id) %></div>
+          <% end %>
         </div>
         <div class="yield-container">
           <%= yield %>

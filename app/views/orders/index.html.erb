@@ -1,0 +1,20 @@
+<h2>Order history</h2>
+
+<table>
+  <thead>
+    <tr>
+      <td>Order date</td>
+      <td>Order id</td>
+      <td>Order sum</td>
+      <td>Details</td>
+    </tr>
+  </thead>
+  <% @orders.map do |order| %>
+    <tbody>
+      <td><%= order.created_at %></td>
+      <td><%= order.id %></td>
+      <td><%= order.cost %></td>
+      <td><%= link_to 'details', order_path(order) %></td>
+    <tbody>
+  <% end %>
+</table>
