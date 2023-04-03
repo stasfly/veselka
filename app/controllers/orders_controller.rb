@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
-
   def index
     @orders = Order.all.where(user_id: current_user.id)
   end
-  
+
   def show
     order
   end
