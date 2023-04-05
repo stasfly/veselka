@@ -19,8 +19,14 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    cart_item
-    @cart_item.destroy
+    cart_item.destroy
+    redirect_to cart_path(current_user.cart.id)
+    # respond_to do |format|
+    # if cart_item.destroy
+    # format.turbo_stream do
+    # render turbo_stream: [turbo_stream.remove("cart_item_#{cart_item.id}",  )]
+    #
+    # end
   end
 
   private
