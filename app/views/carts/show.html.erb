@@ -17,6 +17,9 @@
   <%= render partial: 'cart_items' %>
 </table>
 
-<div>Total cost: <%= @sum %></div>
-
-<%= button_to 'Order', orders_path, params: { user_id: current_user.id } %>
+<% if current_user.cart.cart_item_ids.any? %>
+  <div>Total cost: <span id="cart_sum"> <%= @cart_sum %></span></div>
+  <%= button_to 'Order', orders_path, params: { user_id: current_user.id } %>
+<% else %>
+  <div>Put at least one item into the cart, please</div>
+<% end %>

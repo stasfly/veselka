@@ -3,6 +3,7 @@
 class CartsController < ApplicationController
   def show
     cart
+    cart_sum
     products
   end
 
@@ -10,6 +11,13 @@ class CartsController < ApplicationController
 
   def cart
     @cart ||= Cart.find_by(user_id: current_user.id)
+  end
+
+  def cart_sum
+    @cart_sum = 0
+    cart.cart_items.map do |cart_item|
+      @cart_sum += cart_item.quantity * cart_item.product.price
+    end
   end
 
   def products

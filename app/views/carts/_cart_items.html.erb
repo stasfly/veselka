@@ -2,8 +2,8 @@
   <% i = 0 %>
   <% @sum = 0 %>
   <% @cart.cart_item_ids.map do |cart_item_id| %>
-    <% i += 1 %>
     <tbody id=<%= "cart_item_#{cart_item_id}" %>>
+      <% i += 1 %>
       <td><%= i %></td>
       <td><%= @products.find(CartItem.find(cart_item_id).product_id).name %></td>
       <td><%= @products.find(CartItem.find(cart_item_id).product_id).sku %></td>
@@ -12,6 +12,11 @@
       <td><%= qt * pr %></td>
       <td><%= link_to('remove it', cart_item_path(cart_item_id), data: {turbo_method: :delete})  %></td>
     </tbody>
+  <% end %>
+  <% @cart.cart_item_ids.map do |cart_item_id| %>
+    <% qt = CartItem.find(cart_item_id).quantity %>
+    <% pr = @products.find(CartItem.find(cart_item_id).product_id).price %>
     <% @sum += qt * pr %>
   <% end %>
 </div>
+ 

@@ -19,20 +19,38 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    cart_item.destroy
-    redirect_to cart_path(current_user.cart.id)
-    # respond_to do |format|
-    # if cart_item.destroy
-    # format.turbo_stream do
-    # render turbo_stream: [turbo_stream.remove("cart_item_#{cart_item.id}",  )]
-    #
-    # end
+    # cart_item.destroy
+    # redirect_to cart_path(current_user.cart.id)
+    if cart_item.destroy
+      if cart_item.cart.cart_item_ids.any?
+        cart_sum
+        # binding.pry
+        respond_to do |format|
+          format.turbo_stream do
+            # render turbo_stream: turbo_stream.remove("cart_item_#{cart_item.id}",  )
+            render turbo_stream: [
+              turbo_stream.remove(@cart_item),
+              turbo_stream.update('cart_sum', partial: 'carts/cart_sum')
+            ]
+          end
+        end
+      else
+        redirect_to cart_path(current_user.cart.id)
+      end
+    end
   end
 
   private
 
   def cart_item
     @cart_item ||= CartItem.find(params[:id])
+  end
+
+  def cart_sum
+    @cart_sum = 0
+    cart_item.cart.cart_items.map do |cart_item|
+      @cart_sum += cart_item.quantity * cart_item.product.price
+    end
   end
 
   def cart_item_params
