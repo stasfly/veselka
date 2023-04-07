@@ -17,8 +17,8 @@
             <%= f.hidden_field :cart_id, value: current_user.cart.id %>
             <%= f.hidden_field :product_id, value: product.id %>
             <% if @product_inventories.find_by(product_id: product.id).quantity > 0 %>
-              <%= f.input :quantity, collection: 0..@product_inventories.find_by(product_id: product.id).quantity %>
-              <%= f.button :submit, value: 'Put to cart' %>
+              <%= f.input :quantity, collection: 1..@product_inventories.find_by(product_id: product.id).quantity %>
+                <%= f.button :submit, value: 'Put to cart' %>
             <% else %>
               <%= f.label :quantity, 'Item is out of stock' %>
             <% end %>

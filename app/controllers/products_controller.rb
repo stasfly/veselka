@@ -8,8 +8,9 @@ class ProductsController < ApplicationController
     # binding.pry
     if params[:query].nil?
       products
+      @products.order("name ASC")
     else
-      @products = Product.where(product_category_id: params[:query][:product_category_id].to_i)
+      @products = Product.where(product_category_id: params[:query][:product_category_id].to_i).order("id ASC")
     end
     product_inventories
     @cart_item = CartItem.new
