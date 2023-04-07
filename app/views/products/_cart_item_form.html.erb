@@ -1,0 +1,14 @@
+<%= simple_form_for @cart_item, url: cart_items_path do |f| %>
+  <%= f.hidden_field :cart_id, value: current_user.cart.id %>
+  <%= f.hidden_field :product_id, value: product.id %>
+  <% if product.product_inventory.quantity > 0 %>
+    <%= f.input :quantity, collection: 1..product.product_inventory.quantity %>
+      <% if CartItem.where('product_id = ? AND cart_id = ?', product.id, current_user.cart.id).any? %>
+        <%= f.button :submit, value: 'Olready in the cart' %>
+      <% else %>
+        <%= f.button :submit, value: 'Put to cart' %>
+      <% end %>
+  <% else %>
+    <%= f.label :quantity, 'Item is out of stock' %>
+  <% end %>
+<% end %>

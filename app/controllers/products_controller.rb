@@ -5,12 +5,11 @@ class ProductsController < ApplicationController
   before_action :product, only: %i[show edit edit destroy]
 
   def index
-    # binding.pry
     if params[:query].nil?
       products
-      @products.order("name ASC")
+      @products.order('name ASC')
     else
-      @products = Product.where(product_category_id: params[:query][:product_category_id].to_i).order("id ASC")
+      @products = Product.where(product_category_id: params[:query][:product_category_id].to_i).order('id ASC')
     end
     product_inventories
     @cart_item = CartItem.new
@@ -31,7 +30,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     if @product.valid?
       @product.save
-      params[:inventory_quantity][:quantity] = 0 if params[:inventory_quantity][:quantity] = nil
+      params[:inventory_quantity][:quantity] = 0 if params[:inventory_quantity][:quantity].nil?
       ProductInventory.create(product_id: @product.id, quantity: (params[:inventory_quantity][:quantity] || 0))
       redirect_to @product, notice: 'Product was created'
     else

@@ -3,11 +3,16 @@
 class CartItemsController < ApplicationController
   def create
     @cart_item = CartItem.new(cart_item_params)
-    # binding.pry
     if @cart_item.valid?
       @cart_item.save
-      # redirect_back fallback_location: root_path, notice:'Item is added to your cart'
-      redirect_to products_path, notice: 'Item is added to your cart'
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update("cart_item_form_#{@cart_item.product.id}", partial: 'products/cart_item_form',
+                                                                           locals: { product: @cart_item.product })
+          ]
+        end
+      end
     else
       redirect_to products_path, notice: 'Incorrect quanrtity of the Item.'
     end
@@ -19,15 +24,11 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    # cart_item.destroy
-    # redirect_to cart_path(current_user.cart.id)
     if cart_item.destroy
       if cart_item.cart.cart_item_ids.any?
         cart_sum
-        # binding.pry
         respond_to do |format|
           format.turbo_stream do
-            # render turbo_stream: turbo_stream.remove("cart_item_#{cart_item.id}",  )
             render turbo_stream: [
               turbo_stream.remove(@cart_item),
               turbo_stream.update('cart_sum', partial: 'carts/cart_sum')

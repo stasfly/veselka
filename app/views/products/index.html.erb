@@ -13,17 +13,10 @@
         <div class="item-code"><%= link_to "Price: #{product.price}", product_path(product)%></div>
         <div class="item-code"><%= link_to "Cat: #{product.product_category_id}", product_path(product)%></div>
         <% if current_user != nil %>
-          <%= simple_form_for @cart_item, url: cart_items_path do |f| %>
-            <%= f.hidden_field :cart_id, value: current_user.cart.id %>
-            <%= f.hidden_field :product_id, value: product.id %>
-            <% if @product_inventories.find_by(product_id: product.id).quantity > 0 %>
-              <%= f.input :quantity, collection: 1..@product_inventories.find_by(product_id: product.id).quantity %>
-                <%= f.button :submit, value: 'Put to cart' %>
-            <% else %>
-              <%= f.label :quantity, 'Item is out of stock' %>
-            <% end %>
-          <% end %>
-          <% else %>
+          <div id=<%= "cart_item_form_#{product.id}" %>>
+            <%= render partial: 'cart_item_form', locals: {product: product} %>
+          </div>
+        <% else %>
           <div><%= link_to 'Log in first',  new_user_session_path %> </div>
         <% end %>
       </div>
