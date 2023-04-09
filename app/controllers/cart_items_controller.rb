@@ -3,6 +3,7 @@
 class CartItemsController < ApplicationController
   def create
     @cart_item = CartItem.new(cart_item_params)
+    authorize cart_item
     if @cart_item.valid?
       @cart_item.save
       respond_to do |format|
@@ -19,11 +20,12 @@ class CartItemsController < ApplicationController
   end
 
   def update
-    cart_item
+    authorize cart_item
     cart_item.update(cart_item_params)
   end
 
   def destroy
+    authorize cart_item
     if cart_item.destroy
       if cart_item.cart.cart_item_ids.any?
         cart_sum
@@ -52,6 +54,10 @@ class CartItemsController < ApplicationController
     cart_item.cart.cart_items.map do |cart_item|
       @cart_sum += cart_item.quantity * cart_item.product.price
     end
+  end
+
+  def authorize_cart_item
+    authorize cart_item
   end
 
   def cart_item_params
