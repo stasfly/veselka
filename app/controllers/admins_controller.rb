@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class AdminsController < ApplicationController
+  before_action :authorize_user, only: %i[show edit update destroy]
   def show
     user
   end
 
   def index
     users
+    authorize users
   end
 
   def edit
@@ -35,6 +37,10 @@ class AdminsController < ApplicationController
   def user
     # binding.pry
     @user ||= User.find(params[:format])
+  end
+
+  def authorize_user
+    authorize user
   end
 
   def user_params
