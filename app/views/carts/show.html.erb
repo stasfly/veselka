@@ -9,24 +9,15 @@
       <th>Qtty</th>
       <th>Price</th>
       <th>Cost</th>
+      <th>Remove item</th>
     </tr>
   </thead>
-  <% i = 0 %>
-  <% sum = 0 %>
-  <% @cart.cart_item_ids.map do |cart_item_id| %>
-    <% i += 1 %>
-    <tbody>
-      <td><%= i %></td>
-      <td><%= @products.find(CartItem.find(cart_item_id).product_id).name %></td>
-      <td><%= @products.find(CartItem.find(cart_item_id).product_id).sku %></td>
-      <td><%= qt = CartItem.find(cart_item_id).quantity %></td>
-      <td><%= pr = @products.find(CartItem.find(cart_item_id).product_id).price %></td>
-      <td><%= qt * pr %></td>
-    </tbody>
-    <% sum += qt * pr %>
-  <% end %>
+  <%= render partial: 'cart_items' %>
 </table>
 
-<div>Total cost: <%= sum %></div>
-
-<%= button_to 'Order', orders_path, params: { user_id: current_user.id } %>
+<% if current_user.cart.cart_item_ids.any? %>
+  <div>Total cost: <span id="cart_sum"> <%= @cart_sum %></span></div>
+  <%= button_to 'Order', orders_path, params: { user_id: current_user.id } %>
+<% else %>
+  <div>Put at least one item into the cart, please</div>
+<% end %>

@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
-
-    before_action :product_categories, only: [:new, :edit]
-    before_action :product, only: [:show, :edit, :edit, :destroy]
+  before_action :product_categories, only: %i[new edit]
+  before_action :product, only: %i[show edit edit destroy]
 
   def index
-    products
+    if params[:query].nil?
+      products
+      @products.order('name ASC')
+    else
+      @products = Product.where(product_category_id: params[:query][:product_category_id].to_i).order('id ASC')
+    end
     product_inventories
+    @cart_item = CartItem.new
   end
 
   def show
@@ -19,14 +24,13 @@ class ProductsController < ApplicationController
     @product = Product.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @product = Product.new(product_params)
     if @product.valid?
       @product.save
-      params[:inventory_quantity][:quantity] = 0 if params[:inventory_quantity][:quantity] = nil
+      params[:inventory_quantity][:quantity] = 0 if params[:inventory_quantity][:quantity].nil?
       ProductInventory.create(product_id: @product.id, quantity: (params[:inventory_quantity][:quantity] || 0))
       redirect_to @product, notice: 'Product was created'
     else
@@ -38,7 +42,7 @@ class ProductsController < ApplicationController
     if product.update(product_params)
       product_inventory = ProductInventory.find_by(product_id: @product.id)
       stock_quantity =  product_inventory.quantity + params[:inventory_quantity][:quantity].to_i
-      stock_quantity = 0 if stock_quantity < 0
+      stock_quantity = 0 if stock_quantity.negative?
       product_inventory.update(quantity: stock_quantity)
       redirect_to @product, notice: 'Product was updated'
     else
@@ -78,11 +82,11 @@ class ProductsController < ApplicationController
   end
 
   def product_inventories
-    @product_inventories ||= ProductInventory.all  
+    @product_inventories ||= ProductInventory.all
   end
 
   def product_inventory
-    @product_inventory ||= ProductInventory.find_by(product_id: product.id) 
+    @product_inventory ||= ProductInventory.find_by(product_id: product.id)
   end
 
   def product_params

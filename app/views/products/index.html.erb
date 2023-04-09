@@ -10,6 +10,15 @@
       <div class="item-description">
         <div class="item-name"><%= link_to(product.name, product_path(product)) %></div>
         <div class="item-code"><%= link_to "Code: #{product.sku}", product_path(product)%></div>
+        <div class="item-code"><%= link_to "Price: #{product.price}", product_path(product)%></div>
+        <div class="item-code"><%= link_to "Cat: #{product.product_category_id}", product_path(product)%></div>
+        <% if current_user != nil %>
+          <div id=<%= "cart_item_form_#{product.id}" %>>
+            <%= render partial: 'cart_item_form', locals: {product: product} %>
+          </div>
+        <% else %>
+          <div><%= link_to 'Log in first',  new_user_session_path %> </div>
+        <% end %>
       </div>
     </div>
   <% end %>

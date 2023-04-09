@@ -1,5 +1,6 @@
-class OrderMailer < ApplicationMailer
+# frozen_string_literal: true
 
+class OrderMailer < ApplicationMailer
   def order_confirmation_message(order)
     @order = order
     mail(
@@ -12,7 +13,6 @@ class OrderMailer < ApplicationMailer
 
   def incoming_order(order)
     @order = order
-    mail(to: 'admin@admin.com', subject: "Order N: #{order.id} from #{User.find(order.user_id).email}")    
+    mail(to: 'admin@admin.com', subject: "Order N: #{order.id} from #{User.find(order.user_id).email}")
   end
-
 end
