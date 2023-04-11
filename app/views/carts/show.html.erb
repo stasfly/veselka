@@ -1,23 +1,23 @@
 <h2>My cart</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>N#</th>
-      <th>Name</th>
-      <th>Sku</th>
-      <th>Qtty</th>
-      <th>Price</th>
-      <th>Cost</th>
-      <th>Remove item</th>
-    </tr>
-  </thead>
-  <%= render partial: 'cart_items' %>
-</table>
-
 <% if current_user.cart.cart_item_ids.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>N#</th>
+        <th>Name</th>
+        <th>Sku</th>
+        <th>Qtty</th>
+        <th>Price</th>
+        <th>Cost</th>
+        <th>Remove item</th>
+      </tr>
+    </thead>
+    <%= render partial: 'cart_items' %>
+  </table>
   <div>Total cost: <span id="cart_sum"> <%= @cart_sum %></span></div>
   <%= button_to 'Order', orders_path, params: { user_id: current_user.id } %>
 <% else %>
+  <h4>No item in the cart</h4>
   <div>Put at least one item into the cart, please</div>
 <% end %>

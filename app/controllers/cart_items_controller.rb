@@ -3,27 +3,25 @@
 class CartItemsController < ApplicationController
   def create
     @cart_item = CartItem.new(cart_item_params)
-    if @cart_item.valid?
-      @cart_item.save
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.update("cart_item_form_#{@cart_item.product.id}", partial: 'products/cart_item_form',
-                                                                           locals: { product: @cart_item.product })
-          ]
-        end
+    authorize cart_item
+    @cart_item.save if @cart_item.valid?
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.update("cart_item_form_#{@cart_item.product.id}", partial: 'products/cart_item_form',
+                                                                         locals: { product: @cart_item.product })
+        ]
       end
-    else
-      redirect_to products_path, notice: 'Incorrect quanrtity of the Item.'
     end
   end
 
   def update
-    cart_item
+    authorize cart_item
     cart_item.update(cart_item_params)
   end
 
   def destroy
+    authorize cart_item
     if cart_item.destroy
       if cart_item.cart.cart_item_ids.any?
         cart_sum
@@ -52,6 +50,10 @@ class CartItemsController < ApplicationController
     cart_item.cart.cart_items.map do |cart_item|
       @cart_sum += cart_item.quantity * cart_item.product.price
     end
+  end
+
+  def authorize_cart_item
+    authorize cart_item
   end
 
   def cart_item_params

@@ -3,6 +3,7 @@
 class ProductsController < ApplicationController
   before_action :product_categories, only: %i[new edit]
   before_action :product, only: %i[show edit edit destroy]
+  before_action :authorize_product, only: %i[new edit create update destroy]
 
   def index
     if params[:query].nil?
@@ -16,7 +17,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @cart_item = CartItem.new(product_id: product.id, cart_id: current_user.cart.id)
+    @cart_item = CartItem.new(product_id: product.id, cart_id: current_user.cart.id) unless current_user.nil?
     product_inventory
   end
 
@@ -87,6 +88,10 @@ class ProductsController < ApplicationController
 
   def product_inventory
     @product_inventory ||= ProductInventory.find_by(product_id: product.id)
+  end
+
+  def authorize_product
+    authorize @product
   end
 
   def product_params

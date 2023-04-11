@@ -2,15 +2,18 @@
 
 class CartsController < ApplicationController
   def show
+    # binding.pry
     cart
+    authorize cart
     cart_sum
-    products
+    cart_items
   end
 
   private
 
   def cart
-    @cart ||= Cart.find_by(user_id: current_user.id)
+    @cart ||= Cart.find(params[:id])
+    # @cart ||= Cart.find_by(user_id: current_user.id)
   end
 
   def cart_sum
@@ -20,7 +23,7 @@ class CartsController < ApplicationController
     end
   end
 
-  def products
-    @products = Product.all.with_attached_images
+  def cart_items
+    @cart_items = CartItem.where(cart_id: cart.id)
   end
 end

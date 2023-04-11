@@ -8,7 +8,7 @@
           <li><%= link_to 'Phone 1: 050-XX-XX-XXX', '#' %></li>
           <li><%= link_to 'Phone 2:', '#' %></li>
           <li><%= link_to 'Phone 3:', '#' %></li>
-          <li><%= link_to 'email: email@email.com', '#' %></li>
+          <li><%= link_to "email: #{current_user.email if !current_user.nil?}", '#' %></li>
         </ul>
       </div>
       <div class="info">
