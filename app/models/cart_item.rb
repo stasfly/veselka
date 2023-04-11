@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CartItem < ApplicationRecord
-  validates :quantity, numericality: { greater_than: 0 }
+  validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, presence: true
 
   belongs_to :cart
   belongs_to :product

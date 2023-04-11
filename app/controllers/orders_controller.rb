@@ -2,11 +2,7 @@
 
 class OrdersController < ApplicationController
   def index
-    @orders = if current_user.has_role? :admin
-                Order.all
-              else
-                Order.where(user_id: current_user.id)
-              end
+    @orders = policy_scope(Order).order(created_at: :desc)
     authorize @orders
   end
 

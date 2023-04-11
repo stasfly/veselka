@@ -12,13 +12,9 @@
         <div class="item-code"><%= link_to "Code: #{product.sku}", product_path(product)%></div>
         <div class="item-code"><%= link_to "Price: #{product.price}", product_path(product)%></div>
         <div class="item-code"><%= link_to "Cat: #{product.product_category_id}", product_path(product)%></div>
-        <% if current_user != nil %>
-          <div id=<%= "cart_item_form_#{product.id}" %>>
-            <%= render partial: 'cart_item_form', locals: {product: product} %>
-          </div>
-        <% else %>
-          <div><%= link_to 'Log in first',  new_user_session_path %> </div>
-        <% end %>
+        
+        <%= render partial: 'cart_item_form', locals: {product: product} %>
+        
       </div>
     </div>
   <% end %>
@@ -44,10 +40,11 @@
         <td><%= product.product_category.name %></td>
         <td><%= product.description %></td>
         <td><%= link_to('show', product_path(product)) %></td>
-        <td><%= link_to('edit', edit_product_path(product)) %></td>
-        <td><%= link_to('delete', product_path(product), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %></td>
+        <td><%= link_to('edit', edit_product_path(product)) if policy(Product).index?  %></td>
+        <td><%= link_to('delete', product_path(product),
+                        data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) if policy(Product).index?  %></td>
       </tbody>
     <% end %>
   </table>
-  <div><%= link_to('create item', new_product_path) %></div>
+  <div><%= link_to('create item', new_product_path) if policy(Product).index?  %></div>
 </div>

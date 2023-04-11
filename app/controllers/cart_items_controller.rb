@@ -4,18 +4,14 @@ class CartItemsController < ApplicationController
   def create
     @cart_item = CartItem.new(cart_item_params)
     authorize cart_item
-    if @cart_item.valid?
-      @cart_item.save
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.update("cart_item_form_#{@cart_item.product.id}", partial: 'products/cart_item_form',
-                                                                           locals: { product: @cart_item.product })
-          ]
-        end
+    @cart_item.save if @cart_item.valid?
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.update("cart_item_form_#{@cart_item.product.id}", partial: 'products/cart_item_form',
+                                                                         locals: { product: @cart_item.product })
+        ]
       end
-    else
-      redirect_to products_path, notice: 'Incorrect quanrtity of the Item.'
     end
   end
 

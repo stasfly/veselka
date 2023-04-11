@@ -6,7 +6,7 @@ class CartsController < ApplicationController
     cart
     authorize cart
     cart_sum
-    products
+    cart_items
   end
 
   private
@@ -23,7 +23,7 @@ class CartsController < ApplicationController
     end
   end
 
-  def products
-    @products = Product.all.with_attached_images
+  def cart_items
+    @cart_items = CartItem.where(cart_id: cart.id)
   end
 end

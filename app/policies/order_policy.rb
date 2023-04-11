@@ -4,12 +4,16 @@ class OrderPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      scope.all
+      if @user.has_any_role? :admin
+        scope.all
+      else
+        scope.where(user_id: @user.id)
+      end
     end
   end
 
   def index?
-    (@user.id == @record.sample.user_id) || (@user.has_any_role? :admin)
+    true
   end
 
   def show?
