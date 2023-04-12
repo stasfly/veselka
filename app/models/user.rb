@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
 
   after_create :send_welcome_email, :asign_default_role, :new_user_cart_create
+  after_update :inactive_orders
 
   def send_welcome_email
     UserMailer.welcome(self).deliver_now
@@ -27,5 +28,13 @@ class User < ApplicationRecord
 
   def new_user_cart_create
     self.cart = Cart.create
+  end
+
+  def inactive_orders
+    if has_role? :inactive
+      orders.map do |order|
+        order.add_role :inactive
+      end
+    end
   end
 end

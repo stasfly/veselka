@@ -22,13 +22,10 @@ module Users
       super
     end
 
-    # GET /resource/edit
-
-    # PUT /resource
-
-    # DELETE /resource
-    def destroy
+    def update
       @user.add_role :inactive
+      @user.update(updated_at: Time.now)
+      sign_out @user
       redirect_to root_path, notice: "Account with email: #{@user.email} has canceled"
     end
 

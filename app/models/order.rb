@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  rolify
   belongs_to :user
   has_many :order_items
 
