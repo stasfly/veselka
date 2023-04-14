@@ -13,7 +13,10 @@ Rails.application.routes.draw do
     delete 'admins/destroy', as: 'user_destroy'
   # end
 
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations:  'users/registrations',
+    sessions:       'users/sessions'
+  }
   root "products#index"
   resources :products do
     member do

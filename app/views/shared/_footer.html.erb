@@ -30,13 +30,17 @@
         </ul>
       </div>
       <div class="account">
-        <h3>Account</h3>
-        <ul>
-          <li><%= link_to 'My account', '#' %></li>
-          <li><%= link_to 'Order history', '#' %></li>
-          <li><%= link_to 'List of desired items', '#' %></li>
-          <li><%= link_to 'Advertise emainling', '#' %></li>
-        </ul>
+        <% if current_user.nil? %>
+          <h3><%= link_to 'My account', new_user_session_path, method: :post %></h3>
+        <% else %>
+          <h3>My account</h3>
+          <ul>
+            <li><%= link_to 'My account', user_path(current_user.id) unless current_user.nil?%></li>
+            <li><%= link_to 'Order history', orders_path %></li>
+            <li><%= link_to 'List of desired items', '#' %></li>
+            <li><%= link_to 'Advertise emainling', '#' %></li>
+          </ul>
+        <% end %>
       </div>
       <div class="social">
         <h3>Social networks</h3>

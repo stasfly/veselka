@@ -7,7 +7,7 @@ class OrderPolicy < ApplicationPolicy
       if @user.has_any_role? :admin
         scope.all
       else
-        scope.where(user_id: @user.id)
+        scope.without_role(:inactive).where(user_id: @user.id)
       end
     end
   end
