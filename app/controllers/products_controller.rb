@@ -3,7 +3,7 @@
 class ProductsController < ApplicationController
   before_action :product_categories, only: %i[new edit]
   before_action :product, only: %i[show edit edit destroy]
-  before_action :authorize_product, only: %i[new edit create update destroy]
+  before_action :authorize_product, only: %i[edit create update destroy]
 
   def index
     if params[:query].nil?
@@ -23,6 +23,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    authorize_product
   end
 
   def edit; end

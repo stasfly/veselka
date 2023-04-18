@@ -29,21 +29,21 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
+uk:
   buttons:
-    new: 'New'
-    show: 'Show'
-    edit: 'Edit'
-    create: 'Create'
-    update: 'Update'
-    delete: 'Delete'
+    new: 'Форма'
+    show: 'Показати'
+    edit: 'Редагувати'
+    create: 'Створити'
+    update: 'Обновити'
+    delete: 'Знищити' 
   shared:
     header:
-      about_us: "About us"
-      payment: "Payment"
-      contact: "Contact"
-      about_project: "About project"
-      menu: 'Menu'
+      about_us: "Про нас"
+      payment: "Оплата"
+      contact: "Контакти"
+      about_project: "Про проект"
+      menu: 'Меню'
     footer:
     messages:
   products:
@@ -51,35 +51,34 @@ en:
     form:
     edit:
     index:
-      product_name: 'Name'
-      product_sku: 'sku '
-      product_price: 'Price'
-      product_category: 'Cat'
+      product_name: 'Назва'
+      product_sku: 'Складський номер'
+      product_price: 'Ціна'
+      product_category: 'Категорія'
     new:
     show:
   activerecord:
     models:
-      user: "Awesom user"
-      product: "Product"
+      user: "Awesom user uk"
       product_category: 'Product category'
+      product: "Продукт"
       cart: 'Cart'
       cart_item: 'Catr item'
       order: 'Order'
       order_item: 'Order item'
     attributes:
       user:
-        name: "real human"
+        name: "real human uk"
       product_category:
-        name: "Name"
-        description: "Description"
+        name: "Ім'я"
+        description: "Опис"
       product:
-        name: "Name"
-        description: "Description"
-        sku: "SKU"
-        price: "Price"
+        name: "Ім'я"
+        description: "Опис"
+        sku: "Складсьий код"
+        price: "Ціна"
       cart_item:
-        quantity: 'Quantity'
+        quantity: 'К-ть'
       order_item:
-        quantity: 'Quantity'
-      
+        quantity: 'К-ть'
       

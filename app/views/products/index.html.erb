@@ -9,9 +9,9 @@
       </div>
       <div class="item-description">
         <div class="item-name"><%= link_to(product.name, product_path(product)) %></div>
-        <div class="item-code"><%= link_to "Code: #{product.sku}", product_path(product)%></div>
-        <div class="item-code"><%= link_to "Price: #{product.price}", product_path(product)%></div>
-        <div class="item-code"><%= link_to "Cat: #{product.product_category_id}", product_path(product)%></div>
+        <div class="item-code"><%= link_to "#{t(".product_sku")}: #{product.sku}", product_path(product)%></div>
+        <div class="item-code"><%= link_to "#{t(".product_price")}: #{product.price}", product_path(product)%></div>
+        <div class="item-code"><%= link_to "#{t(".product_category")}: #{product.product_category_id}", product_path(product)%></div>
         
         <%= render partial: 'cart_item_form', locals: {product: product} %>
         
@@ -39,12 +39,15 @@
         <td><%= product.sku %></td>
         <td><%= product.product_category.name %></td>
         <td><%= product.description %></td>
-        <td><%= link_to('show', product_path(product)) %></td>
-        <td><%= link_to('edit', edit_product_path(product)) if policy(Product).index?  %></td>
-        <td><%= link_to('delete', product_path(product),
-                        data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) if policy(Product).index?  %></td>
+        <td><%= link_to(t('buttons.show'), product_path(product)) %></td>
+        <% unless current_user.nil?%>
+          <% if current_user.has_role? :admin %>
+            <td><%= link_to(t('buttons.edit'), edit_product_path(product)) %></td>
+            <td><%= link_to(t('buttons.delete'), product_path(product), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %></td>
+          <% end %>
+        <% end %>
       </tbody>
     <% end %>
   </table>
-  <div><%= link_to('create item', new_product_path) if policy(Product).index?  %></div>
+  <div><%= link_to(t('buttons.new'), new_product_path) if policy(Product).index?  %></div>
 </div>
