@@ -30,6 +30,28 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 uk:
+  simple_form:
+    labels:
+      product:
+        product_category_id: 'Категорія'
+        # images: 'Оберіть зображення' # Do not translate Active Storage form.file_field button and it's hint
+      inventory_quantity:
+        quantity: 'К-ть'
+    hints:
+      product:
+        # price: 'Дійсне число'
+        # images: 'Оберіть зображення' # Do not translate Active Storage form.file_field button and it's hint
+      inventory_quantity:
+        # quantity: 'Ціле число'
+    placeholders:
+      product:
+        price: 'Дійсне число'
+      #   images: 'Оберіть зображення'
+      inventory_quantity:
+        quantity: 'Введіть ціле число'
+    errors:
+      product:
+        name: 'dddd'
   buttons:
     new: 'Форма'
     show: 'Показати'
@@ -47,6 +69,9 @@ uk:
     footer:
     messages:
   products:
+    new:
+      quantity: 'к-ть'
+      integer_only: 'ціле число'
     cat_item_form:
     form:
     edit:
@@ -58,10 +83,17 @@ uk:
     new:
     show:
   activerecord:
+    errors:
+      models:
+        product:
+          attribute:
+            length: 'Дозволена довжина до 100 символів'
+            presence: 'Це поле не може бути порожнім'
     models:
       user: "Awesom user uk"
-      product_category: 'Product category'
+      product_category: 'Категорія'
       product: "Продукт"
+      product_inventory: 'Склад'
       cart: 'Cart'
       cart_item: 'Catr item'
       order: 'Order'
@@ -74,6 +106,8 @@ uk:
         description: "Опис"
       product:
         name: "Ім'я"
+          # length: 'Дозволена довжина до 100 символів'
+          # presence: 'Це поле не може бути порожнім'
         description: "Опис"
         sku: "Складсьий код"
         price: "Ціна"

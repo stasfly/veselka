@@ -30,6 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  simple_form:
+    labels:
+      inventory_quantity: 'Qt-ty'
   buttons:
     new: 'New'
     show: 'Show'
@@ -47,6 +50,9 @@ en:
     footer:
     messages:
   products:
+    new:
+      quantity: 'quantity'
+      integer_only: 'integer only'
     cat_item_form:
     form:
     edit:
@@ -62,6 +68,7 @@ en:
       user: "Awesom user"
       product: "Product"
       product_category: 'Product category'
+      product_inventory: 'Product inventory'
       cart: 'Cart'
       cart_item: 'Catr item'
       order: 'Order'
@@ -80,6 +87,8 @@ en:
       cart_item:
         quantity: 'Quantity'
       order_item:
+        quantity: 'Quantity'
+      product_inventory:
         quantity: 'Quantity'
       
       
