@@ -1,19 +1,13 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-  # scope path: "(:locale)" do
     resources :cart_items, only: [:create, :update, :destroy]
     resources :carts, only: [:show]
     resources :orders, only: [:index, :show, :create]
-    # get 'carts/show'
-    # get 'orders/show'
-    # post 'orders/create'
-    # scope 'admin' do
-      get 'admins/index', as: 'users'
-      get 'admins/show', as: 'user'
-      get 'admins/edit', as: 'user_edit'
-      put 'admins/update', as: 'user_update'
-      delete 'admins/destroy', as: 'user_destroy'
-    # end
+    get 'customers', to: 'admins#index', as: 'users'
+    get 'customer/:id', to: 'admins#show', as: 'user'
+    get 'customer/:id/edit', to: 'admins#edit', as: 'user_edit'
+    put 'customer/:id', to: 'admins#update', as: 'user_update'
+    delete 'customer/:id', to: 'admins#destroy', as: 'user_destroy'
 
     devise_for :users, controllers: {
       registrations:  'users/registrations',

@@ -35,8 +35,7 @@ class AdminsController < ApplicationController
   end
 
   def user
-    # binding.pry
-    @user ||= User.find(params[:format])
+    @user ||= User.find(params[:id])
   end
 
   def authorize_user
