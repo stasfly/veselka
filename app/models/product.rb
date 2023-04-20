@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-  validates :name, length: { maximum: 100 }, presence: true
+  validates_presence_of :name, message: I18n.t('activerecord.errors.models.product.attributes.name.presence')
+  # validates :name, presence: true
+  validates :name, length: { maximum: 100, too_long: '%<count>s characters is max allowed'}#, presence: true
   validates :description, length: { in: 3..1200,
                                     too_long: '%<count>s characters is max allowed',
-                                    too_short: '%<count>s characters is min allowed' },
-                          allow_nil: true
+                                    too_short: '%<count>s characters is min allowed' }
 
   # validates :images, content_type:  { in: %w[image/jpeg image/gif image/png],
   #                                     message: "must be a valid image format" },

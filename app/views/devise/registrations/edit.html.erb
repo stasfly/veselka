@@ -11,25 +11,28 @@
     <% end %>
 
     <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
+                hint: t('devise.registrations.edit.leave_blank_if_you_don_t_want_to_change_it'),
                 required: false,
-                input_html: { autocomplete: "new-password" } %>
+                input_html: { autocomplete: t('devise.passwords.edit.new_password') } %>
     <%= f.input :password_confirmation,
                 required: false,
-                input_html: { autocomplete: "new-password" } %>
+                input_html: { autocomplete: t('devise.passwords.edit.new_password') } %>
     <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
+                hint: t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes'),
                 required: true,
-                input_html: { autocomplete: "current-password" } %>
+                input_html: { autocomplete: t('activerecord.attributes.user.current_password') } %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Update" %>
+    <%= f.button :submit, t('devise.registrations.edit.update') %>
   </div>
 <% end %>
 
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", user_registration_path(current_user), data: { confirm: "Are you sure?" }, method: :put %></p>
+<p>Unhappy?
+  <%= button_to t('devise.registrations.edit.cancel_my_account'), user_registration_path(current_user),
+                            data: { confirm: t('devise.registrations.edit.are_you_sure') }, method: :put %>
+</p>
 
-<%= link_to "Back", :back %>
+<%= link_to t('devise.shared.links.back'), :back %>

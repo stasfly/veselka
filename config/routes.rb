@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  scope path: "(:locale)" do
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  # scope path: "(:locale)" do
     resources :cart_items, only: [:create, :update, :destroy]
     resources :carts, only: [:show]
     resources :orders, only: [:index, :show, :create]

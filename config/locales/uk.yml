@@ -58,7 +58,8 @@ uk:
     edit: 'Редагувати'
     create: 'Створити'
     update: 'Обновити'
-    delete: 'Знищити' 
+    delete: 'Знищити'
+#                                @@@@@   views  @@@@@     
   shared:
     header:
       about_us: "Про нас"
@@ -82,13 +83,17 @@ uk:
       product_category: 'Категорія'
     new:
     show:
+#                                @@@@@   activerecord  @@@@@     
   activerecord:
     errors:
       models:
         product:
-          attribute:
-            length: 'Дозволена довжина до 100 символів'
-            presence: 'Це поле не може бути порожнім'
+          attributes:
+            description:
+              too_long: 'повинен містити до %<count>s символів'
+              too_short: 'повинен містити від %<count>s символів'
+            name:
+              presence: 'не може бути порожнім'
     models:
       user: "Awesom user uk"
       product_category: 'Категорія'
