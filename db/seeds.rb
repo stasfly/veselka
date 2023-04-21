@@ -15,12 +15,14 @@ user = User.new(
 user.add_role :admin
 user.save
 
-3.times do |n|
+150.times do |n|
   user = User.new(
-    email: "u#{n}@u.com",
+    email: Faker::Internet.email,
     password: 'qwerty',
     password_confirmation: 'qwerty')
   user.add_role :user
+  user.skip_confirmation_notification!
+  user.skip_confirmation!
   user.save
   # user.cart = Cart.create
 end
