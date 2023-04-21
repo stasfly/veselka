@@ -34,6 +34,7 @@ uk:
     labels:
       product:
         product_category_id: 'Категорія'
+        zero_quantity: 'Товар відсутній'
         # images: 'Оберіть зображення' # Do not translate Active Storage form.file_field button and it's hint
       inventory_quantity:
         quantity: 'К-ть'
@@ -46,12 +47,16 @@ uk:
     placeholders:
       product:
         price: 'Дійсне число'
-      #   images: 'Оберіть зображення'
       inventory_quantity:
         quantity: 'Введіть ціле число'
     errors:
       product:
         name: 'dddd'
+    buttons:
+      product:
+        olready_in_the_cart: 'Товар вже у кошику'
+        put_to_cart: 'До кошика'
+        log_in_first: 'Авторизуйтесь'
   buttons:
     new: 'Форма'
     show: 'Показати'
@@ -59,7 +64,90 @@ uk:
     create: 'Створити'
     update: 'Обновити'
     delete: 'Знищити'
+    back: 'Повернутись назад'
+    remove_it: 'Видалити'
+    back_to_site: 'Повернутись на сайт'
+    log_in_first: 'Зайдіть у свій обліковий запис'
+    sign_in: 'Увійти'
+    sign_out: 'Вийти'
+    sign_up: 'Зареєструватись'
 #                                @@@@@   views  @@@@@     
+  admins:
+    edit:
+      user: 'Користувач: '
+      update_roles: 'Оновити ролі користувача'
+    index:
+      users: 'База користувачів'
+      roles: 'Активні ролі'
+      available_roles: 'Переглянути'
+      edit_roles: 'Редагувати ролі'
+      block_account: 'Заблокувати аккаунт'
+      confirmation: 'Точно заблокувати?'
+    show:
+      user: 'Профіль користувача'
+      edit_profile: 'Редагувати профіль'
+  carts:
+    show:
+      cart: "Кошик"
+      name: "Ім'я"
+      scu: 'Номер товару'
+      quantity: 'К-ть'
+      price: 'Ціна'
+      cost: 'Вартість'
+      total_cost: 'Загальна вартість'
+      order: 'Замовити'
+      no_item_in_the_cart: 'Жодної позиції у кошику' # No item in the cart
+      put_at_least_one_item: 'Замовте принаймні одну позицію' # Put at least one item into the cart, please
+  layouts:
+  order_mailer:
+    incoming_order:
+      new_order_from: 'Замовлення від: '
+    order_confirmation:
+      greeting: 'Шановний клієнт. Ви щойно здійснили замовлення на нашому сайті. Дякуємо за ваш вибір.' # Dear customer. You just have made an order in our company. Thank you for your choice.
+      id: 'Номер замовлення: '
+      details: 'Деталі замовлення'
+      item_name: 'Назва товару'
+      scu: 'Номер товару'
+      price: 'Ціна'
+      quantity: 'К-ть'
+      cost: 'Вартість'
+  orders:
+    index:
+      history: 'Історія замовлень'
+      date: 'Дата замовлення'
+      id: 'Номер замовлення'
+      sum: 'Вартість'
+      details: 'Деталі замовлення'
+    show:
+      details: 'Деталі замовлення:'
+  products:
+    cat_item_form:
+      olready_in_the_cart: 'Вже у кошику' # 'Olready in the cart'
+      put_to_cart: 'Додати до кошика' # 'Put to cart'
+      item_out_of_stock: 'Товар закінчився' # 'Item is out of stock'
+    form:
+    edit:
+      edit_item: 'Коригування товару'
+      only_digits: 'Тільки цифри'
+      add_quantity_to_stock: 'Додати товар на склад. Тільки ціле число'
+      delete_image: 'Видалити зображення'
+      delete_all_images: 'Видалити всі зображення'
+    index:
+      title: 'Каталог товарів'
+      product_name: 'Назва'
+      product_sku: 'Складський номер'
+      product_price: 'Ціна'
+      product_category: 'Категорія'
+    new:
+      title: 'Нова позиція товару'
+      quantity: 'к-ть'
+      integer_only: 'ціле число'
+    show:
+      product_name: 'Назва товару: '
+      product_scu: 'Код товару: '
+      product_price: 'Ціна: '
+      description: 'Опис товару: '
+      link_to_intex: 'Повернутись до каталогу товарів'
   shared:
     header:
       about_us: "Про нас"
@@ -69,20 +157,10 @@ uk:
       menu: 'Меню'
     footer:
     messages:
-  products:
-    new:
-      quantity: 'к-ть'
-      integer_only: 'ціле число'
-    cat_item_form:
-    form:
-    edit:
-    index:
-      product_name: 'Назва'
-      product_sku: 'Складський номер'
-      product_price: 'Ціна'
-      product_category: 'Категорія'
-    new:
-    show:
+  user_mailer:
+    welcome:
+      title: 'Вітаю!'
+  
 #                                @@@@@   activerecord  @@@@@     
   activerecord:
     errors:
@@ -94,6 +172,8 @@ uk:
               too_short: 'повинен містити від %<count>s символів'
             name:
               presence: 'не може бути порожнім'
+            product_code:
+
     models:
       user: "Awesom user uk"
       product_category: 'Категорія'

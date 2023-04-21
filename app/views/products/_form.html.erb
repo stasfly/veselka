@@ -2,7 +2,7 @@
   <%= simple_form_for @product, data: { turbo: false } do |form| %>
     <%= form.input :name %>
     <%= form.input :product_type %>
-    <%= form.input :product_code, hint: 'Only digits' %>
+    <%= form.input :product_code, hint: t('.only_digits') %>
     <%= form.input :description %>
     <div class="form-separator"></div>
     <div class="images-block">

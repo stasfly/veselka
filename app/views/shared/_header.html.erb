@@ -14,11 +14,11 @@
     <div class="menu-item"><%= link_to t('.menu', default: 'no translate'), '#' %></div>
     <div class="devise-menu">
       <% if user_signed_in? %>
-        <div><%= button_to "Sign out", destroy_user_session_path, method: :delete %></div>
+        <div><%= button_to t('buttons.sign_out'), destroy_user_session_path, method: :delete %></div>
       <% else %>
-        <div><%= link_to "Sign in", new_user_session_path, method: :post %></div>
+        <div><%= link_to t('buttons.sign_in'), new_user_session_path, method: :post %></div>
         <div class="vertical-rod"><span><%= ' | ' %></span></div>
-        <div><%= link_to "Sign up", new_user_registration_path, method: :post %></div>
+        <div><%= link_to t('buttons.sign_up'), new_user_registration_path, method: :post %></div>
       <% end %>
     </div>
     <div class="languages">

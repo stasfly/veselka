@@ -1,11 +1,11 @@
-<h1>Edit item</h1>
+<h1> <%= t('.edit_item') %> </h1>
 <div>
   <%= simple_form_for @product, data: { turbo: true } do |form| %>
     <%= form.input :name %>
     <%= form.input :sku %>
-    <%= form.input :price, hint: 'Only digits' %>
+    <%= form.input :price, hint: t('.only_digits') %>
     <%= simple_fields_for :inventory_quantity do |q| %>
-      <%= q.input :quantity, as: :integer, hint: 'Add quantity to stock. Integer only' %>
+      <%= q.input :quantity, as: :integer, hint: t('.add_quantity_to_stock') %>
     <% end %>
     <%= form.input :description %>
     <div class="form-separator"></div>
@@ -14,7 +14,7 @@
         <% @product.images.each do |img| %>
           <div class="img-item">
             <div><%= image_tag img.variant(resize_to_limit: [100, 100]) %></div>
-            <div><%= link_to('Delete image', purge_one_attachment_product_path(img), data: {turbo_method: :delete}) %></div>
+            <div><%= link_to(t('.delete_image'), purge_one_attachment_product_path(img), data: {turbo_method: :delete}) %></div>
             <%= form.hidden_field :images, multiple: true, value: img.signed_id %>
           </div>
         <% end %>
@@ -22,7 +22,7 @@
     </div>
     <div class="form-separator"></div>
     <% if @product.images.attached? %>
-      <%= link_to('delete all images', purge_all_attachments_product_path(@product), data: {turbo_method: :delete}) %>
+      <%= link_to(t('.delete_all_images'), purge_all_attachments_product_path(@product), data: {turbo_method: :delete}) %>
     <% end %>
     <div class="form-separator"></div>
     <%= form.file_field :images, multiple: true %>

@@ -97,8 +97,8 @@ uk:
         cancel_my_account: Скасувати мій обліковий запис
         currently_waiting_confirmation_for_email: 'В даний час очікуємо підтвердження від: %{email}'
         leave_blank_if_you_don_t_want_to_change_it: залиште порожнім, якщо ви не хочете змінити його
-        title: Редагувати %{resource}
-        unhappy: Незадоволені
+        title: Редагувати #%{resource}
+        unhappy: Незадоволені?
         update: Оновити
         we_need_your_current_password_to_confirm_your_changes: введіть свій поточний пароль для підтвердження змін
       new:

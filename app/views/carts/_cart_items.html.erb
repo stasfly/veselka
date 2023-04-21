@@ -10,7 +10,7 @@
       <td><%= qt = cart_item.quantity %></td>
       <td><%= pr = cart_item.product.price %></td>
       <td><%= qt * pr %></td>
-      <td><%= link_to('remove it', cart_item_path(cart_item), data: {turbo_method: :delete})  %></td>
+      <td><%= link_to(t('buttons.remove_it'), cart_item_path(cart_item), data: {turbo_method: :delete})  %></td>
     </tbody>
   <% end %>
   <% @cart_items.map do |cart_item| %>

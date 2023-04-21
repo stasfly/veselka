@@ -1,23 +1,23 @@
-<h2>My cart</h2>
+<h2><%= t('.cart') %></h2>
 
 <% if current_user.cart.cart_item_ids.any? %>
   <table>
     <thead>
       <tr>
         <th>N#</th>
-        <th>Name</th>
-        <th>Sku</th>
-        <th>Qtty</th>
-        <th>Price</th>
-        <th>Cost</th>
-        <th>Remove item</th>
+        <th><%= t('.name') %></th>
+        <th><%= t('.scu') %></th>
+        <th><%= t('.quantity') %></th>
+        <th><%= t('.price') %></th>
+        <th><%= t('.cost') %></th>
+        <th><th>
       </tr>
     </thead>
     <%= render partial: 'cart_items' %>
   </table>
-  <div>Total cost: <span id="cart_sum"> <%= @cart_sum %></span></div>
-  <%= button_to 'Order', orders_path, params: { user_id: current_user.id } %>
+  <div><%= t('.total_cost') %><span id="cart_sum"> <%= @cart_sum %></span></div>
+  <%= button_to t('.order'), orders_path, params: { user_id: current_user.id } %>
 <% else %>
-  <h4>No item in the cart</h4>
-  <div>Put at least one item into the cart, please</div>
+  <h4><%= t('.no_item_in_the_cart') %></h4>
+  <div><%= t('.put_at_least_one_item') %></div>
 <% end %>

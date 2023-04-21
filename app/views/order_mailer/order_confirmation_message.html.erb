@@ -1,15 +1,15 @@
-<h3>Dear customer. You just have made an order in our company. Thank you for your choice.</h3>
-<h2>Order's ID: </h2><%= @order.id %>
-<h3>Order details:</h3>
+<h3><%= t('.greeting') %></h3>
+<h2><%= t('.id') %></h2><%= @order.id %>
+<h3><%= t('.details') %></h3>
 <table>
   <thead>
     <tr>
       <th>№:</th>
-      <th>Item name</th>
-      <th>Sku</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Cost</th>
+      <th><%= t('.item_name') %></th>
+      <th><%= t('.scu') %></th>
+      <th><%= t('.price') %></th>
+      <th><%= t('.quantity') %></th>
+      <th><%= t('.cost') %></th>
     </tr>
   </thead>
   <tbody>
@@ -27,4 +27,4 @@
     <% end %>
   </tbody>
 </table>
-<div><%= link_to('Back to the site', root_url) %></div>
+<div><%= link_to(t('buttons.back_to_site'), root_url) %></div>
