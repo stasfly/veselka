@@ -32,7 +32,26 @@
 en:
   simple_form:
     labels:
-      inventory_quantity: 'Qt-ty'
+      product:
+        product_category_id: 'Category'
+        zero_quantity: 'Item is out of stock'
+      inventory_quantity:
+        quantity: 'Q-ty'
+    hints:
+      product:
+      inventory_quantity:
+    placeholders:
+      product:
+        price: 'Float only'
+      inventory_quantity:
+        quantity: 'Enter integer only'
+    errors:
+      product:
+    buttons:
+      product:
+        olready_in_the_cart: 'Olready in the cart'
+        put_to_cart: 'Put to cart'
+        log_in_first: 'Log in first'
   buttons:
     new: 'New'
     show: 'Show'
@@ -40,55 +59,156 @@ en:
     create: 'Create'
     update: 'Update'
     delete: 'Delete'
+    back: 'Back'
+    remove_it: 'Remivee it'
+    back_to_site: 'Back to the site'
+    log_in_first: 'Log in first'
+    sign_in: 'log in'
+    sign_out: 'log out'
+    sign_up: 'sign up'
+#                                @@@@@   views  @@@@@     
+  admins:
+    edit:
+      user: 'User: '
+      update_roles: 'Update roles'
+    index:
+      users: 'Users'
+      roles: 'Active roles'
+      available_roles: 'Available roles'
+      edit_roles: 'Edit roles'
+      block_account: 'Block account'
+      confirmation: 'Are you sure?'
+    show:
+      user: "User's profile"
+      edit_profile: 'Edit profile'
+  carts:
+    show:
+      cart: "Cart"
+      name: "Name"
+      scu: 'SCU'
+      quantity: 'Q-ty'
+      price: 'Price'
+      cost: 'Cost'
+      total_cost: 'Total cost'
+      order: 'Order'
+      no_item_in_the_cart: 'No item in the cart'
+      put_at_least_one_item: 'Put at least one item into the cart, please'
+  layouts:
+  order_mailer:
+    incoming_order:
+      new_order_from: 'New order from: '
+    order_confirmation:
+      greeting: 'Dear customer. You just have made an order in our company. Thank you for your choice.'
+      id: 'Order ID: '
+      details: 'Order details'
+      item_name: 'Name'
+      scu: 'SCU'
+      price: 'Price'
+      quantity: 'Q-ty'
+      cost: 'cost'
+  orders:
+    index:
+      history: 'Order history'
+      date: 'Date'
+      id: 'Order ID'
+      sum: 'Cost'
+      details: 'Order details'
+    show:
+      details: 'Order details:'
+  products:
+    cat_item_form:
+      olready_in_the_cart: 'Olready in the cart'
+      put_to_cart: 'Put to cart'
+      item_out_of_stock: 'Item is out of stock'
+    form:
+    edit:
+      edit_item: 'Edit item'
+      only_digits: 'Digits only'
+      add_quantity_to_stock: 'Add quantity to the stock. Integer only'
+      delete_image: 'Delete image'
+      delete_all_images: 'Delete all images'
+    index:
+      title: 'Catalogue'
+      product_name: 'Name'
+      product_sku: 'SCU'
+      product_price: 'Price'
+      product_category: 'Category'
+    new:
+      title: 'New item'
+      quantity: 'Q-ty'
+      integer_only: 'integer only'
+    show:
+      product_name: 'Item: '
+      product_scu: 'SCU: '
+      product_price: 'Price: '
+      description: 'Description: '
+      link_to_intex: 'Back to the index'
   shared:
     header:
       about_us: "About us"
       payment: "Payment"
-      contact: "Contact"
+      contact: "Contacts"
       about_project: "About project"
       menu: 'Menu'
     footer:
     messages:
-  products:
-    new:
-      quantity: 'quantity'
-      integer_only: 'integer only'
-    cat_item_form:
-    form:
-    edit:
-    index:
-      product_name: 'Name'
-      product_sku: 'sku '
-      product_price: 'Price'
-      product_category: 'Cat'
-    new:
-    show:
+  user_mailer:
+    welcome:
+      title: 'Welcome!'
+  
+#                                @@@@@   activerecord  @@@@@     
   activerecord:
+    errors:
+      models:
+        product:
+          attributes:
+            description:
+              too_long: 'No more than %<count>s characters'
+              too_short: 'At least %<count>s characters'
+            name:
+              presence: 'Cannot be blank'
+            product_code:
+
     models:
-      user: "Awesom user"
+      user: "User"
+      product_category: 'Category'
       product: "Product"
-      product_category: 'Product category'
-      product_inventory: 'Product inventory'
+      product_inventory: 'Inventory'
       cart: 'Cart'
       cart_item: 'Catr item'
       order: 'Order'
       order_item: 'Order item'
     attributes:
       user:
-        name: "real human"
+        name: "name"
       product_category:
         name: "Name"
-        description: "Description"
+        description: "Descriptions"
       product:
         name: "Name"
-        description: "Description"
-        sku: "SKU"
+        description: "Descriptions"
+        sku: "SCU"
         price: "Price"
       cart_item:
-        quantity: 'Quantity'
+        quantity: 'Q-ty'
       order_item:
-        quantity: 'Quantity'
-      product_inventory:
-        quantity: 'Quantity'
-      
-      
+        quantity: 'Q-ty'
+#                                       @@@@@@   controllers   @@@@@@
+  controllers:
+    admins:
+      updated: 'Roles have been updated'
+      blocked: 'Account has been blocked'
+    application:
+      access_denied: 'You are not authorized to perform this action.'
+    cart_items:
+    carts:
+    orders:
+      created: 'Order successfully created'
+      error: 'Error has been occured'
+    products:
+      created: 'Product successfully created'
+      incorrect_input: 'Wrong data input'
+      updated: 'Product successfully updated'
+      destroyed: 'Product has been deleted'
+      image_destroyed: 'Image deleted'
+      all_images_destroyed: 'All images deleted'

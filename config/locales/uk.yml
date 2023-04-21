@@ -35,15 +35,11 @@ uk:
       product:
         product_category_id: 'Категорія'
         zero_quantity: 'Товар відсутній'
-        # images: 'Оберіть зображення' # Do not translate Active Storage form.file_field button and it's hint
       inventory_quantity:
         quantity: 'К-ть'
     hints:
       product:
-        # price: 'Дійсне число'
-        # images: 'Оберіть зображення' # Do not translate Active Storage form.file_field button and it's hint
       inventory_quantity:
-        # quantity: 'Ціле число'
     placeholders:
       product:
         price: 'Дійсне число'
@@ -51,7 +47,6 @@ uk:
         quantity: 'Введіть ціле число'
     errors:
       product:
-        name: 'dddd'
     buttons:
       product:
         olready_in_the_cart: 'Товар вже у кошику'
@@ -96,14 +91,14 @@ uk:
       cost: 'Вартість'
       total_cost: 'Загальна вартість'
       order: 'Замовити'
-      no_item_in_the_cart: 'Жодної позиції у кошику' # No item in the cart
-      put_at_least_one_item: 'Замовте принаймні одну позицію' # Put at least one item into the cart, please
+      no_item_in_the_cart: 'Жодної позиції у кошику' 
+      put_at_least_one_item: 'Замовте принаймні одну позицію' 
   layouts:
   order_mailer:
     incoming_order:
       new_order_from: 'Замовлення від: '
     order_confirmation:
-      greeting: 'Шановний клієнт. Ви щойно здійснили замовлення на нашому сайті. Дякуємо за ваш вибір.' # Dear customer. You just have made an order in our company. Thank you for your choice.
+      greeting: 'Шановний клієнт. Ви щойно здійснили замовлення на нашому сайті. Дякуємо за ваш вибір.' 
       id: 'Номер замовлення: '
       details: 'Деталі замовлення'
       item_name: 'Назва товару'
@@ -122,9 +117,9 @@ uk:
       details: 'Деталі замовлення:'
   products:
     cat_item_form:
-      olready_in_the_cart: 'Вже у кошику' # 'Olready in the cart'
-      put_to_cart: 'Додати до кошика' # 'Put to cart'
-      item_out_of_stock: 'Товар закінчився' # 'Item is out of stock'
+      olready_in_the_cart: 'Вже у кошику' 
+      put_to_cart: 'Додати до кошика' 
+      item_out_of_stock: 'Товар закінчився' 
     form:
     edit:
       edit_item: 'Коригування товару'
@@ -175,7 +170,7 @@ uk:
             product_code:
 
     models:
-      user: "Awesom user uk"
+      user: "Користувач"
       product_category: 'Категорія'
       product: "Продукт"
       product_inventory: 'Склад'
@@ -185,14 +180,12 @@ uk:
       order_item: 'Order item'
     attributes:
       user:
-        name: "real human uk"
+        name: "Ім'я"
       product_category:
         name: "Ім'я"
         description: "Опис"
       product:
         name: "Ім'я"
-          # length: 'Дозволена довжина до 100 символів'
-          # presence: 'Це поле не може бути порожнім'
         description: "Опис"
         sku: "Складсьий код"
         price: "Ціна"
@@ -206,12 +199,12 @@ uk:
       updated: 'Ролі успішно оновлені'
       blocked: 'Користувач заблокований'
     application:
-      access_denied: 'Недостатньо прав для виконання цієї дії' #'You are not authorized to perform this action.'
+      access_denied: 'Недостатньо прав для виконання цієї дії'
     cart_items:
     carts:
     orders:
-      created: 'Замовлення успішно створено' # 'Order successfully created'
-      error: 'Трапилась помилка, замовлення не створено' # 'Error has been occured'
+      created: 'Замовлення успішно створено'
+      error: 'Трапилась помилка, замовлення не створено' 
     products:
       created: 'Продукт успішно створено'
       incorrect_input: 'Невірно введені дані'
