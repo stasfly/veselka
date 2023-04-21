@@ -3,7 +3,7 @@
 class ProductsController < ApplicationController
   before_action :product_categories, only: %i[new edit]
   before_action :product, only: %i[show edit edit destroy]
-  before_action :authorize_product, only: %i[edit update destroy]
+  before_action :authorize_product, only: %i[edit]
 
   def index
     if params[:query].nil?
@@ -35,39 +35,42 @@ class ProductsController < ApplicationController
       @product.save
       params[:inventory_quantity][:quantity] = 0 if params[:inventory_quantity][:quantity].nil?
       ProductInventory.create(product_id: @product.id, quantity: (params[:inventory_quantity][:quantity] || 0))
-      redirect_to @product, notice: 'Product was created'
+      redirect_to @product, notice: I18n.t('controllers.products.created')
     else
-      render :new, notice: 'Incorrect input!'
+      render :new, notice: I18n.t('controllers.products.incorrect_input')
     end
   end
 
   def update
+    @product = Product.find(params[:id])
+    authorize_product
     if product.update(product_params)
       product_inventory = ProductInventory.find_by(product_id: @product.id)
       stock_quantity =  product_inventory.quantity + params[:inventory_quantity][:quantity].to_i
       stock_quantity = 0 if stock_quantity.negative?
       product_inventory.update(quantity: stock_quantity)
-      redirect_to @product, notice: 'Product was updated'
+      redirect_to @product, notice: I18n.t('controllers.products.updated')
     else
-      flash.now[:message] = 'Sorry, Incorrect input!'
-      render :edit, status: 'wrong input'
+      # flash.now[:message] = I18n.t('controllers.products.incorrect_input')
+      render :edit, status: I18n.t('controllers.products.incorrect_input')
     end
   end
 
   def destroy
+    authorize_product
     @product.destroy
-    redirect_to products_path, notice: 'Item destroyed'
+    redirect_to products_path, notice: I18n.t('controllers.products.destroyed')
   end
 
   def purge_one_attachment
     attachment = ActiveStorage::Attachment.find(params[:id])
     attachment.purge
-    redirect_back fallback_location: root_path, notice: 'Image has been deleted'
+    redirect_back fallback_location: root_path, notice: I18n.t('controllers.products.image_destroyed')
   end
 
   def purge_all_attachments
     product.images.purge
-    redirect_back fallback_location: root_path, notice: 'All images have been deleted'
+    redirect_back fallback_location: root_path, notice: I18n.t('controllers.products.all_images_destroyed')
   end
 
   private

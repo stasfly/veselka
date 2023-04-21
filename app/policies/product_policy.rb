@@ -27,7 +27,7 @@ class ProductPolicy < ApplicationPolicy
   def create?
     @user.has_any_role? :admin
   end
-
+  
   def update?
     @user.has_any_role? :admin
   end

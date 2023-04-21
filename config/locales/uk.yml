@@ -120,4 +120,22 @@ uk:
         quantity: 'К-ть'
       order_item:
         quantity: 'К-ть'
-      
+#                                       @@@@@@   controllers   @@@@@@
+  controllers:
+    admins:
+      updated: 'Ролі успішно оновлені'
+      blocked: 'Користувач заблокований'
+    application:
+      access_denied: 'Недостатньо прав для виконання цієї дії' #'You are not authorized to perform this action.'
+    cart_items:
+    carts:
+    orders:
+      created: 'Замовлення успішно створено' # 'Order successfully created'
+      error: 'Трапилась помилка, замовлення не створено' # 'Error has been occured'
+    products:
+      created: 'Продукт успішно створено'
+      incorrect_input: 'Невірно введені дані'
+      updated: 'Продукт успішно оновлено'
+      destroyed: 'Продукт видалено з бази даних'
+      image_destroyed: 'Зображення видалено'
+      all_images_destroyed: 'Усі зображення видалено'
