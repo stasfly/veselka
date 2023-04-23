@@ -18,7 +18,7 @@ class User < ApplicationRecord
   # after_update :change_role_control
 
   def send_welcome_email
-    UserMailer.welcome(self).deliver_now
+    UserMailer.welcome(self).deliver_now unless Rails.env.development?
   end
 
   private

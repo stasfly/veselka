@@ -1,12 +1,12 @@
-<h2>Order history</h2>
+<h2><%= t('.history') %></h2>
 
 <table>
   <thead>
     <tr>
-      <td>Order date</td>
-      <td>Order id</td>
-      <td>Order sum</td>
-      <td>Details</td>
+      <th><%= t('.date') %></th>
+      <th><%= t('.id') %></th>
+      <th><%= t('.sum') %></th>
+      <th><%= t('.details') %></th>
     </tr>
   </thead>
   <% @orders.map do |order| %>
@@ -14,7 +14,7 @@
       <td><%= order.created_at %></td>
       <td><%= order.id %></td>
       <td><%= order.cost %></td>
-      <td><%= link_to 'details', order_path(order) %></td>
+      <td><%= link_to t('buttons.show'), order_path(order) %></td>
       <td><%= order.roles.pluck('name') %></td>
     <tbody>
   <% end %>

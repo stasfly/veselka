@@ -16,9 +16,9 @@ class OrdersController < ApplicationController
     # binding.pry
     authorize @order_new
     if @order_new.save
-      redirect_to order_path(@order_new.id), notice: 'Order successfully created'
+      redirect_to order_path(@order_new.id), notice: I18n.t('controllers.orders.created')
     else
-      redirect_to cart_path(current_user.cart.id), notice: 'Error has been occured'
+      redirect_to cart_path(current_user.cart.id), notice: I18n.t('controllers.orders.error')
     end
   end
 

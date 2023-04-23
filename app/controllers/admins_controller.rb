@@ -16,8 +16,11 @@ class AdminsController < ApplicationController
   end
 
   def update
-    if user.update(user_params)
-      redirect_to users_path, notice: "#{@user.email} roles was successfully updated"
+    if params[:set_user_role] == 'blocked'
+      @user.add_role :blocked
+      redirect_to users_path, notice: "#{@user.email} #{I18n.t('controllers.admins.blocked')}"
+    elsif user.update(user_params)
+      redirect_to users_path, notice: "#{@user.email} #{I18n.t('controllers.admins.updated')}"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -25,7 +28,7 @@ class AdminsController < ApplicationController
 
   def destroy
     user.destroy
-    redirect_back fallback_location: root_path, notice: 'User deleted.'
+    redirect_back fallback_location: root_path, notice: I18n.t('controllers.admins.destroyed')
   end
 
   private
@@ -35,8 +38,7 @@ class AdminsController < ApplicationController
   end
 
   def user
-    # binding.pry
-    @user ||= User.find(params[:format])
+    @user ||= User.find(params[:id])
   end
 
   def authorize_user

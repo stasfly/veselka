@@ -31,7 +31,6 @@
           <% if current_user != nil %>
             <div><%= link_to 'Cart', cart_path(current_user.cart.id) %></div>
           <% end %>
-          <% #binding.pry %>
         </div>
         <div class="yield-container">
           <%= yield %>

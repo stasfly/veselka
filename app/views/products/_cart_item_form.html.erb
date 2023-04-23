@@ -7,15 +7,15 @@
       <% if product.product_inventory.quantity > 0 %>
         <%= f.input :quantity, collection: 1..product.product_inventory.quantity %>
           <% if CartItem.where('product_id = ? AND cart_id = ?', product.id, current_user.cart.id).any? %>
-            <%= f.button :submit, value: 'Olready in the cart' %>
+            <%= f.button :submit, value: t('simple_form.buttons.product.olready_in_the_cart') %>
           <% else %>
-            <%= f.button :submit, value: 'Put to cart' %>
+            <%= f.button :submit, value: t('simple_form.buttons.product.put_to_cart') %>
           <% end %>
       <% else %>
-          <%= f.label :quantity, 'Item is out of stock' %>
+          <%= f.label :quantity, t('simple_form.labels.product.zero_quantity') %>
       <% end %>
     <% end %>
   </div>
 <% else %>
-  <div><%= link_to 'Log in first',  new_user_session_path %> </div>
+  <div><%= link_to t('simple_form.buttons.product.log_in_first'),  new_user_session_path %> </div>
 <% end %>

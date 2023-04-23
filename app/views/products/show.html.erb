@@ -8,18 +8,18 @@
       <% end %>
     </div>
     <div class="property-block col-5">
-      <div><h4>Product name: <%= @product.name %></h4></div>
-      <div><h4>Product sku: <%= @product.sku %></h4></div>
-      <div><h4>Price: <%= @product.price %></h4></div>
+      <div><h4><%= t('.product_name') %> <%= @product.name %></h4></div>
+      <div><h4><%= t('.product_scu') %> <%= @product.sku %></h4></div>
+      <div><h4><%= t('.product_price') %> <%= @product.price %></h4></div>
       
       <%= render partial: 'cart_item_form', locals: {product: @product} %>
       
     </div>
   </div>
   <div class="show-row">
-    <div><h4>Description</h4><%= @product.description %></div>
+    <div><h4> <%= t('.description') %> </h4><%= @product.description %></div>
   </div>
 </div>
 <div class="show-control">
-  <span><%= link_to 'back', :back %>  |  <%= link_to 'index', products_path %></span>
+  <span><%= link_to t('buttons.back'), :back %>  |  <%= link_to t('.link_to_intex'), products_path %></span>
 </div>

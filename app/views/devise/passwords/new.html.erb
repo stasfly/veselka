@@ -7,11 +7,11 @@
     <%= f.input :email,
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "email" } %>
+                input_html: { autocomplete: t('activerecord.attributes.user.email') } %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
+    <%= f.button :submit, t('devise.passwords.new.send_me_reset_password_instructions')%>
   </div>
 <% end %>
 
