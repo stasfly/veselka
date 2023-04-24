@@ -4,13 +4,13 @@ class UserPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      binding.pry
       scope.all
     end
   end
 
   def index?
-    @user.has_role? :admin
+    # binding.pry
+    @user.nil? ? false : (@user.has_role? :admin)
   end
 
   def edit?

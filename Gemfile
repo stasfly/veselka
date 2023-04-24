@@ -52,9 +52,11 @@ gem 'aws-sdk-s3', require: false
 gem 'devise', '~> 4.8'
 gem 'image_processing', '~> 1.2'
 gem 'normalize-rails', '~> 8.0'
+gem 'pagy', '~> 6.0'
 gem 'pry', '~> 0.14.1'
 gem 'pundit'
 gem 'rails-i18n', '~> 7.0.0'
+gem 'ransack', '~> 4.0'
 gem 'rolify', '~> 6.0.1'
 gem 'rubocop', '~> 1.36', require: false
 gem 'simple_form', '~> 5.1'

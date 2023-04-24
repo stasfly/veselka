@@ -41,6 +41,9 @@ uk:
       product:
       inventory_quantity:
     placeholders:
+      admin:
+        email_cont: 'Пошук по e-mail'
+        role_cont: 'Пошук по ролі'
       product:
         price: 'Дійсне число'
       inventory_quantity:

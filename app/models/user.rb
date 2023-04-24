@@ -17,8 +17,24 @@ class User < ApplicationRecord
   after_create :send_welcome_email, :asign_default_role, :new_user_cart_create
   # after_update :change_role_control
 
+  scope :user_id_eq, ->(user_id) { where('id = ?', user_id) }
+
+  def self.role_eq(role)
+    with_role(role)
+  end
+
   def send_welcome_email
     UserMailer.welcome(self).deliver_now unless Rails.env.development?
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[confirmation_sent_at confirmed_at created_at email id remember_created_at
+       reset_password_sent_at unconfirmed_email updated_at]
+    # ["confirmation_sent_at", "confirmation_token", "confirmed_at", "created_at", "email", "encrypted_password", "id", "remember_created_at", "reset_password_sent_at", "reset_password_token", "unconfirmed_email", "updated_at"]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[cart orders roles]
   end
 
   private

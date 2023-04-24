@@ -1,9 +1,18 @@
 <h1> <%= t('.users') %> </h1>
+
+<%= search_form_for @q do |f| %>
+
+  
+  <%= f.search_field :email_cont, placeholder: t('simple_form.placeholders.admin.email_cont') %>
+
+  <%= f.submit %>
+<% end %>
+
 <table>
   <tr>
     <th>Id</th>
-    <th>email</th>
-    <th><%= t('.roles') %></th>
+    <th><%= sort_link(@q, :email, 'Email', default_order: :asc) %></th>
+    <th><%= sort_link(@q, :active_roles, t('.roles'), default_order: :asc)%></th>
     <th><%= t('.available_roles') %></th>
     <th><%= t('.edit_roles') %></th>
     <th></th>
