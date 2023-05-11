@@ -80,7 +80,9 @@ en:
       available_roles: 'Available roles'
       edit_roles: 'Edit roles'
       block_account: 'Block account'
-      confirmation: 'Are you sure?'
+      orders: 'Orders'
+      cost: 'Cost'
+      no_order: 'This customer has no order yet'
     show:
       user: "User's profile"
       edit_profile: 'Edit profile'

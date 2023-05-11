@@ -1,30 +1,43 @@
 <h1> <%= t('.users') %> </h1>
 
-<%= search_form_for @q do |f| %>
 
-  
-  <%= f.search_field :email_cont, placeholder: t('simple_form.placeholders.admin.email_cont') %>
 
-  <%= f.submit %>
+<%= form_for users_path, method: :get do %>
+  <%= fields_for 'search' do |search_form| %>
+    <%= search_form.search_field :email,  placeholder: 'search by email' %>
+    <%= search_form.search_field :role,  placeholder: 'search by role' %>
+  <% end %>
+  <%= button_tag 'search' %>
 <% end %>
 
 <table>
-  <tr>
-    <th>Id</th>
-    <th><%= sort_link(@q, :email, 'Email', default_order: :asc) %></th>
-    <th><%= sort_link(@q, :active_roles, t('.roles'), default_order: :asc)%></th>
-    <th><%= t('.available_roles') %></th>
-    <th><%= t('.edit_roles') %></th>
-    <th></th>
-  </tr>
-  <% @users.each do |user| %>
+  <thead>
     <tr>
-      <th><%= user.id %></th>
-      <th><%= user.email %></th>
-      <th><%= user.roles.pluck(:name) %></th>
-      <th><%= link_to t('buttons.show'),  user_path(user) %></th>
-      <th><%= link_to t('buttons.edit'),  user_edit_path(user) %></th>
-      <th><%= button_to t('.block_account'), user_update_path(user), params: {set_user_role: :blocked}, form: { data: { confirm: t('.confirmation') } }, method: :put %></th>
+      <th>Id</th>
+      <th><%= 'Email' %></th>
+      <th><%= t('.roles') %></th>
+      <th><%= t('.available_roles') %></th>
+      <th><%= t('.edit_roles') %></th>
+      <th></th>
     </tr>
+  </thead>
+  <% @users.each do |user| %>
+    <div><tbody>
+      <td><%= user.id %></td>
+      <td><%= user.email %></td>
+      <td><%= user.roles.pluck(:name).sort %></td>
+      <td><%= link_to t('buttons.show'),  user_path(user, some_param: 'mean_of_param') %></td>
+      <td><%= link_to t('buttons.edit'),  user_edit_path(user) %></td>
+      <td><%= button_to t('.block_account'), user_update_path(user), params: {set_user_role: :blocked}, form: { data: { confirm: t('.confirmation') } }, method: :put %></td>
+      <div><% if user.orders.any? %>
+        <%= link_to t('.orders'), orders_path(user_id: user.id) %>
+        <% user.orders.limit(5).map do |order| %>
+          <%= link_to "id: #{order.id}", order_path(order, some_param: 'mean_of_param') %>
+          <%= link_to "#{t('.cost')}: #{order.cost}", order_path(order) %>
+        <% end %>
+      <% else %>
+        <%= t('.no_order') %>
+      <% end %></div>
+    </tbody></div>
   <% end %>
 </table>

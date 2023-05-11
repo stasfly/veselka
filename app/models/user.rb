@@ -11,13 +11,57 @@ class User < ApplicationRecord
   # validates :password, confirmation: true, length: { minimum: 6, too_short: '%<count>s characters is min allowed' }, allow_blank: true
   # validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
-  has_many :orders
+  has_many :orders, -> { order(created_at: :desc) }
   has_one :cart, dependent: :destroy
 
   after_create :send_welcome_email, :asign_default_role, :new_user_cart_create
-  # after_update :change_role_control
 
   scope :user_id_eq, ->(user_id) { where('id = ?', user_id) }
+
+  # 25.04 may by should remove to admins_conroller
+  def role_search(role = '')
+    Role.where.("name ILIKE ?", "%#{role}%").order(:name)
+  end
+
+  def search_user_by_role(roles)
+    @users = []
+    roles.map do |role|
+      @users.push(self) if self.has_role? role
+    end
+    @users.uniq!
+  end
+  #25.04
+
+  #27.04
+
+  def self.user_search(search = nil)
+    # search {
+    #   email: '',
+    #   role: '',
+    #   last_order: '',
+    #   orders_value: '',
+    #   created_at: '',
+    #   order_email: '',
+    #   order_role: '',
+    #   order_created_at: '',
+    # }
+    if search
+      # self.joins(:orders, :roles).where("email LIKE ?, roles LIKE ?", "%#{search[email]}%", "%#{search[role]}%") #does not work
+      # self.where("email LIKE ?", "%#{search[:email]}%") # should work
+      # self.joins(:roles).where("roles.name LIKE ?", "%#{search[:role]}%") # should work
+      users = self.joins(:roles).where("roles.name LIKE ?", "%#{search[:role]}%").where("email LIKE ?", "%#{search[:email]}%").order(:id).uniq # should work
+      # self.order(email: :asc) unless search[:order_email].nil?
+      users.order(email: :asc) unless search[:order_email].nil?
+      # self.order("roles.name ASC") unless search[:order_role].nil? # should try
+      users.order("roles.name ASC") unless search[:order_role].nil? # should try
+    else
+      users = User.all
+    end
+    return users
+    # binding.pry
+  end
+  
+  #27.04
 
   def self.role_eq(role)
     with_role(role)
@@ -36,6 +80,12 @@ class User < ApplicationRecord
   def self.ransackable_associations(_auth_object = nil)
     %w[cart orders roles]
   end
+
+  #25.04
+  def self.ransackable_scopes(auth_object = nil)
+    %i(search_user_by_role)
+  end
+  #25.04
 
   private
 

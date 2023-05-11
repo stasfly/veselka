@@ -3,15 +3,19 @@
 class AdminsController < ApplicationController
   before_action :authorize_user, only: %i[show edit update destroy]
   def show
+    binding.pry
     user
   end
 
   def index
-    @q = User.ransack(params[:q])
-    @users = @q.result(distinct: true)
-    # binding.pry
-    @users = sort_users_by_role(@users, params[:q])
+    # @q = User.ransack(params[:q])
+    # @users = @q.result(distinct: true)
+    # 
+    # @users = sort_users_by_role(@users, params[:q])
+    # @users = search_user_by_role(@users, params[:q]['search_user_by_role'])
+    @users = User.user_search(params[:search]) || users
     # users
+    # binding.pry
     authorize current_user.nil? ? User.new : current_user
   end
 
@@ -81,7 +85,30 @@ class AdminsController < ApplicationController
     end
   end
 
+  def roles_search(match_srting = '')
+    # binding.pry
+    Role.where.("name ILIKE '%#{match_srting}%'").sort
+  end
+
+  def search_user_by_role(unfiltered_users, roles_search_param)
+    # filtered_users = @users
+    roles = roles_search(roles_search_param)
+    if roles == []
+      unfiltered_users
+    else
+      filtered_users = []
+      roles.map do |role|
+        unfiltered_users.map do |user|
+          filtered_users.push(user) if user.has_role? role
+        end
+        unfiltered_users -= filtered_users
+      end
+      # @users.uniq!
+      unfiltered_users = filtered_users
+    end
+  end
+
   def user_params
-    params.require(:user).permit({ role_ids: [] }, :email, :password, :password_confirmation, unconfirmed_email: nil)
+    params.require(:user).permit({ role_ids: [] }, :search, :email, :password, :password_confirmation, unconfirmed_email: nil)
   end
 end
