@@ -46,19 +46,22 @@ class User < ApplicationRecord
     #   order_created_at: '',
     # }
     if search
-      # self.joins(:orders, :roles).where("email LIKE ?, roles LIKE ?", "%#{search[email]}%", "%#{search[role]}%") #does not work
-      # self.where("email LIKE ?", "%#{search[:email]}%") # should work
-      # self.joins(:roles).where("roles.name LIKE ?", "%#{search[:role]}%") # should work
-      users = self.joins(:roles).where("roles.name LIKE ?", "%#{search[:role]}%").where("email LIKE ?", "%#{search[:email]}%").order(:id).uniq # should work
+      users = self.eager_load(:orders, :roles).left_outer_joins(:roles, :orders)
+        .where("roles.name LIKE ?", "%#{search[:role]}%")
+        .where("email LIKE ?", "%#{search[:email]}%")
+        .order(:id).distinct # should work
+      
       # self.order(email: :asc) unless search[:order_email].nil?
       users.order(email: :asc) unless search[:order_email].nil?
       # self.order("roles.name ASC") unless search[:order_role].nil? # should try
       users.order("roles.name ASC") unless search[:order_role].nil? # should try
     else
-      users = User.all
+      # users = User.all
+      users = self.left_outer_joins(:roles, :orders)
+        .includes(:orders, :roles)
+        # binding.pry
     end
     return users
-    # binding.pry
   end
   
   #27.04
