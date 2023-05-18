@@ -17,12 +17,12 @@
       <li><%= "Id/email: #{user.id}/#{user.email}" %></li>
       <li><%= "#{t('.created_at')}: #{user.created_at}" %></li>
       <li><%= "#{t('.roles')}: #{user.roles.pluck(:name).sort}" %></li>
-      <li><%= link_to t('buttons.edit'),  user_edit_path(user) %></li>
+      <li><%= link_to t('buttons.edit'), user_edit_path(user) %></li>
     </ul>
     <div class="user_orders">
       <% if user.orders.any? %>
-        <%= link_to "#{t('.quantity_of_orders')} (#{user.orders.count})", orders_path(user_id: user.id) %>
-        <% user.orders.order(created_at: :desc).first(5).map do |order|  %>
+        <%= link_to "#{t('.quantity_of_orders')} (#{user.orders.size})", orders_path(user_id: user.id) %>
+        <% user.orders.reverse.first(5).each do |order|  %>
           <div><%= link_to "#{t('.date')}: #{order.created_at.strftime("%d/%m/%Y %k:%M")} # #{t('.cost')}: #{order.cost}", order_path(order) %></div>
         <% end %>
       <% else %>

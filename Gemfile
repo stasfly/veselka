@@ -71,6 +71,7 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'bullet', '~>7.0.7'
   gem 'letter_opener', '~>1.8.1'
   gem 'web-console'
 
