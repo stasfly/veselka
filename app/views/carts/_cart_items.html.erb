@@ -1,7 +1,7 @@
 <div id="cart_items">
   <% i = 0 %>
   <% @sum = 0 %>
-  <% @cart_items.map do |cart_item| %>
+  <% @cart.cart_items.map do |cart_item| %>
     <tbody id=<%= "cart_item_#{cart_item.id}" %>>
       <% i += 1 %>
       <td><%= i %></td>
@@ -13,7 +13,7 @@
       <td><%= link_to(t('buttons.remove_it'), cart_item_path(cart_item), data: {turbo_method: :delete})  %></td>
     </tbody>
   <% end %>
-  <% @cart_items.map do |cart_item| %>
+  <% @cart.cart_items.map do |cart_item| %>
     <% qt = cart_item.quantity %>
     <% pr = cart_item.product.price %>
     <% @sum += qt * pr %>

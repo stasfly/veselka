@@ -12,7 +12,7 @@
       <div><h4><%= t('.product_scu') %> <%= @product.sku %></h4></div>
       <div><h4><%= t('.product_price') %> <%= @product.price %></h4></div>
       
-      <%= render partial: 'cart_item_form', locals: {product: @product} %>
+      <%= render 'cart_item_form', products_in_cart: @product_in_cart, product: @product %>
       
     </div>
   </div>

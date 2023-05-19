@@ -12,8 +12,8 @@
         <div class="item-code"><%= link_to "#{t(".product_sku")}: #{product.sku}", product_path(product)%></div>
         <div class="item-code"><%= link_to "#{t(".product_price")}: #{product.price}", product_path(product)%></div>
         <div class="item-code"><%= link_to "#{t(".product_category")}: #{product.product_category_id}", product_path(product)%></div>
-        
-        <%= render partial: 'cart_item_form', locals: {product: product} %>
+        <% @products_in_cart.include?(product.id) ? products_in_cart = true : products_in_cart = false %>
+        <%= render 'cart_item_form', products_in_cart: products_in_cart, product: product %>
         
       </div>
     </div>
@@ -32,6 +32,7 @@
         <th></th>
       </tr>
     </thead>
+    <% (!current_user.nil? && (current_user.has_role? :admin)) ? current_admin = true : current_admin = false %>
     <% @products.each do |product| %>
       <tbody>
         <td><%= product.id %></td>
@@ -40,11 +41,9 @@
         <td><%= product.product_category.name %></td>
         <td><%= product.description %></td>
         <td><%= link_to(t('buttons.show'), product_path(product)) %></td>
-        <% unless current_user.nil?%>
-          <% if current_user.has_role? :admin %>
-            <td><%= link_to(t('buttons.edit'), edit_product_path(product)) %></td>
-            <td><%= link_to(t('buttons.delete'), product_path(product), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %></td>
-          <% end %>
+        <% if current_admin %>
+          <td><%= link_to(t('buttons.edit'), edit_product_path(product)) %></td>
+          <td><%= link_to(t('buttons.delete'), product_path(product), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %></td>
         <% end %>
       </tbody>
     <% end %>

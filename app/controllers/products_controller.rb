@@ -8,17 +8,19 @@ class ProductsController < ApplicationController
   def index
     if params[:query].nil?
       products
-      @products.order('name ASC')
+      @products
     else
-      @products = Product.where(product_category_id: params[:query][:product_category_id].to_i).order('id ASC')
+      @products = Product.includes(:product_category, :product_inventory, [:images_attachments])
+                          .where(product_category_id: params[:query][:product_category_id].to_i).order('id ASC')
     end
-    product_inventories
     @cart_item = CartItem.new
+    @products_in_cart = Product.products_in_cart(current_user.id)
   end
-
+  
   def show
     @cart_item = CartItem.new(product_id: product.id, cart_id: current_user.cart.id) unless current_user.nil?
     product_inventory
+    Product.products_in_cart(current_user.id).include?(product.id) ? @product_in_cart = true : @product_in_cart = false
   end
 
   def new
@@ -51,7 +53,6 @@ class ProductsController < ApplicationController
       product_inventory.update(quantity: stock_quantity)
       redirect_to @product, notice: I18n.t('controllers.products.updated')
     else
-      # flash.now[:message] = I18n.t('controllers.products.incorrect_input')
       render :edit, status: I18n.t('controllers.products.incorrect_input')
     end
   end
@@ -76,7 +77,7 @@ class ProductsController < ApplicationController
   private
 
   def products
-    @products = Product.all.with_attached_images
+    @products = Product.includes(:product_category, :product_inventory, [:images_attachments]).with_attached_images
   end
 
   def product_categories
