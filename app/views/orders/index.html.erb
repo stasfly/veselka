@@ -15,7 +15,6 @@
       <td><%= order.id %></td>
       <td><%= order.cost %></td>
       <td><%= link_to t('buttons.show'), order_path(order) %></td>
-      <td><%= order.roles.pluck('name') %></td>
     <tbody>
   <% end %>
 </table>

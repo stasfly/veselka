@@ -124,6 +124,11 @@ en:
       details: 'Order details'
     show:
       details: 'Order details:'
+      order_item_name: 'Item name'
+      order_item_cost: 'Cost'
+      order_item_quantity: 'Q-ty'
+      order_item_price: 'Price'
+      order_cost: 'Total cost:'
   products:
     cat_item_form:
       olready_in_the_cart: 'Olready in the cart'

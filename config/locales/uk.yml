@@ -125,6 +125,11 @@ uk:
       details: 'Деталі замовлення'
     show:
       details: 'Деталі замовлення:'
+      order_item_name: 'Назва товару'
+      order_item_cost: 'Вартість'
+      order_item_quantity: 'К-ть'
+      order_item_price: 'Ціна'
+      order_cost: 'Вартість замовлення:'
   products:
     cat_item_form:
       olready_in_the_cart: 'Вже у кошику' 

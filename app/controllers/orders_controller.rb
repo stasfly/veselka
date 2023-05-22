@@ -2,7 +2,6 @@
 
 class OrdersController < ApplicationController
   def index
-    # binding.pry
     if params[:user_id].nil?
       @orders = policy_scope(Order).order(created_at: :desc)
     else
@@ -12,14 +11,13 @@ class OrdersController < ApplicationController
   end
 
   def show
-    # binding.pry
-    order
-    authorize order
+    @order = order[:order][:order]
+    @product_details = order[:order][:product_details]
+    authorize @order
   end
 
   def create
     @order_new = Order.new(user_id: params[:user_id])
-    # binding.pry
     authorize @order_new
     if @order_new.save
       redirect_to order_path(@order_new.id), notice: I18n.t('controllers.orders.created')
@@ -31,7 +29,7 @@ class OrdersController < ApplicationController
   private
 
   def order
-    @order ||= Order.find(params[:id])
+    order ||= Order.order_details(params[:id])
   end
 
   def order_params
