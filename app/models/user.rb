@@ -57,8 +57,7 @@ class User < ApplicationRecord
       users.order("roles.name ASC") unless search[:order_role].nil? # should try
     else
       # users = User.all
-      users = self.left_outer_joins(:roles, :orders)
-        .includes(:orders, :roles)
+      users = self.left_outer_joins(:roles, :orders).includes(:orders, :roles).uniq
         # binding.pry
     end
     return users

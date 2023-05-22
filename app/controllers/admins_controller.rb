@@ -3,7 +3,7 @@
 class AdminsController < ApplicationController
   before_action :authorize_user, only: %i[show edit update destroy]
   def show
-    binding.pry
+    # binding.pry
     user
   end
 
