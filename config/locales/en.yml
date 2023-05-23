@@ -69,12 +69,20 @@ en:
     sign_in: 'log in'
     sign_out: 'log out'
     sign_up: 'sign up'
+    search: 'Search'
 #                                @@@@@   views  @@@@@     
   admins:
     edit:
       user: 'User: '
       update_roles: 'Update roles'
     index:
+      search_by_email: 'Search by email'
+      select_role: 'Select role'
+      search_by_role: 'Search by role'
+      date_range: 'Date range'
+      to: 'To:'
+      from: 'From:'
+      user_orders_value_range: "User's orders total amount"
       created_at: 'Created_at'
       date: 'date'
       cost: 'cost'

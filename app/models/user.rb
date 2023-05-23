@@ -38,7 +38,14 @@ class User < ApplicationRecord
     # search {
     #   email: '',
     #   role: '',
-    #   last_order: '',
+    #   "created_at_to(3i)" #day
+    #   "created_at_to(2i)" #month
+    #   "created_at_to(1i)" #year
+    #   "created_at_from(3i)" #day
+    #   "created_at_from(2i)" #month
+    #   "created_at_from(1i)" #year
+    #   amount_to: '',
+    #   amount_from: '',
     #   orders_value: '',
     #   created_at: '',
     #   order_email: '',
@@ -46,11 +53,16 @@ class User < ApplicationRecord
     #   order_created_at: '',
     # }
     if search
+      search_date_from =  [search["created_at_from(1i)"], search["created_at_from(2i)"], search["created_at_from(3i)"]].join('-')
+      search_date_to =  [search["created_at_to(1i)"], search["created_at_to(2i)"], search["created_at_to(3i)"]].join('-')
+      date_to = DateTime.parse(search_date_to) rescue Time.now
+      date_from = DateTime.parse(search_date_from) rescue (Time.now - 20.years)
       users = self.eager_load(:orders, :roles).left_outer_joins(:roles, :orders)
         .where("roles.name LIKE ?", "%#{search[:role]}%")
         .where("email LIKE ?", "%#{search[:email]}%")
+        .where(created_at: (date_from..date_to))
         .order(:id).distinct # should work
-      
+      # binding.pry
       # self.order(email: :asc) unless search[:order_email].nil?
       users.order(email: :asc) unless search[:order_email].nil?
       # self.order("roles.name ASC") unless search[:order_role].nil? # should try

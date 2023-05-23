@@ -4,10 +4,31 @@
 
 <%= form_for users_path, method: :get do %>
   <%= fields_for 'search' do |search_form| %>
-    <%= search_form.search_field :email,  placeholder: 'search by email' %>
-    <%= search_form.search_field :role,  placeholder: 'search by role' %>
+    <div><%= search_form.search_field :email,  placeholder: t('.search_by_email') %></div>
+    <div>
+      <%= search_form.label :role, t('.search_by_role') %>
+      <%= search_form.select(:role, Role.all.collect { |role| role.name}, { include_blank: t('.select_role') }) %>
+    </div>
+    <div><%= t('.date_range') %></div>
+    <div>
+      <%= search_form.label :created_at_to, t('.to') %>
+      <%= search_form.date_select :created_at_to, selected: Date.today %>
+    </div>
+    <div>
+      <%= search_form.label :created_at_from, t('.from') %>
+      <%= search_form.date_select :created_at_from, include_blank: true %>
+    </div>
+    <div><%= t('.user_orders_value_range') %></div>
+    <div>
+      <%= search_form.label :amount_to,  t('.to') %>
+      <%= search_form.search_field :amount_to%>
+    </div>
+    <div>
+      <%= search_form.label :amount_from, t('.from') %>
+      <%= search_form.search_field :amount_from %>
+    </div>
   <% end %>
-  <%= button_tag 'search' %>
+  <%= button_tag t('buttons.search') %>
 <% end %>
 
 <hr>
