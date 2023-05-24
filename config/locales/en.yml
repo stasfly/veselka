@@ -79,7 +79,8 @@ en:
       search_by_email: 'Search by email'
       select_role: 'Select role'
       search_by_role: 'Search by role'
-      date_range: 'Date range'
+      user_date_range: 'User date range'
+      order_date_range: 'Order date range'
       to: 'To:'
       from: 'From:'
       user_orders_value_range: "User's orders total amount"

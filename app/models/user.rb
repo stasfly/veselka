@@ -44,10 +44,12 @@ class User < ApplicationRecord
     #   "created_at_from(3i)" #day
     #   "created_at_from(2i)" #month
     #   "created_at_from(1i)" #year
-    #   amount_to: '',
-    #   amount_from: '',
-    #   orders_value: '',
-    #   created_at: '',
+    #   "order_created_at_to(3i)" #day
+    #   "order_created_at_to(2i)" #month
+    #   "order_created_at_to(1i)" #year
+    #   "order_created_at_from(3i)" #day
+    #   "order_created_at_from(2i)" #month
+    #   "order_created_at_from(1i)" #year
     #   order_email: '',
     #   order_role: '',
     #   order_created_at: '',
@@ -57,10 +59,15 @@ class User < ApplicationRecord
       search_date_to =  [search["created_at_to(1i)"], search["created_at_to(2i)"], search["created_at_to(3i)"]].join('-')
       date_to = DateTime.parse(search_date_to) rescue Time.now
       date_from = DateTime.parse(search_date_from) rescue (Time.now - 20.years)
+      order_search_date_from =  [search["order_created_at_from(1i)"], search["order_created_at_from(2i)"], search["order_created_at_from(3i)"]].join('-')
+      order_search_date_to =  [search["order_created_at_to(1i)"], search["order_created_at_to(2i)"], search["order_created_at_to(3i)"]].join('-')
+      order_date_to = DateTime.parse(order_search_date_to) rescue Time.now
+      order_date_from = DateTime.parse(order_search_date_from) rescue (Time.now - 20.years)
       users = self.eager_load(:orders, :roles).left_outer_joins(:roles, :orders)
         .where("roles.name LIKE ?", "%#{search[:role]}%")
         .where("email LIKE ?", "%#{search[:email]}%")
         .where(created_at: (date_from..date_to))
+        .where(orders: {created_at: (order_date_from..order_date_to)})
         .order(:id).distinct # should work
       # binding.pry
       # self.order(email: :asc) unless search[:order_email].nil?

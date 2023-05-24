@@ -9,7 +9,7 @@
       <%= search_form.label :role, t('.search_by_role') %>
       <%= search_form.select(:role, Role.all.collect { |role| role.name}, { include_blank: t('.select_role') }) %>
     </div>
-    <div><%= t('.date_range') %></div>
+    <div><%= t('.user_date_range') %></div>
     <div>
       <%= search_form.label :created_at_to, t('.to') %>
       <%= search_form.date_select :created_at_to, selected: Date.today %>
@@ -18,14 +18,14 @@
       <%= search_form.label :created_at_from, t('.from') %>
       <%= search_form.date_select :created_at_from, include_blank: true %>
     </div>
-    <div><%= t('.user_orders_value_range') %></div>
+    <div><%= t('.order_date_range') %></div>
     <div>
-      <%= search_form.label :amount_to,  t('.to') %>
-      <%= search_form.search_field :amount_to%>
+      <%= search_form.label :order_created_at_to, t('.to') %>
+      <%= search_form.date_select :order_created_at_to, selected: Date.today %>
     </div>
     <div>
-      <%= search_form.label :amount_from, t('.from') %>
-      <%= search_form.search_field :amount_from %>
+      <%= search_form.label :order_created_at_from, t('.from') %>
+      <%= search_form.date_select :order_created_at_from, include_blank: true %>
     </div>
   <% end %>
   <%= button_tag t('buttons.search') %>
