@@ -84,6 +84,10 @@ uk:
       to: 'До:'
       from: 'Від:'
       user_orders_value_range: 'Пошук по загальній вартості замовлень'
+      sort: "Сортування результату пошуку по:"
+      sort_email: "email"
+      sort_registration: "Дата реєстрації"
+      sort_order: "Дата замовлення"
       created_at: 'Зареєстровано'
       date: 'дата'
       cost: 'вартість'

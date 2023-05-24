@@ -10,14 +10,13 @@ class Order < ApplicationRecord
   def self.order_details(order_id)
     order = Order.includes(:order_items).where(id: order_id).sample
     # binding.pry
-    product_ids = order.order_items.map { |order_item| order_item.product_id }
+    product_ids = order.order_items.map(&:product_id)
     products = Product.where(id: product_ids)
     product_details = {}
     products.map do |product|
-      product_details[product.id] = {name: product.name, price: product.price}
+      product_details[product.id] = { name: product.name, price: product.price }
     end
-    order_details = Hash.new(order: order, product_details: product_details)
-    return order_details
+    Hash.new(order:, product_details:)
   end
 
   private

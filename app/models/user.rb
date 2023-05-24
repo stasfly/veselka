@@ -16,24 +16,6 @@ class User < ApplicationRecord
 
   after_create :send_welcome_email, :asign_default_role, :new_user_cart_create
 
-  scope :user_id_eq, ->(user_id) { where('id = ?', user_id) }
-
-  # 25.04 may by should remove to admins_conroller
-  def role_search(role = '')
-    Role.where.("name ILIKE ?", "%#{role}%").order(:name)
-  end
-
-  def search_user_by_role(roles)
-    @users = []
-    roles.map do |role|
-      @users.push(self) if self.has_role? role
-    end
-    @users.uniq!
-  end
-  #25.04
-
-  #27.04
-
   def self.user_search(search = nil)
     # search {
     #   email: '',
@@ -55,58 +37,75 @@ class User < ApplicationRecord
     #   order_created_at: '',
     # }
     if search
-      search_date_from =  [search["created_at_from(1i)"], search["created_at_from(2i)"], search["created_at_from(3i)"]].join('-')
-      search_date_to =  [search["created_at_to(1i)"], search["created_at_to(2i)"], search["created_at_to(3i)"]].join('-')
-      date_to = DateTime.parse(search_date_to) rescue Time.now
-      date_from = DateTime.parse(search_date_from) rescue (Time.now - 20.years)
-      order_search_date_from =  [search["order_created_at_from(1i)"], search["order_created_at_from(2i)"], search["order_created_at_from(3i)"]].join('-')
-      order_search_date_to =  [search["order_created_at_to(1i)"], search["order_created_at_to(2i)"], search["order_created_at_to(3i)"]].join('-')
-      order_date_to = DateTime.parse(order_search_date_to) rescue Time.now
-      order_date_from = DateTime.parse(order_search_date_from) rescue (Time.now - 20.years)
-      users = self.eager_load(:orders, :roles).left_outer_joins(:roles, :orders)
-        .where("roles.name LIKE ?", "%#{search[:role]}%")
-        .where("email LIKE ?", "%#{search[:email]}%")
-        .where(created_at: (date_from..date_to))
-        .where(orders: {created_at: (order_date_from..order_date_to)})
-        .order(:id).distinct # should work
-      # binding.pry
-      # self.order(email: :asc) unless search[:order_email].nil?
-      users.order(email: :asc) unless search[:order_email].nil?
-      # self.order("roles.name ASC") unless search[:order_role].nil? # should try
-      users.order("roles.name ASC") unless search[:order_role].nil? # should try
-    else
-      # users = User.all
-      users = self.left_outer_joins(:roles, :orders).includes(:orders, :roles).uniq
-        # binding.pry
-    end
-    return users
-  end
-  
-  #27.04
 
-  def self.role_eq(role)
-    with_role(role)
+      search_date_from =  [search['created_at_from(1i)'],
+                           search['created_at_from(2i)'],
+                           search['created_at_from(3i)']].join('-')
+      search_date_to =    [search['created_at_to(1i)'],
+                           search['created_at_to(2i)'],
+                           search['created_at_to(3i)']].join('-')
+
+      date_to = begin
+        DateTime.parse(search_date_to)
+      rescue StandardError
+        Time.now
+      end
+      date_from = begin
+        DateTime.parse(search_date_from)
+      rescue StandardError
+        (Time.now - 20.years)
+      end
+
+      order_search_date_from =  [search['order_created_at_from(1i)'],
+                                 search['order_created_at_from(2i)'],
+                                 search['order_created_at_from(3i)']].join('-')
+      order_search_date_to =    [search['order_created_at_to(1i)'],
+                                 search['order_created_at_to(2i)'],
+                                 search['order_created_at_to(3i)']].join('-')
+
+      order_date_to = begin
+        DateTime.parse(order_search_date_to)
+      rescue StandardError
+        nil
+      end
+      order_date_from = begin
+        DateTime.parse(order_search_date_from)
+      rescue StandardError
+        nil
+      end
+
+      if order_date_to || order_date_from
+        order_date_to = begin
+          DateTime.parse(order_search_date_to)
+        rescue StandardError
+          Time.now
+        end
+        order_date_from = begin
+          DateTime.parse(order_search_date_from)
+        rescue StandardError
+          (Time.now - 20.years)
+        end
+      end
+
+      sort_key = search[:sort].split.first.to_sym
+      sort_order = search[:sort].split.last.upcase.to_sym
+
+      users = eager_load(:orders, :roles)
+              .left_outer_joins(:roles, :orders)
+              .where('roles.name LIKE ?', "%#{search[:role]}%")
+              .where('email LIKE ?', "%#{search[:email]}%")
+              .where(created_at: (date_from..date_to))
+              .distinct
+      users = users.where(orders: { created_at: (order_date_from..order_date_to) }) unless order_date_to.nil?
+      users = users.order(sort_key => sort_order) if search[:sort]
+    else
+      left_outer_joins(:roles, :orders).includes(:orders, :roles).uniq
+    end
   end
 
   def send_welcome_email
     UserMailer.welcome(self).deliver_now unless Rails.env.development?
   end
-
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[confirmation_sent_at confirmed_at created_at email id remember_created_at
-       reset_password_sent_at unconfirmed_email updated_at]
-    # ["confirmation_sent_at", "confirmation_token", "confirmed_at", "created_at", "email", "encrypted_password", "id", "remember_created_at", "reset_password_sent_at", "reset_password_token", "unconfirmed_email", "updated_at"]
-  end
-
-  def self.ransackable_associations(_auth_object = nil)
-    %w[cart orders roles]
-  end
-
-  #25.04
-  def self.ransackable_scopes(auth_object = nil)
-    %i(search_user_by_role)
-  end
-  #25.04
 
   private
 

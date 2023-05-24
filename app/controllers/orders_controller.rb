@@ -2,11 +2,11 @@
 
 class OrdersController < ApplicationController
   def index
-    if params[:user_id].nil?
-      @orders = policy_scope(Order).order(created_at: :desc)
-    else
-      @orders = Order.where(user_id: params[:user_id])
-    end
+    @orders = if params[:user_id].nil?
+                policy_scope(Order).order(created_at: :desc)
+              else
+                Order.where(user_id: params[:user_id])
+              end
     authorize @orders
   end
 

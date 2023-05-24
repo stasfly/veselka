@@ -23,7 +23,6 @@ class Product < ApplicationRecord
     user = User.includes(cart: :cart_items).where(id: user_id).sample
     products_in_cart = []
     user.cart.cart_items.map { |cart_item| products_in_cart << cart_item.product_id }
-    return products_in_cart
+    products_in_cart
   end
-
 end

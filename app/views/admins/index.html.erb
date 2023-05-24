@@ -21,11 +21,23 @@
     <div><%= t('.order_date_range') %></div>
     <div>
       <%= search_form.label :order_created_at_to, t('.to') %>
-      <%= search_form.date_select :order_created_at_to, selected: Date.today %>
+      <%= search_form.date_select :order_created_at_to, include_blank: true %>
     </div>
     <div>
       <%= search_form.label :order_created_at_from, t('.from') %>
       <%= search_form.date_select :order_created_at_from, include_blank: true %>
+    </div>
+    <div>
+      <%= search_form.label :sort, t('.sort') %>
+      <div>
+        <%= search_form.label :sort_email, t('.sort_email') %>
+        <%= search_form.radio_button :sort, 'email asc', checked: 'checked' %>
+        <%= search_form.radio_button :sort, 'email desc' %>
+        <%= search_form.label :sort_reg, t('.sort_registration') %>
+        <%= search_form.radio_button :sort, 'created_at asc' %>
+        <%= search_form.radio_button :sort, 'created_at desc' %>
+        
+      </div>
     </div>
   <% end %>
   <%= button_tag t('buttons.search') %>

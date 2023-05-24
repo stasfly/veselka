@@ -11,16 +11,16 @@ class ProductsController < ApplicationController
       @products
     else
       @products = Product.includes(:product_category, :product_inventory, [:images_attachments])
-                          .where(product_category_id: params[:query][:product_category_id].to_i).order('id ASC')
+                         .where(product_category_id: params[:query][:product_category_id].to_i).order('id ASC')
     end
     @cart_item = CartItem.new
-    @products_in_cart = Product.products_in_cart(current_user.id)
+    @products_in_cart = current_user.nil? ? [] : Product.products_in_cart(current_user.id)
   end
-  
+
   def show
     @cart_item = CartItem.new(product_id: product.id, cart_id: current_user.cart.id) unless current_user.nil?
     product_inventory
-    Product.products_in_cart(current_user.id).include?(product.id) ? @product_in_cart = true : @product_in_cart = false
+    @product_in_cart = Product.products_in_cart(current_user.id).include?(product.id)
   end
 
   def new

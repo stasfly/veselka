@@ -84,6 +84,10 @@ en:
       to: 'To:'
       from: 'From:'
       user_orders_value_range: "User's orders total amount"
+      sort: "Result's order by:"
+      sort_email: "email"
+      sort_registration: "registration"
+      sort_order: "order"
       created_at: 'Created_at'
       date: 'date'
       cost: 'cost'
