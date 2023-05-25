@@ -2,8 +2,9 @@
 
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  include Pagy::Backend
   before_action :set_locale
-  # around_action :switch_locale
+  before_action { @pagy_locale = params[:locale] }
 
   def extract_locale
     parsed_locale = params[:locale]

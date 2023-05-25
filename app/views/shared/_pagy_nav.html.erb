@@ -1,0 +1,7 @@
+<div>
+  <%== pagy_nav(@pagy) %>
+  <%= link_to_unless_current "5", users_path(items: 5) %>
+  <%= link_to_unless_current "10", users_path(items: 10) %>
+  <%= link_to_unless_current "20", users_path(items: 10) %>
+  <%= link_to_unless_current "50", users_path(items: 50) %>
+</div>

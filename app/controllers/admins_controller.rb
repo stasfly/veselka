@@ -8,7 +8,9 @@ class AdminsController < ApplicationController
   end
 
   def index
-    @users = User.user_search(params[:search]) || users
+    # binding.pry
+    @pagy, @users = pagy(User.user_search(params[:search]), items: (params[:items] || 6))
+    # @users = User.user_search(params[:search]) # || users
     authorize current_user.nil? ? User.new : current_user
   end
 

@@ -1,4 +1,4 @@
-<h1> <%= t('.users') %> </h1>
+<h1> <%= "#{t('.users')} (##{User.count})" %> </h1>
 
 
 
@@ -12,7 +12,7 @@
     <div><%= t('.user_date_range') %></div>
     <div>
       <%= search_form.label :created_at_to, t('.to') %>
-      <%= search_form.date_select :created_at_to, selected: Date.today %>
+      <%= search_form.date_select :created_at_to, include_blank: true %>
     </div>
     <div>
       <%= search_form.label :created_at_from, t('.from') %>
@@ -43,6 +43,8 @@
   <%= button_tag t('buttons.search') %>
 <% end %>
 
+<%== render partial: 'shared/pagy_nav', locals: {pagy: @pagy} %>
+
 <hr>
 <div class="users">
   <% @users.each do |user| %>
@@ -67,6 +69,9 @@
     </div>
     <hr>
   <% end %>
+
+  <%== render partial: 'shared/pagy_nav', locals: {pagy: @pagy} %>
+
 </div>
 
 
