@@ -2,9 +2,10 @@
 
 
 
-<%= form_for users_path, method: :get do %>
+<%= form_for users_path, data: { turbo_frame: :results }, method: :get do %>
   <%= fields_for 'search' do |search_form| %>
-    <div><%= search_form.search_field :email,  placeholder: t('.search_by_email') %></div>
+    <div><%= search_form.search_field :email,  placeholder: t('.search_by_email'),
+                          oninput: 'this.form.requestSubmit()', autofocus: true, autocomplete: 'off' %></div>
     <div>
       <%= search_form.label :role, t('.search_by_role') %>
       <%= search_form.select(:role, Role.all.collect { |role| role.name}, { include_blank: t('.select_role') }) %>
@@ -43,35 +44,38 @@
   <%= button_tag t('buttons.search') %>
 <% end %>
 
-<%== render partial: 'shared/pagy_nav', locals: {pagy: @pagy} %>
+<%= Time.now %>
 
 <hr>
-<div class="users">
-  <% @users.each do |user| %>
-    <ul class="user_info">
-      <li><%= "Id/email: #{user.id}/#{user.email}" %></li>
-      <li><%= "#{t('.created_at')}: #{user.created_at}" %></li>
-      <li><%= "#{t('.roles')}: #{user.roles.pluck(:name).sort}" %></li>
-      <li><%= link_to t('buttons.edit'), user_edit_path(user) %></li>
-    </ul>
-    <div class="user_orders">
-      <% if user.orders.any? %>
-        <%= link_to "#{t('.quantity_of_orders')} (#{user.orders.size})", orders_path(user_id: user.id) %>
-        <% user.orders.reverse.first(5).each do |order|  %>
-          <div><%= link_to "#{t('.date')}: #{order.created_at.strftime("%d/%m/%Y %k:%M")} # #{t('.cost')}: #{order.cost}", order_path(order) %></div>
-        <% end %>
-      <% else %>
-        <%= t('.no_order') %>
-      <% end %>
-    </div>
-    <div class="user_block">
-      <%= button_to t('.block_account'), user_update_path(user), params: {set_user_role: :blocked}, form: { data: { confirm: t('.confirmation') } }, method: :put %>
-    </div>
-    <hr>
-  <% end %>
-
+<%= turbo_frame_tag :results do %>
   <%== render partial: 'shared/pagy_nav', locals: {pagy: @pagy} %>
+  <%= Time.now %>
+  <div class="users">
+    <% @users.each do |user| %>
+      <ul class="user_info">
+        <li><%= "Id/email: #{user.id}/#{user.email}" %></li>
+        <li><%= "#{t('.created_at')}: #{user.created_at}" %></li>
+        <li><%= "#{t('.roles')}: #{user.roles.pluck(:name).sort}" %></li>
+        <li><%= link_to t('buttons.edit'), user_edit_path(user) %></li>
+      </ul>
+      <div class="user_orders">
+        <% if user.orders.any? %>
+          <%= link_to "#{t('.quantity_of_orders')} (#{user.orders.size})", orders_path(user_id: user.id) %>
+          <% user.orders.reverse.first(5).each do |order|  %>
+            <div><%= link_to "#{t('.date')}: #{order.created_at.strftime("%d/%m/%Y %k:%M")} # #{t('.cost')}: #{order.cost}", order_path(order) %></div>
+          <% end %>
+        <% else %>
+          <%= t('.no_order') %>
+        <% end %>
+      </div>
+      <div class="user_block">
+        <%= button_to t('.block_account'), user_update_path(user), params: {set_user_role: :blocked}, form: { data: { confirm: t('.confirmation') } }, method: :put %>
+      </div>
+      <hr>
+      <%== render partial: 'shared/pagy_nav', locals: {pagy: @pagy} %>
+    <% end %>
+  </div>
+<% end %>
 
-</div>
 
 

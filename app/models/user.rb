@@ -37,63 +37,28 @@ class User < ApplicationRecord
     #   order_created_at: '',
     # }
     if search
-      
-      search['created_at_from(1i)'] == '' ? year_from = (Time.now - 20.years).year :
-      year_from = search['created_at_from(1i)'].to_i
-      search['created_at_from(2i)'] == '' ? month_from = 1 : month_from = search['created_at_from(2i)'].to_i
-      if search['created_at_from(3i)'] == ''
-        date_from = Date.new(year_from, month_from, 1)
-      else
-        if search['created_at_from(3i)'].to_i > Date.new(year_from, month_from, 1).next_month.prev_day.day
-          date_from = Date.new(year_from, month_from, 1).next_month.prev_day
-        else
-          date_from = Date.new(year_from, month_from, search['created_at_from(3i)'].to_i)
-        end
-        # binding.pry
+      date_to = date_conv('to', search['created_at_to(1i)'],
+                                search['created_at_to(2i)'],
+                                search['created_at_to(3i)'])
+      date_from = date_conv('from', search['created_at_from(1i)'],
+                                    search['created_at_from(2i)'],
+                                    search['created_at_from(3i)'])
+      if  search['order_created_at_to(1i)'] != '' ||
+          search['order_created_at_to(2i)'] != '' ||
+          search['order_created_at_to(3i)'] != '' ||
+          search['order_created_at_from(1i)'] != '' ||
+          search['order_created_at_from(2i)'] != '' ||
+          search['order_created_at_from(3i)'] != ''
+        order_date_to = date_conv('to', search['order_created_at_to(1i)'],
+                                        search['order_created_at_to(2i)'],
+                                        search['order_created_at_to(3i)'])
+        order_date_from = date_conv('from', search['order_created_at_from(1i)'],
+                                            search['order_created_at_from(2i)'],
+                                            search['order_created_at_from(3i)'])
       end
-
-      search['created_at_to(1i)'] == '' ? year_to = Time.now.year : year_to = search['created_at_to(1i)'].to_i
-      search['created_at_to(2i)'] == '' ? month_to = Time.now.month : month_to = search['created_at_to(2i)'].to_i
-      if search['created_at_to(3i)'] == ''
-        date_to = Date.new(year_to, month_to, 1).next_month.prev_day
-      else
-        if search['created_at_to(3i)'].to_i > Date.new(year_to, month_to, 1).next_month.prev_day.day
-          date_to = Date.new(year_to, month_to, 1).next_month.prev_day
-        else
-          date_to = Date.new(year_to, month_to, search['created_at_from(3i)'].to_i)
-        end
-      end
-
-      
-      search['order_created_at_from(1i)'] == '' ? year_from = (Time.now - 20.years).year :
-                                                  year_from = search['order_created_at_from(1i)'].to_i
-      search['order_created_at_from(2i)'] == '' ? month_from = 1 : month_from = search['order_created_at_from(2i)'].to_i
-      if search['order_created_at_from(3i)'] == ''
-        order_date_from = Date.new(year_from, month_from, 1)
-      else
-        if search['order_created_at_from(3i)'].to_i > Date.new(year_from, month_from, 1).next_month.prev_day.day
-          order_date_from = Date.new(year_from, month_from, 1).next_month.prev_day
-        else
-          order_date_from = Date.new(year_from, month_from, search['order_created_at_from(3i)'].to_i)
-        end
-        # binding.pry
-      end
-
-      search['order_created_at_to(1i)'] == '' ? year_to = Time.now.year : year_to = search['order_created_at_to(1i)'].to_i
-      search['order_created_at_to(2i)'] == '' ? month_to = Time.now.month : month_to = search['order_created_at_to(2i)'].to_i
-      if search['order_created_at_to(3i)'] == ''
-        order_date_to = Date.new(year_to, month_to, 1).next_month.prev_day
-      else
-        if search['order_created_at_to(3i)'].to_i > Date.new(year_to, month_to, 1).next_month.prev_day.day
-          order_date_to = Date.new(year_to, month_to, 1).next_month.prev_day
-        else
-          order_date_to = Date.new(year_to, month_to, search['order_created_at_from(3i)'].to_i)
-        end
-      end
-
       sort_key = search[:sort].split.first.to_sym
       sort_order = search[:sort].split.last.upcase.to_sym
-
+      
       users = eager_load(:orders, :roles)
               .left_outer_joins(:roles, :orders)
               .where('roles.name LIKE ?', "%#{search[:role]}%")
@@ -101,7 +66,7 @@ class User < ApplicationRecord
               .where(created_at: (date_from..date_to))
               .distinct
       users = users.where(orders: { created_at: (order_date_from..order_date_to) }) unless order_date_to.nil?
-      users = users.order(sort_key => sort_order) if search[:sort]
+      users.order(sort_key => sort_order) if search[:sort]
     else
       left_outer_joins(:roles, :orders).includes(:orders, :roles).order(id: :desc).distinct
     end
@@ -155,4 +120,25 @@ class User < ApplicationRecord
     add_role :admin if (role.name == 'admin') && no_admin?
   end
 
+  def self.date_conv (direction, year, month, day)
+    if direction == 'from'
+      year = year == '' ? (Time.now - 20.years).year : year.to_i
+      month = month == '' ? 1 : month.to_i
+      if day == ''
+        Date.new(year, month, 1)
+      elsif day.to_i > Date.new(year, month, 1).next_month.prev_day.day
+        Date.new(year, month, 1).next_month.prev_day
+      else
+        Date.new(year, month, day.to_i)
+      end
+    else
+      year = year == '' ? Time.now.year : year.to_i
+      month = month == '' ? Time.now.month : month.to_i
+      if day != '' && day.to_i > Date.new(year, month, 1).next_month.prev_day.day
+        Date.new(year, month, day.to_i)
+      else
+        Date.new(year, month, 1).next_month.prev_day
+      end
+    end
+  end
 end
