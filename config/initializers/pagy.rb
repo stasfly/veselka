@@ -27,7 +27,7 @@ Pagy::DEFAULT[:items]  = 10                                 # default
 # Pagy::DEFAULT[:fragment]   = '#fragment'                     # example
 # Pagy::DEFAULT[:link_extra] = 'data-remote="true"'            # example
 # Pagy::DEFAULT[:i18n_key]   = 'pagy.item_name'                # default
-Pagy::DEFAULT[:cycle]      = true                            # example
+Pagy::DEFAULT[:cycle]      = false                            # example
 # Pagy::DEFAULT[:request_path] = "/foo"                        # example
 
 
@@ -74,7 +74,7 @@ Pagy::DEFAULT[:cycle]      = true                            # example
 
 # Countless extra: Paginate without any count, saving one query per rendering
 # See https://ddnexus.github.io/pagy/docs/extras/countless
-# require 'pagy/extras/countless'
+require 'pagy/extras/countless'
 # Pagy::DEFAULT[:countless_minimal] = false   # default (eager loading)
 
 # Elasticsearch Rails extra: Paginate `ElasticsearchRails::Results` objects

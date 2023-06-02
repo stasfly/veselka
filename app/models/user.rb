@@ -33,16 +33,15 @@ class User < ApplicationRecord
     #   "order_created_at_from(2i)" #month
     #   "order_created_at_from(1i)" #year
     #   order_email: '',
-    #   order_role: '',
     #   order_created_at: '',
     # }
     if search
       date_to = date_conv('to', search['created_at_to(1i)'],
-                                search['created_at_to(2i)'],
-                                search['created_at_to(3i)'])
+                          search['created_at_to(2i)'],
+                          search['created_at_to(3i)'])
       date_from = date_conv('from', search['created_at_from(1i)'],
-                                    search['created_at_from(2i)'],
-                                    search['created_at_from(3i)'])
+                            search['created_at_from(2i)'],
+                            search['created_at_from(3i)'])
       if  search['order_created_at_to(1i)'] != '' ||
           search['order_created_at_to(2i)'] != '' ||
           search['order_created_at_to(3i)'] != '' ||
@@ -50,15 +49,15 @@ class User < ApplicationRecord
           search['order_created_at_from(2i)'] != '' ||
           search['order_created_at_from(3i)'] != ''
         order_date_to = date_conv('to', search['order_created_at_to(1i)'],
-                                        search['order_created_at_to(2i)'],
-                                        search['order_created_at_to(3i)'])
+                                  search['order_created_at_to(2i)'],
+                                  search['order_created_at_to(3i)'])
         order_date_from = date_conv('from', search['order_created_at_from(1i)'],
-                                            search['order_created_at_from(2i)'],
-                                            search['order_created_at_from(3i)'])
+                                    search['order_created_at_from(2i)'],
+                                    search['order_created_at_from(3i)'])
       end
       sort_key = search[:sort].split.first.to_sym
       sort_order = search[:sort].split.last.upcase.to_sym
-      
+
       users = eager_load(:orders, :roles)
               .left_outer_joins(:roles, :orders)
               .where('roles.name LIKE ?', "%#{search[:role]}%")
@@ -120,7 +119,7 @@ class User < ApplicationRecord
     add_role :admin if (role.name == 'admin') && no_admin?
   end
 
-  def self.date_conv (direction, year, month, day)
+  def self.date_conv(direction, year, month, day)
     if direction == 'from'
       year = year == '' ? (Time.now - 20.years).year : year.to_i
       month = month == '' ? 1 : month.to_i

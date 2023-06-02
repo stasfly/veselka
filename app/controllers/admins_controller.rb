@@ -3,14 +3,11 @@
 class AdminsController < ApplicationController
   before_action :authorize_user, only: %i[show edit update destroy]
   def show
-    # binding.pry
     user
   end
 
   def index
-    # binding.pry
-    @pagy, @users = pagy(User.user_search(params[:search]), items: (params[:items] || 6))
-    # @users = User.user_search(params[:search]) # || users
+    @pagy, @users = pagy(User.user_search(params[:search]&.permit!), items: 6)
     authorize current_user.nil? ? User.new : current_user
   end
 
@@ -49,7 +46,7 @@ class AdminsController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit({ role_ids: [] }, :search, :email, :password,
+    params.require(:user).permit({ role_ids: [] }, :search, :email, :password, :locale,
                                  :password_confirmation, unconfirmed_email: nil)
   end
 end

@@ -1,5 +1,4 @@
-<hr>
-<div class="users">
+<%= turbo_stream.append :users do %>
   <% @users.each do |user| %>
     <ul class="user_info">
       <li><%= "Id/email: #{user.id}/#{user.email}" %></li>
@@ -22,3 +21,11 @@
     </div>
     <hr>
   <% end %>
+<% end %>
+
+<% if @pagy.next.present?%>
+  <%= turbo_stream.replace :pagination do %>
+    <%= turbo_frame_tag :pagination, loading: :lazy, src: users_path(format: :turbo_stream, page: @pagy.next, search: params[:search]&.to_unsafe_h) %>
+  <% end %>
+<% end %>
+  
