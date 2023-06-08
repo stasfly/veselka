@@ -19,6 +19,31 @@ class Order < ApplicationRecord
     Hash.new(order:, product_details:)
   end
 
+  def self.order_search(search = nil)
+    if search
+      order_date_to   = date_conv('to', search['order_created_at_to(1i)'],
+                                  search['order_created_at_to(2i)'],
+                                  search['order_created_at_to(3i)'])
+      order_date_from = date_conv('from', search['order_created_at_from(1i)'],
+                                  search['order_created_at_from(2i)'],
+                                  search['order_created_at_from(3i)'])
+      sort_key    = sort_key_order(search[:sort])[:key]
+      sort_order  = sort_key_order(search[:sort])[:order]
+
+      cost_from = search[:cost_from]  == '' ? 0 : search[:cost_from]
+      cost_to   = search[:cost_to]    == '' ? 1_000_000_000_000 : search[:cost_to]
+      # binding.pry
+      Order.includes(:user).joins(:user)
+           .where('users.email LIKE ?', "%#{search[:email]}%")
+           .where('cost BETWEEN ? AND ?', cost_from, cost_to)
+           .where(created_at: (order_date_from..order_date_to))
+           .distinct
+           .order(sort_key => sort_order)
+    else
+      Order.includes(:user).order(created_at: :desc).distinct
+    end
+  end
+
   private
 
   def cart_order_transaction

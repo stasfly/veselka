@@ -1,0 +1,13 @@
+<%= turbo_stream.append :orders do %>
+  <% @orders.map do |order| %>
+   <div>
+     <%= link_to ("#{order.id} | #{order.created_at.strftime("%d/%m/%Y %k:%M")} | #{order.cost} | #{order.user.email}"), order_path(order) %>
+   </div>
+  <% end %>
+<% end %>
+
+<% if @pagy.next.present?%>
+  <%= turbo_stream.replace :pagination do %>
+    <%= turbo_frame_tag :pagination, loading: :lazy, src: orders_path(format: :turbo_stream, page: @pagy.next, search: params[:search]&.to_unsafe_h) %>
+  <% end %>
+<% end %>

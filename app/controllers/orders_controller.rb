@@ -2,17 +2,16 @@
 
 class OrdersController < ApplicationController
   def index
-    @orders = if params[:user_id].nil?
-                policy_scope(Order).order(created_at: :desc)
-              else
-                Order.where(user_id: params[:user_id])
-              end
+    @pagy, @orders = if params[:user_id].nil?
+                       pagy(policy_scope(Order.order_search(params[:search]&.permit!)), items: 10)
+                     else
+                       pagy(Order.where(user_id: params[:user_id]).order(created_at: :desc), items: 5)
+                     end
     authorize @orders
   end
 
   def show
-    @order = order[:order][:order]
-    @product_details = order[:order][:product_details]
+    order
     authorize @order
   end
 
@@ -29,7 +28,9 @@ class OrdersController < ApplicationController
   private
 
   def order
-    order ||= Order.order_details(params[:id])
+    order_hash ||= Order.order_details(params[:id])
+    @order = order_hash[:order][:order]
+    @product_details = order_hash[:order][:product_details]
   end
 
   def order_params

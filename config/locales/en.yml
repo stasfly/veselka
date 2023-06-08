@@ -70,23 +70,29 @@ en:
     sign_out: 'log out'
     sign_up: 'sign up'
     search: 'Search'
-#                                @@@@@   views  @@@@@     
+#                                @@@@@   search form   @@@@@    
+  search_form:
+    search_by_email: 'Search by email'
+    select_role: 'Select role'
+    search_by_role: 'Search by role'
+    user_date_range: 'User date range'
+    order_date_range: 'Order date range'
+    to: 'To:'
+    from: 'From:'
+    user_orders_value_range: "User's orders total amount"
+    sort: "Result's order by:"
+    sort_email: "email"
+    sort_registration: "registration"
+    sort_cost: 'Order cost'
+    search_by_order_cost_from: 'Cost from'
+    search_by_order_cost_to: 'Cost to'
+#                                @@@@@   views   @@@@@     
   admins:
     edit:
       user: 'User: '
       update_roles: 'Update roles'
     index:
-      search_by_email: 'Search by email'
-      select_role: 'Select role'
-      search_by_role: 'Search by role'
-      user_date_range: 'User date range'
-      order_date_range: 'Order date range'
-      to: 'To:'
-      from: 'From:'
-      user_orders_value_range: "User's orders total amount"
-      sort: "Result's order by:"
-      sort_email: "email"
-      sort_registration: "registration"
+      
       sort_order: "order"
       created_at: 'Created_at'
       date: 'date'

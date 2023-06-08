@@ -4,37 +4,37 @@
 
 <%= form_for users_path, data: { turbo_frame: :results }, method: :get do %>
   <%= fields_for 'search' do |search_form| %>
-    <div><%= search_form.search_field :email,  placeholder: t('.search_by_email'),
+    <div><%= search_form.search_field :email,  placeholder: t('search_form.search_by_email'),
                           oninput: 'this.form.requestSubmit()', autofocus: true, autocomplete: 'off' %></div>
     <div>
-      <%= search_form.label :role, t('.search_by_role') %>
-      <%= search_form.select(:role, Role.all.collect { |role| role.name}, { include_blank: t('.select_role') }) %>
+      <%= search_form.label :role, t('search_form.search_by_role') %>
+      <%= search_form.select(:role, Role.all.collect { |role| role.name}, { include_blank: t('search_form.select_role') }) %>
     </div>
-    <div><%= t('.user_date_range') %></div>
+    <div><%= t('search_form.user_date_range') %></div>
     <div>
-      <%= search_form.label :created_at_to, t('.to') %>
+      <%= search_form.label :created_at_to, t('search_form.to') %>
       <%= search_form.date_select :created_at_to, include_blank: true %>
     </div>
     <div>
-      <%= search_form.label :created_at_from, t('.from') %>
+      <%= search_form.label :created_at_from, t('search_form.from') %>
       <%= search_form.date_select :created_at_from, include_blank: true %>
     </div>
-    <div><%= t('.order_date_range') %></div>
+    <div><%= t('search_form.order_date_range') %></div>
     <div>
-      <%= search_form.label :order_created_at_to, t('.to') %>
+      <%= search_form.label :order_created_at_to, t('search_form.to') %>
       <%= search_form.date_select :order_created_at_to, include_blank: true %>
     </div>
     <div>
-      <%= search_form.label :order_created_at_from, t('.from') %>
+      <%= search_form.label :order_created_at_from, t('search_form.from') %>
       <%= search_form.date_select :order_created_at_from, include_blank: true %>
     </div>
     <div>
-      <%= search_form.label :sort, t('.sort') %>
+      <%= search_form.label :sort, t('search_form.sort') %>
       <div>
-        <%= search_form.label :sort_email, t('.sort_email') %>
+        <%= search_form.label :sort_email, t('search_form.sort_email') %>
         <%= search_form.radio_button :sort, 'email asc', checked: 'checked' %>
         <%= search_form.radio_button :sort, 'email desc' %>
-        <%= search_form.label :sort_reg, t('.sort_registration') %>
+        <%= search_form.label :sort_reg, t('search_form.sort_registration') %>
         <%= search_form.radio_button :sort, 'created_at asc' %>
         <%= search_form.radio_button :sort, 'created_at desc' %>
         

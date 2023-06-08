@@ -55,8 +55,9 @@ class User < ApplicationRecord
                                     search['order_created_at_from(2i)'],
                                     search['order_created_at_from(3i)'])
       end
-      sort_key = search[:sort].split.first.to_sym
-      sort_order = search[:sort].split.last.upcase.to_sym
+
+      sort_key    = sort_key_order(search[:sort])[:key]
+      sort_order  = sort_key_order(search[:sort])[:order]
 
       users = eager_load(:orders, :roles)
               .left_outer_joins(:roles, :orders)
@@ -119,25 +120,25 @@ class User < ApplicationRecord
     add_role :admin if (role.name == 'admin') && no_admin?
   end
 
-  def self.date_conv(direction, year, month, day)
-    if direction == 'from'
-      year = year == '' ? (Time.now - 20.years).year : year.to_i
-      month = month == '' ? 1 : month.to_i
-      if day == ''
-        Date.new(year, month, 1)
-      elsif day.to_i > Date.new(year, month, 1).next_month.prev_day.day
-        Date.new(year, month, 1).next_month.prev_day
-      else
-        Date.new(year, month, day.to_i)
-      end
-    else
-      year = year == '' ? Time.now.year : year.to_i
-      month = month == '' ? Time.now.month : month.to_i
-      if day != '' && day.to_i > Date.new(year, month, 1).next_month.prev_day.day
-        Date.new(year, month, day.to_i)
-      else
-        Date.new(year, month, 1).next_month.prev_day
-      end
-    end
-  end
+  # def self.date_conv(direction, year, month, day)
+  #   if direction == 'from'
+  #     year = year == '' ? (Time.now - 20.years).year : year.to_i
+  #     month = month == '' ? 1 : month.to_i
+  #     if day == ''
+  #       Date.new(year, month, 1)
+  #     elsif day.to_i > Date.new(year, month, 1).next_month.prev_day.day
+  #       Date.new(year, month, 1).next_month.prev_day
+  #     else
+  #       Date.new(year, month, day.to_i)
+  #     end
+  #   else
+  #     year = year == '' ? Time.now.year : year.to_i
+  #     month = month == '' ? Time.now.month : month.to_i
+  #     if day != '' && day.to_i > Date.new(year, month, 1).next_month.prev_day.day
+  #       Date.new(year, month, day.to_i)
+  #     else
+  #       Date.new(year, month, 1).next_month.prev_day
+  #     end
+  #   end
+  # end
 end
