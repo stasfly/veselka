@@ -26,7 +26,7 @@
         <div class="sidebar-container">
           <div id="categories"><%= link_to 'All items', products_path %></div>
           <% ProductCategory.all.map do |product_category| %>
-            <div class="category"><%= link_to "#{product_category.name}", products_path(query: {product_category_id: product_category.id }) %></div>
+            <div class="category"><%= link_to "#{product_category.name}", products_path(category_id: {product_category_id: product_category.id }) %></div>
           <% end %>
           <% if current_user != nil %>
             <div><%= link_to 'Cart', cart_path(current_user.cart.id) %></div>

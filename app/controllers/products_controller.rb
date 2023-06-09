@@ -6,13 +6,19 @@ class ProductsController < ApplicationController
   before_action :authorize_product, only: %i[edit]
 
   def index
-    if params[:query].nil?
-      products
-      @products
-    else
-      @products = Product.includes(:product_category, :product_inventory, [:images_attachments])
-                         .where(product_category_id: params[:query][:product_category_id].to_i).order('id ASC')
-    end
+    # binding.pry
+    @category_id = if params[:category_id]
+                     params[:category_id][:product_category_id]
+                   elsif params[:search] && params[:search][:preserved_category_id]
+                     params[:search][:preserved_category_id]
+                   end
+    params[:search][:preserved_category_id] = @category_id if params[:search]
+    @products = Product.product_search(params[:search])
+    # @products = Product.includes(:product_inventory, [:images_attachments])#.with_attached_images
+    # products
+    # @products
+    # @products = Product.includes(:product_inventory, [:images_attachments]).order('id ASC')
+    # .where(product_category_id: params[:category_id][:product_category_id].to_i).order('id ASC')
     @cart_item = CartItem.new
     @products_in_cart = current_user.nil? ? [] : Product.products_in_cart(current_user.id)
   end
@@ -77,7 +83,7 @@ class ProductsController < ApplicationController
   private
 
   def products
-    @products = Product.includes(:product_category, :product_inventory, [:images_attachments]).with_attached_images
+    @products = Product.includes(:product_category, :product_inventory, [:images_attachments]) # .with_attached_images
   end
 
   def product_categories

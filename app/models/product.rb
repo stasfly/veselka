@@ -19,6 +19,26 @@ class Product < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_one :product_inventory, dependent: :destroy
 
+  def self.product_search(search)
+    if search
+      sort_key    = sort_key_order(search[:sort])[:key]
+      sort_order  = sort_key_order(search[:sort])[:order]
+
+      cost_from = search[:cost_from]  == '' ? 0 : search[:cost_from]
+      cost_to   = search[:cost_to]    == '' ? 1_000_000_000_000 : search[:cost_to]
+      product = Product.includes(:product_inventory, [:images_attachments]) # .joins(:user)
+                       .where('name LIKE ?', "%#{search[:name]}%")
+                       .where('price BETWEEN ? AND ?', cost_from, cost_to)
+                       .distinct
+                       .order(sort_key => sort_order)
+      # binding.pry
+      product.where(product_category_id: search[:preserved_category_id]) unless search[:preserved_category_id].blank?
+      product
+    else
+      Product.includes(:product_inventory, [:images_attachments]).order(created_at: :desc).distinct
+    end
+  end
+
   def self.products_in_cart(user_id)
     user = User.includes(cart: :cart_items).where(id: user_id).sample
     products_in_cart = []

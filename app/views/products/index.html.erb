@@ -1,4 +1,38 @@
 <h1> <%= t('.title') %> </h1>
+<div>
+  <%= form_for products_path, data: { turbo_frame: :results }, method: :get do %>
+    <%= fields_for 'search' do |search_form| %>
+      <div><%= search_form.search_field :name,  placeholder: t('search_form.search_by_name'),
+                            oninput: 'this.form.requestSubmit()', autofocus: true, autocomplete: 'off' %>
+      </div>
+      <div>
+        <%= search_form.search_field :cost_from,   placeholder: t('search_form.search_by_order_cost_from'),
+                            oninput: 'this.form.requestSubmit()', autofocus: false, autocomplete: 'off' %>
+        <span> - </span>
+        <%= search_form.search_field :cost_to,     placeholder: t('search_form.search_by_order_cost_to'),
+                            oninput: 'this.form.requestSubmit()', autofocus: false, autocomplete: 'off' %>
+      </div>
+      <div>
+        <%= search_form.label :sort, t('search_form.sort') %>
+        <div>
+          <%= search_form.label :sort_name, t('search_form.sort_name'), oninput: 'this.form.requestSubmit()' %>
+          <%= search_form.radio_button :sort, 'name asc', checked: 'checked', oninput: 'this.form.requestSubmit()' %>
+          <%= search_form.radio_button :sort, 'name desc', oninput: 'this.form.requestSubmit()' %>
+          <%= search_form.label :sort_reg, t('search_form.sort_registration') %>
+          <%= search_form.radio_button :sort, 'created_at asc', oninput: 'this.form.requestSubmit()' %>
+          <%= search_form.radio_button :sort, 'created_at desc', oninput: 'this.form.requestSubmit()' %>
+          <%= search_form.label :sort_cost, t('search_form.sort_cost') %>
+          <%= search_form.radio_button :sort, 'price asc', oninput: 'this.form.requestSubmit()' %>
+          <%= search_form.radio_button :sort, 'price desc', oninput: 'this.form.requestSubmit()' %>
+        </div>
+
+      </div>
+      <%= search_form.hidden_field :preserved_category_id, value: @category_id %>
+    <% end %>
+    <%= button_tag t('buttons.search') %>
+  <% end %>
+</div>
+<% (!current_user.nil? && (current_user.has_role? :admin)) ? current_admin = true : current_admin = false %>
 <div class="product-index">
   <% @products.each do |product| %>
     <div class="product-item">
@@ -8,45 +42,22 @@
         <% end %>
       </div>
       <div class="item-description">
-        <div class="item-name"><%= link_to(product.name, product_path(product)) %></div>
-        <div class="item-code"><%= link_to "#{t(".product_sku")}: #{product.sku}", product_path(product)%></div>
+        <div class="item-name"><%= link_to("#{product.name} /#{product.sku}/", product_path(product)) %></div>
         <div class="item-code"><%= link_to "#{t(".product_price")}: #{product.price}", product_path(product)%></div>
-        <div class="item-code"><%= link_to "#{t(".product_category")}: #{product.product_category_id}", product_path(product)%></div>
-        <% @products_in_cart.include?(product.id) ? products_in_cart = true : products_in_cart = false %>
-        <%= render 'cart_item_form', products_in_cart: products_in_cart, product: product %>
-        
+        <div class="item-cart">
+          <% @products_in_cart.include?(product.id) ? products_in_cart = true : products_in_cart = false %>
+          <%= render 'cart_item_form', products_in_cart: products_in_cart, product: product %>
+        </div>
+      </div>
+      <div>
+        <% if current_admin %>
+          <%= link_to(t('buttons.edit'), edit_product_path(product)) %>
+          <%= link_to(t('buttons.delete'), product_path(product), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %>
+        <% end %>
       </div>
     </div>
   <% end %>
 </div>
 <div>
-  <table>
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Prod.Code</th>
-        <th>Prod.Cat</th>
-        <th>Descr.</th>
-        <th>Show</th>
-        <th></th>
-      </tr>
-    </thead>
-    <% (!current_user.nil? && (current_user.has_role? :admin)) ? current_admin = true : current_admin = false %>
-    <% @products.each do |product| %>
-      <tbody>
-        <td><%= product.id %></td>
-        <td><%= product.name %></td>
-        <td><%= product.sku %></td>
-        <td><%= product.product_category.name %></td>
-        <td><%= product.description %></td>
-        <td><%= link_to(t('buttons.show'), product_path(product)) %></td>
-        <% if current_admin %>
-          <td><%= link_to(t('buttons.edit'), edit_product_path(product)) %></td>
-          <td><%= link_to(t('buttons.delete'), product_path(product), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %></td>
-        <% end %>
-      </tbody>
-    <% end %>
-  </table>
   <div><%= link_to(t('buttons.new'), new_product_path) if policy(Product).index?  %></div>
 </div>
