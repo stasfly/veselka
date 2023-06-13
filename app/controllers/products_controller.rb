@@ -6,19 +6,8 @@ class ProductsController < ApplicationController
   before_action :authorize_product, only: %i[edit]
 
   def index
-    # binding.pry
-    @category_id = if params[:category_id]
-                     params[:category_id][:product_category_id]
-                   elsif params[:search] && params[:search][:preserved_category_id]
-                     params[:search][:preserved_category_id]
-                   end
-    params[:search][:preserved_category_id] = @category_id if params[:search]
-    @products = Product.product_search(params[:search])
-    # @products = Product.includes(:product_inventory, [:images_attachments])#.with_attached_images
-    # products
-    # @products
-    # @products = Product.includes(:product_inventory, [:images_attachments]).order('id ASC')
-    # .where(product_category_id: params[:category_id][:product_category_id].to_i).order('id ASC')
+    category_id
+    @pagy, @products = pagy(Product.product_search(params[:search]&.permit!), items: 6)
     @cart_item = CartItem.new
     @products_in_cart = current_user.nil? ? [] : Product.products_in_cart(current_user.id)
   end
@@ -26,7 +15,7 @@ class ProductsController < ApplicationController
   def show
     @cart_item = CartItem.new(product_id: product.id, cart_id: current_user.cart.id) unless current_user.nil?
     product_inventory
-    @product_in_cart = Product.products_in_cart(current_user.id).include?(product.id)
+    @product_in_cart = Product.products_in_cart(current_user.id).include?(product.id) unless current_user.nil?
   end
 
   def new
@@ -104,6 +93,15 @@ class ProductsController < ApplicationController
 
   def authorize_product
     authorize @product
+  end
+
+  def category_id
+    if params[:product_category_id]
+      @category_id = params[:product_category_id]
+      params[:search][:product_category_id] = params[:product_category_id] if params[:search]
+    elsif params[:search] && params[:search][:product_category_id]
+      @category_id = params[:search][:product_category_id]
+    end
   end
 
   def product_params

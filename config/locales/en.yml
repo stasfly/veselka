@@ -72,6 +72,7 @@ en:
     search: 'Search'
 #                                @@@@@   search form   @@@@@    
   search_form:
+    search_by_name: "Search by name"
     search_by_email: 'Search by email'
     select_role: 'Select role'
     search_by_role: 'Search by role'
@@ -81,6 +82,7 @@ en:
     from: 'From:'
     user_orders_value_range: "User's orders total amount"
     sort: "Result's order by:"
+    sort_name: "By name"
     sort_email: "email"
     sort_registration: "registration"
     sort_cost: 'Order cost'

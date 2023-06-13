@@ -26,6 +26,7 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def self.sort_key_order(key_order_query = 'created_at desc')
+    key_order_query = 'created_at desc' if key_order_query.nil?
     { key: key_order_query.split.first.to_sym, order: key_order_query.split.last.upcase.to_sym }
   end
 end

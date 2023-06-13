@@ -24,6 +24,8 @@ class Product < ApplicationRecord
       sort_key    = sort_key_order(search[:sort])[:key]
       sort_order  = sort_key_order(search[:sort])[:order]
 
+      search[:cost_from] ||= ''
+      search[:cost_to] ||= ''
       cost_from = search[:cost_from]  == '' ? 0 : search[:cost_from]
       cost_to   = search[:cost_to]    == '' ? 1_000_000_000_000 : search[:cost_to]
       product = Product.includes(:product_inventory, [:images_attachments]) # .joins(:user)
@@ -31,8 +33,9 @@ class Product < ApplicationRecord
                        .where('price BETWEEN ? AND ?', cost_from, cost_to)
                        .distinct
                        .order(sort_key => sort_order)
-      # binding.pry
-      product.where(product_category_id: search[:preserved_category_id]) unless search[:preserved_category_id].blank?
+      unless search[:product_category_id].blank?
+        product = product.where(product_category_id: search[:product_category_id])
+      end
       product
     else
       Product.includes(:product_inventory, [:images_attachments]).order(created_at: :desc).distinct
