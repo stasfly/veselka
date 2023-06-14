@@ -5,6 +5,10 @@ module Users
     before_action :configure_sign_in_params, only: [:create]
 
     # GET /resource/sign_in
+    def new
+      add_breadcrumb I18n.t('breadcrumbs.sign_in'), new_user_session_path
+      super
+    end
 
     # POST /resource/sign_in
     def create

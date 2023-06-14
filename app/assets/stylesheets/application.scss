@@ -20,6 +20,22 @@ body {
   font-size: 1.2em;
 }
 
+.breadcrumbs {
+  color: $color1;
+  font-size: 1.0em;
+  border: 2px, solid, green;
+  text-align: left;
+  margin-left: 15%;
+  
+  & a {
+    color: black;
+    &:hover {
+      color: $color5;
+      font-weight: bold;
+    }
+  }
+}
+
 .header-msg-container {
   background-color: $back3;
   color: $color4;

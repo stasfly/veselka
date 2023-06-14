@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action { @pagy_locale = params[:locale] }
 
+  add_breadcrumb I18n.t('breadcrumbs.home'), :root_path
+
   def extract_locale
     parsed_locale = params[:locale]
     I18n.available_locales.map(&:to_s).include?(parsed_locale) ? parsed_locale : nil

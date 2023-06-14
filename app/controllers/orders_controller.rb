@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
+  add_breadcrumb I18n.t('breadcrumbs.orders'), :orders_path, only: %i[index show]
+
   def index
     @pagy, @orders = if params[:user_id].nil?
                        pagy(policy_scope(Order.order_search(params[:search]&.permit!)), items: 10)
@@ -12,6 +14,7 @@ class OrdersController < ApplicationController
 
   def show
     order
+    add_breadcrumb @order.id, order_path
     authorize @order
   end
 

@@ -70,6 +70,15 @@ uk:
     sign_out: 'Вийти'
     sign_up: 'Зареєструватись'
     search: 'Пошук'
+#                                @@@@@   bread_crumbs   @@@@@    
+  breadcrumbs:
+    cart: 'кошик'
+    home: 'Головна'
+    orders: 'Замовлення'
+    products: 'Товари'
+    registration: 'Реєстрація'
+    sign_in: 'Вхід'
+    users: 'Користувачі'
 #                                @@@@@   search form   @@@@@    
   search_form:
     search_by_name: "Пошук за назвою товару"

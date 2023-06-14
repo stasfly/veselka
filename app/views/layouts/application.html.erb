@@ -17,7 +17,7 @@
         <% if flash.any? %>
           <%= render 'shared/messages' %>
         <% else %>
-         <%= 'Important information!' %>
+         <div class="breadcrumbs"><%= render_breadcrumbs :separator => ' / ' %></div>
         <% end %>
         <% render 'shared/messages' %>
       </div>

@@ -70,6 +70,15 @@ en:
     sign_out: 'log out'
     sign_up: 'sign up'
     search: 'Search'
+#                                @@@@@   bread_crumbs   @@@@@    
+  breadcrumbs:
+    cart: 'cart'
+    home: 'home'
+    orders: 'orderc'
+    products: 'products'
+    registration: 'registration'
+    sign_in: 'sign_in'
+    users: 'users'
 #                                @@@@@   search form   @@@@@    
   search_form:
     search_by_name: "Search by name"
