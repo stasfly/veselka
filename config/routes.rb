@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    resources :product_categories
     resources :cart_items, only: [:create, :update, :destroy]
     resources :carts, only: [:show]
     resources :orders, only: [:index, :show, :create]
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
       registrations:  'users/registrations',
       sessions:       'users/sessions'
     }
-    root "products#index"
+    root "product_categories#index"
     resources :products do
       member do
         delete :purge_one_attachment

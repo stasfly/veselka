@@ -119,26 +119,4 @@ class User < ApplicationRecord
   def last_admin_remove_protection(role)
     add_role :admin if (role.name == 'admin') && no_admin?
   end
-
-  # def self.date_conv(direction, year, month, day)
-  #   if direction == 'from'
-  #     year = year == '' ? (Time.now - 20.years).year : year.to_i
-  #     month = month == '' ? 1 : month.to_i
-  #     if day == ''
-  #       Date.new(year, month, 1)
-  #     elsif day.to_i > Date.new(year, month, 1).next_month.prev_day.day
-  #       Date.new(year, month, 1).next_month.prev_day
-  #     else
-  #       Date.new(year, month, day.to_i)
-  #     end
-  #   else
-  #     year = year == '' ? Time.now.year : year.to_i
-  #     month = month == '' ? Time.now.month : month.to_i
-  #     if day != '' && day.to_i > Date.new(year, month, 1).next_month.prev_day.day
-  #       Date.new(year, month, day.to_i)
-  #     else
-  #       Date.new(year, month, 1).next_month.prev_day
-  #     end
-  #   end
-  # end
 end

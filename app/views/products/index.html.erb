@@ -37,7 +37,7 @@
 <% search_params[:product_category_id] = params[:product_category_id] if params[:product_category_id] %>
 
 <hr>
-<%= turbo_frame_tag :results, data: { turbo_action: 'advsnce' } do %>
+<%= turbo_frame_tag :results, data: { turbo_action: 'advance' } do %>
   <div id="products"></div>
   
   <%= turbo_frame_tag :pagination, loading: :lazy, src: products_path(format: :turbo_stream, search: search_params) %>

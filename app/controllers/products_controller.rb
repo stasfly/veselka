@@ -2,14 +2,15 @@
 
 class ProductsController < ApplicationController
   before_action :product_categories, only: %i[new edit]
-  before_action :product, only: %i[show edit edit destroy]
+  before_action :product, only: %i[show edit update destroy]
   before_action :authorize_product, only: %i[edit]
 
-  add_breadcrumb I18n.t('breadcrumbs.products'), :products_path, only: %i[index show]
+  add_breadcrumb I18n.t('breadcrumbs.products'), :product_categories_path, only: %i[index show new edit]
 
   def index
+    # binding.pry
     category_id
-    @pagy, @products = pagy(Product.product_search(params[:search]&.permit!), items: 6)
+    @pagy, @products = pagy(Product.product_search(params[:search]&.permit!), items: 3)
     @cart_item = CartItem.new
     @products_in_cart = current_user.nil? ? [] : Product.products_in_cart(current_user.id)
     product_category_bread_crumb
@@ -19,12 +20,15 @@ class ProductsController < ApplicationController
     @cart_item = CartItem.new(product_id: product.id, cart_id: current_user.cart.id) unless current_user.nil?
     product_inventory
     @product_in_cart = Product.products_in_cart(current_user.id).include?(product.id) unless current_user.nil?
-    add_breadcrumb @product.product_category.name, products_path
+    add_breadcrumb @product.product_category.name,
+                   product_category_path(@product.product_category_id,
+                                         product_category_id: @product.product_category_id)
     add_breadcrumb @product.name, product_path
   end
 
   def new
     @product = Product.new
+    add_breadcrumb I18n.t('breadcrumbs.product_new'), new_product_path
     authorize_product
   end
 
@@ -44,7 +48,8 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = Product.find(params[:id])
+    # binding.pry
+    # @product = Product.find(params[:id])
     authorize_product
     if product.update(product_params)
       product_inventory = ProductInventory.find_by(product_id: @product.id)

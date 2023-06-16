@@ -69,6 +69,7 @@ uk:
     sign_in: 'Увійти'
     sign_out: 'Вийти'
     sign_up: 'Зареєструватись'
+    link_to_index: 'Повернутись до каталогу товарів'
     search: 'Пошук'
 #                                @@@@@   bread_crumbs   @@@@@    
   breadcrumbs:
@@ -79,6 +80,9 @@ uk:
     registration: 'Реєстрація'
     sign_in: 'Вхід'
     users: 'Користувачі'
+    product_new: 'Нова одиниця товару'
+    product_category_new: 'Створити новий каталог'
+    product_category_edit: 'Рудагування каталогу'
 #                                @@@@@   search form   @@@@@    
   search_form:
     search_by_name: "Пошук за назвою товару"
@@ -134,6 +138,8 @@ uk:
       no_item_in_the_cart: 'Жодної позиції у кошику' 
       put_at_least_one_item: 'Замовте принаймні одну позицію' 
   layouts:
+    application:
+      categories: 'Каталог товарів'
   order_mailer:
     incoming_order:
       new_order_from: 'Замовлення від: '
@@ -187,7 +193,11 @@ uk:
       product_scu: 'Код товару: '
       product_price: 'Ціна: '
       description: 'Опис товару: '
-      link_to_intex: 'Повернутись до каталогу товарів'
+  product_categories:
+    index:
+      add_new_category: 'Додати нову категорію'
+    new:
+      title: 'Додати новий каталог'
   shared:
     header:
       about_us: "Про нас"
@@ -251,9 +261,14 @@ uk:
       created: 'Замовлення успішно створено'
       error: 'Трапилась помилка, замовлення не створено' 
     products:
+      new: 'Нова одиниця товару'
       created: 'Продукт успішно створено'
       incorrect_input: 'Невірно введені дані'
       updated: 'Продукт успішно оновлено'
       destroyed: 'Продукт видалено з бази даних'
       image_destroyed: 'Зображення видалено'
       all_images_destroyed: 'Усі зображення видалено'
+    product_categories:
+      updated: 'Категорія успішно оновлена'
+      deleted: 'Категорія успішно видалена'
+      deletion_forbidden: 'Ви не можете видалити цю категорію. Вона досі містить товари'

@@ -69,6 +69,7 @@ en:
     sign_in: 'log in'
     sign_out: 'log out'
     sign_up: 'sign up'
+    link_to_index: 'Back to the index'
     search: 'Search'
 #                                @@@@@   bread_crumbs   @@@@@    
   breadcrumbs:
@@ -79,6 +80,9 @@ en:
     registration: 'registration'
     sign_in: 'sign_in'
     users: 'users'
+    product_new: 'New product'
+    product_category_new: 'New product category'
+    product_category_edit: 'Edit product category'
 #                                @@@@@   search form   @@@@@    
   search_form:
     search_by_name: "Search by name"
@@ -133,6 +137,8 @@ en:
       no_item_in_the_cart: 'No item in the cart'
       put_at_least_one_item: 'Put at least one item into the cart, please'
   layouts:
+    application:
+      categories: 'Categories'
   order_mailer:
     incoming_order:
       new_order_from: 'New order from: '
@@ -186,7 +192,11 @@ en:
       product_scu: 'SCU: '
       product_price: 'Price: '
       description: 'Description: '
-      link_to_intex: 'Back to the index'
+  product_categories:
+    index:
+      add_new_category: 'Add new caterory'
+    new:
+      title: 'Add new catalog item'
   shared:
     header:
       about_us: "About us"
@@ -250,9 +260,14 @@ en:
       created: 'Order successfully created'
       error: 'Error has been occured'
     products:
+      new: 'New item'
       created: 'Product successfully created'
       incorrect_input: 'Wrong data input'
       updated: 'Product successfully updated'
       destroyed: 'Product has been deleted'
       image_destroyed: 'Image deleted'
       all_images_destroyed: 'All images deleted'
+    product_categories:
+      updated: 'Category has been updated'
+      deleted: 'Category has been removed'
+      deletion_forbidden: 'You cannot delete this category. It still contains items!'

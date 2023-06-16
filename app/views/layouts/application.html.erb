@@ -24,9 +24,9 @@
       <div class="content-container">
         <div class="gap-3"></div>
         <div class="sidebar-container">
-          <div id="categories"><%= link_to 'All items', products_path %></div>
+          <div id="categories"><%= link_to t('.categories'), product_categories_path %></div>
           <% ProductCategory.all.map do |product_category| %>
-            <div class="category"><%= link_to "#{product_category.name}", products_path(product_category_id: product_category.id) %></div>
+            <div class="category"><%= link_to "#{product_category.name}", product_category_path(product_category, product_category_id: product_category.id) %></div>
           <% end %>
         </div>
         <div class="yield-container">

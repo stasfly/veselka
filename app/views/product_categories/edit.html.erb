@@ -1,0 +1,13 @@
+<h1>ProductCategory#edit</h1>
+<div>
+  <%= simple_form_for @product_category, data: { turbo: false } do |form| %>
+    <%= form.input :name, required: true %>
+    <%= form.input :description %>
+    <div class="btn-container">
+      <%= form.button :submit, class: 'submit-btn' %>
+    </div>
+  <% end %>
+</div>
+<div class="show-control">
+  <span><%= link_to t('buttons.back'), :back %>  |  <%= link_to t('buttons.link_to_index'), products_path %></span>
+</div>
