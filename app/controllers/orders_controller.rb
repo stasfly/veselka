@@ -4,8 +4,13 @@ class OrdersController < ApplicationController
   add_breadcrumb I18n.t('breadcrumbs.orders'), :orders_path, only: %i[index show]
 
   def index
+    # binding.pry
+    incoming_params = params.permit(:locale, :format, :page,
+                                    search: [:email, :sort, :cost_from, :cost_to,
+                                             'order_created_at_to(3i)', 'order_created_at_to(2i)', 'order_created_at_to(1i)',
+                                             'order_created_at_from(3i)', 'order_created_at_from(2i)', 'order_created_at_from(1i)'])
     @pagy, @orders = if params[:user_id].nil?
-                       pagy(policy_scope(Order.order_search(params[:search]&.permit!)), items: 10)
+                       pagy(policy_scope(Order.order_search(incoming_params[:search])), items: 10)
                      else
                        pagy(Order.where(user_id: params[:user_id]).order(created_at: :desc), items: 5)
                      end

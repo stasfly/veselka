@@ -10,7 +10,14 @@ class AdminsController < ApplicationController
   end
 
   def index
-    @pagy, @users = pagy(User.user_search(params[:search]&.permit!), items: 6)
+    # binding.pry
+    incoming_params = params.permit(:locale, :format, :page,
+                                    search: [:email, :role, :sort,
+                                             'created_at_to(3i)', 'created_at_to(2i)', 'created_at_to(1i)',
+                                             'created_at_from(3i)', 'created_at_from(2i)', 'created_at_from(1i)',
+                                             'order_created_at_to(3i)', 'order_created_at_to(2i)', 'order_created_at_to(1i)',
+                                             'order_created_at_from(3i)', 'order_created_at_from(2i)', 'order_created_at_from(1i)'])
+    @pagy, @users = pagy(User.user_search(incoming_params[:search]), items: 6)
     authorize current_user.nil? ? User.new : current_user
   end
 

@@ -8,11 +8,9 @@ class ProductsController < ApplicationController
   add_breadcrumb I18n.t('breadcrumbs.products'), :product_categories_path, only: %i[index show new edit]
 
   def index
-    # binding.pry
-    category_id
-    # incoming_params = params&.permit!
-    # @pagy, @products = pagy(Product.product_search(incoming_params[:search]), items: 3)
-    @pagy, @products = pagy(Product.product_search(params[:search]&.permit!), items: 3)
+    incoming_params = params.permit(:locale, :format, :page,
+                                    search: %i[product_category_id cost_from cost_to name sort])
+    @pagy, @products = pagy(Product.product_search(incoming_params[:search]), items: 3)
     @cart_item = CartItem.new
     @products_in_cart = current_user.nil? ? [] : Product.products_in_cart(current_user.id)
     product_category_bread_crumb
@@ -63,7 +61,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    # binding.pry
     authorize_product
     remove_to_unsort?(@product)
     redirect_to products_path(product_category_id: @product.product_category.id),
@@ -88,14 +85,12 @@ class ProductsController < ApplicationController
       prod = prods_before_update.detect { |record| record[:id] == attributes[:id].to_i }
       prod_cat = @product_categories.detect { |cat| cat[:name] == attributes[:product_category_id] }
       if attributes[:dstr].to_i == 1
-        # binding.pry
         remove_to_unsort?(prod)
       else
         prod.update(name: attributes[:name])          unless prod.name == attributes[:name]
         prod.update(sku: attributes[:sku])            unless prod.sku == attributes[:sku]
         prod.update(price: attributes[:price])        unless prod.price == attributes[:price]
         prod.update(product_category_id: prod_cat.id) unless prod.product_category_id == prod_cat.id
-        # binding.pry
         unless prod.product_inventory.quantity == attributes[:product_inventory][:quantity]
           prod.product_inventory.quantity = attributes[:product_inventory][:quantity]
           prod.save
@@ -131,16 +126,6 @@ class ProductsController < ApplicationController
     authorize @product
   end
 
-  def category_id
-    binding.pry
-    if params[:product_category_id]
-      @category_id = params[:product_category_id]
-      params[:search][:product_category_id] = params[:product_category_id] if params[:search]
-    elsif params[:search] && params[:search][:product_category_id]
-      @category_id = params[:search][:product_category_id]
-    end
-  end
-
   def product_category_bread_crumb
     if params[:product_category_id]
       crumb_name = ProductCategory.find(params[:product_category_id]).name
@@ -156,14 +141,12 @@ class ProductsController < ApplicationController
       product_item.destroy
     else
       product_item.update(product_category_id: unsorted.id)
-      # redirect_to product_category_path(product_item.product_category_id), notice: I18n.t('controllers.products.moved_to_unsorted')
     end
   end
 
   def bulk_product_params
     products = params.require(:product).permit!
     products.each do |id, attributes|
-      # binding.pry
       products[id] = attributes.permit(:id, :name, :description, :sku, :price, :product_category_id, :dstr,
                                        :quantity, product_inventory: %i[quantity id])
     end

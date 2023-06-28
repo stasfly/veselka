@@ -7,7 +7,6 @@ class ProductCategoriesController < ApplicationController
 
   def index
     product_categories
-    # binding.pry
   end
 
   def show
@@ -16,7 +15,6 @@ class ProductCategoriesController < ApplicationController
     render 'products/index', params: { product_category_id: product_category.id }
     # else
     # redirect_to products_path#(product_category_id: @product.product_category.id)
-    # binding.pry
     # end
   end
 
@@ -43,12 +41,10 @@ class ProductCategoriesController < ApplicationController
                                                                                      quantity] }).where(id: params[:id])
     @products = Product.where(product_category: @product_category.id).includes(:product_inventory)
     add_breadcrumb I18n.t('breadcrumbs.product_category_edit'), edit_product_category_path(product_category)
-    # binding.pry
   end
 
   def update
     authorize_product_category
-    binding.pry
     if product_category.update(product_category_params)
       product_category.products.map do |product|
         # params[:product_category][:products_attributes]['0'][:id]

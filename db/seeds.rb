@@ -28,7 +28,7 @@ user.save
 end
 
 5.times do |n|
-  ProductCategory.create(name: "Cat#{n + 1}")
+  ProductCategory.create(name: "Cat#{n + 1}", description: Faker::Lorem.paragraph)
 end
 
 product_categories = ProductCategory.all

@@ -19,8 +19,6 @@ class Product < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_one :product_inventory, dependent: :destroy
 
-  # accepts_nested_attributes_for :product_inventory
-
   def self.product_search(search)
     if search
       sort_key    = sort_key_order(search[:sort])[:key]

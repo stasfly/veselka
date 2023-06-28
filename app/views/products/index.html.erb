@@ -1,4 +1,5 @@
 <h1> <%= t('.title') %> </h1>
+<% instance_variable_names.inspect %>
 <div>
   <%= form_for products_path, data: { turbo_frame: :results }, method: :get do %>
     <%= fields_for 'search' do |search_form| %>
@@ -27,7 +28,7 @@
         </div>
 
       </div>
-      <%= search_form.hidden_field :product_category_id, value: @category_id %>
+      <%= search_form.hidden_field :product_category_id, value: @product_category.id %>
     <% end %>
     <%= button_tag t('buttons.search') %>
   <% end %>
@@ -35,7 +36,6 @@
 
 <% search_params = params[:search]&.to_unsafe_h || {} %>
 <% search_params[:product_category_id] = params[:product_category_id] if params[:product_category_id] %>
-<%= binding.pry %>
 <hr>
 <%= turbo_frame_tag :results, data: { turbo_action: 'advance' } do %>
   <div id="products"></div>

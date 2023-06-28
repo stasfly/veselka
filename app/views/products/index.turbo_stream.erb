@@ -33,7 +33,6 @@
 
 <% search_params = params[:search]&.to_unsafe_h || {} %>
 <% search_params[:product_category_id] = params[:product_category_id] if params[:product_category_id] %>
-<%= binding.pry %>
 <% if @pagy && @pagy.next.present?%>
   <%= turbo_stream.replace :pagination do %>
     

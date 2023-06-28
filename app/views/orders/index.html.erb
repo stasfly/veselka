@@ -43,11 +43,8 @@
   <% end %>
 </div>
 
-<%= Time.now %>
-
 <hr>
 <%= turbo_frame_tag :results, data: { turbo_action: 'advsnce' } do %>
-  <%= Time.now %>
   <div id="orders"></div>
   <%= turbo_frame_tag :pagination, loading: :lazy, src: orders_path(format: :turbo_stream, search: params[:search]&.to_unsafe_h) %>
 <% end %>
