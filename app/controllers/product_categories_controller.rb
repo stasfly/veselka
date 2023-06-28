@@ -78,17 +78,17 @@ class ProductCategoriesController < ApplicationController
     associated_products = Product.where(product_category_id: category_item.id)
     if associated_products == []
       category_item.delete
-      message = 'controllers.product_categories.deleted'
+      'controllers.product_categories.deleted'
     else
       unsorted = unsorted_category
       associated_products.map do |product|
         product.update(product_category_id: unsorted.id)
       end
       if category_item == unsorted
-        message = 'controllers.product_categories.deletion_forbidden'
+        'controllers.product_categories.deletion_forbidden'
       else
         category_item.delete
-        message = 'controllers.product_categories.deleted'
+        'controllers.product_categories.deleted'
       end
     end
   end

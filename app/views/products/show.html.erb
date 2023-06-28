@@ -9,7 +9,7 @@
     </div>
     <div class="property-block col-5">
       <div><h4><%= t('.product_name') %> <%= @product.name %></h4></div>
-      <div><h4><%= t('.product_scu') %> <%= @product.sku %></h4></div>
+      <div><h4><%= t('.product_sku') %> <%= @product.sku %></h4></div>
       <div><h4><%= t('.product_price') %> <%= @product.price %></h4></div>
       
       <%= render 'cart_item_form', products_in_cart: @product_in_cart, product: @product %>

@@ -128,7 +128,7 @@ en:
     show:
       cart: "Cart"
       name: "Name"
-      scu: 'SCU'
+      sku: 'sku'
       quantity: 'Q-ty'
       price: 'Price'
       cost: 'Cost'
@@ -147,7 +147,7 @@ en:
       id: 'Order ID: '
       details: 'Order details'
       item_name: 'Name'
-      scu: 'SCU'
+      sku: 'sku'
       price: 'Price'
       quantity: 'Q-ty'
       cost: 'cost'
@@ -180,7 +180,7 @@ en:
     index:
       title: 'Catalogue'
       product_name: 'Name'
-      product_sku: 'SCU'
+      product_sku: 'sku'
       product_price: 'Price'
       product_category: 'Category'
     new:
@@ -189,7 +189,7 @@ en:
       integer_only: 'integer only'
     show:
       product_name: 'Item: '
-      product_scu: 'SCU: '
+      product_sku: 'sku: '
       product_price: 'Price: '
       description: 'Description: '
   product_categories:
@@ -200,6 +200,11 @@ en:
     edit:
       empty_category: 'This category is empty'
       add_new_item: 'Add new item?'
+      name: "Name"
+      sku: 'sku'
+      quantity: 'Q-ty'
+      price: 'Price'
+      category: 'Category'
   shared:
     header:
       about_us: "About us"
@@ -244,7 +249,7 @@ en:
       product:
         name: "Name"
         description: "Descriptions"
-        sku: "SCU"
+        sku: "sku"
         price: "Price"
       cart_item:
         quantity: 'Q-ty'
@@ -270,6 +275,7 @@ en:
       destroyed: 'Product has been deleted'
       image_destroyed: 'Image deleted'
       all_images_destroyed: 'All images deleted'
+      bulk_update: 'Products were updated'
     product_categories:
       updated: 'Category has been updated'
       deleted: 'Category has been removed'

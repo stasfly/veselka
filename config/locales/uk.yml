@@ -129,7 +129,7 @@ uk:
     show:
       cart: "Кошик"
       name: "Ім'я"
-      scu: 'Номер товару'
+      sku: 'Номер товару'
       quantity: 'К-ть'
       price: 'Ціна'
       cost: 'Вартість'
@@ -148,7 +148,7 @@ uk:
       id: 'Номер замовлення: '
       details: 'Деталі замовлення'
       item_name: 'Назва товару'
-      scu: 'Номер товару'
+      sku: 'Номер товару'
       price: 'Ціна'
       quantity: 'К-ть'
       cost: 'Вартість'
@@ -190,7 +190,7 @@ uk:
       integer_only: 'ціле число'
     show:
       product_name: 'Назва товару: '
-      product_scu: 'Код товару: '
+      product_sku: 'Код товару: '
       product_price: 'Ціна: '
       description: 'Опис товару: '
   product_categories:
@@ -201,6 +201,11 @@ uk:
     edit:
       empty_category: 'Ця категорія наразі порожня'
       add_new_item: 'Додати позицію?'
+      name: "Ім'я"
+      sku: 'Номер товару'
+      quantity: 'К-ть'
+      price: 'Ціна'
+      category: 'Категорія'
   shared:
     header:
       about_us: "Про нас"
@@ -271,6 +276,7 @@ uk:
       destroyed: 'Продукт видалено з бази даних'
       image_destroyed: 'Зображення видалено'
       all_images_destroyed: 'Усі зображення видалено'
+      bulk_update: 'Групу товарів успішно оновлено'
     product_categories:
       updated: 'Категорія успішно оновлена'
       deleted: 'Категорія успішно видалена'
