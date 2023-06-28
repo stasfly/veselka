@@ -10,7 +10,8 @@
             <% end %>
           </div>
           <div class="item-description">
-            <div class="item-name"><%= link_to("#{product.name} /#{product.sku}/", product_path(product)) %></div>
+            <div class="item-name"><%== link_to highlight(product.name, params.dig(:search, :name)), product_path(product) %></div>
+            <div class="item-sku"><%= link_to product.sku, product_path(product) %></div>
             <div class="item-code"><%= link_to "#{t(".product_price")}: #{product.price}", product_path(product)%></div>
             <div class="item-cart">
               <% @products_in_cart.include?(product.id) ? products_in_cart = true : products_in_cart = false %>
