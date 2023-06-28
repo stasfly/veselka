@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    resources :product_categories
+    resources :product_categories do
+      # member do
+      #   post :category_stuff_editor
+      # end
+    end
     resources :cart_items, only: [:create, :update, :destroy]
     resources :carts, only: [:show]
     resources :orders, only: [:index, :show, :create]
@@ -19,6 +23,7 @@ Rails.application.routes.draw do
       member do
         delete :purge_one_attachment
         delete :purge_all_attachments
+        put :bulk_update
       end 
     end
   end

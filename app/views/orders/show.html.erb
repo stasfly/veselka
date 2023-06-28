@@ -10,10 +10,16 @@
   </thead>
   <% @order.order_items.map do |order_item| %>
     <tbody>
-      <td><%= link_to @product_details[order_item.product_id][:name], product_path(order_item.product_id) %></td>
+      <td>
+        <% if @product_details[order_item.product_id] %>
+          <%= link_to @product_details[order_item.product_id][:name], product_path(order_item.product_id) %>
+        <% else %>
+          <%= 'Item is obsolet' %>
+        <% end %>
+      </td>
       <td><%= order_item.quantity %></td>
-      <td><%= @product_details[order_item.product_id][:price] %></td>
-      <td><%= order_item.quantity * @product_details[order_item.product_id][:price] %></td>
+      <td><%= order_item.item_cost %></td>
+      <td><%= order_item.quantity * order_item.item_cost %></td>
     </tbody>
   <% end %>
 </table>

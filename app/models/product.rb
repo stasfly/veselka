@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   validates :description, length: { in: 3..1200,
                                     too_long: '%<count>s characters is max allowed',
                                     too_short: '%<count>s characters is min allowed' }
-
+  validates :price, numericality: true, allow_blank: true
   # validates :images, content_type:  { in: %w[image/jpeg image/gif image/png],
   #                                     message: "must be a valid image format" },
   #                     size:
@@ -19,6 +19,8 @@ class Product < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_one :product_inventory, dependent: :destroy
 
+  # accepts_nested_attributes_for :product_inventory
+
   def self.product_search(search)
     if search
       sort_key    = sort_key_order(search[:sort])[:key]
@@ -28,7 +30,7 @@ class Product < ApplicationRecord
       search[:cost_to] ||= ''
       cost_from = search[:cost_from]  == '' ? 0 : search[:cost_from]
       cost_to   = search[:cost_to]    == '' ? 1_000_000_000_000 : search[:cost_to]
-      product = Product.includes(:product_inventory, [:images_attachments]) # .joins(:user)
+      product = Product.includes(:product_inventory, [:images_attachments])
                        .where('name LIKE ?', "%#{search[:name]}%")
                        .where('price BETWEEN ? AND ?', cost_from, cost_to)
                        .distinct

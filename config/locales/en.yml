@@ -197,6 +197,9 @@ en:
       add_new_category: 'Add new caterory'
     new:
       title: 'Add new catalog item'
+    edit:
+      empty_category: 'This category is empty'
+      add_new_item: 'Add new item?'
   shared:
     header:
       about_us: "About us"

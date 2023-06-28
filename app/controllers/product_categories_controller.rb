@@ -11,9 +11,13 @@ class ProductCategoriesController < ApplicationController
   end
 
   def show
-    @my_product_category_id = product_category.id
     add_breadcrumb product_category.name, product_category_path(product_category)
+    # if params[:source] == 'index'
     render 'products/index', params: { product_category_id: product_category.id }
+    # else
+    # redirect_to products_path#(product_category_id: @product.product_category.id)
+    # binding.pry
+    # end
   end
 
   def new
@@ -34,12 +38,21 @@ class ProductCategoriesController < ApplicationController
   end
 
   def edit
+    product_categories
+    @product_category ||= ProductCategory.includes(products: { product_inventory: %i[id product_id
+                                                                                     quantity] }).where(id: params[:id])
+    @products = Product.where(product_category: @product_category.id).includes(:product_inventory)
     add_breadcrumb I18n.t('breadcrumbs.product_category_edit'), edit_product_category_path(product_category)
+    # binding.pry
   end
 
   def update
     authorize_product_category
+    binding.pry
     if product_category.update(product_category_params)
+      product_category.products.map do |product|
+        # params[:product_category][:products_attributes]['0'][:id]
+      end
       redirect_to product_categories_path, notice: I18n.t('controllers.product_categories.updated')
     else
       render :edit, status: I18n.t('controllers.products.incorrect_input')
@@ -71,11 +84,7 @@ class ProductCategoriesController < ApplicationController
       category_item.delete
       message = 'controllers.product_categories.deleted'
     else
-      unless ProductCategory.find_by(name: 'Unsorted')
-        ProductCategory.create(name: 'Unsorted',
-                               description: 'Unsortet products')
-      end
-      unsorted = ProductCategory.find_by(name: 'Unsorted')
+      unsorted = unsorted_category
       associated_products.map do |product|
         product.update(product_category_id: unsorted.id)
       end
@@ -89,6 +98,9 @@ class ProductCategoriesController < ApplicationController
   end
 
   def product_category_params
-    params.require(:product_category).permit(:name, :description)
+    params.require(:product_category).permit(:name, :description, :source, :product_category_id, :locale, :id,
+                                             search: %i[name cost_from cost_to sort product_category_id],
+                                             products_attributes: [:name, :price, :id, :_destroy,
+                                                                   { product_inventory_attributes: %i[quantity id] }])
   end
 end

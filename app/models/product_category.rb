@@ -7,4 +7,6 @@ class ProductCategory < ApplicationRecord
   validates :description, length: { in: 3..1200,
                                     too_long: '%<count>s characters is max allowed',
                                     too_short: '%<count>s characters is min allowed' }
+
+  accepts_nested_attributes_for :products, allow_destroy: true
 end

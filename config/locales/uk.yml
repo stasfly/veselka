@@ -198,6 +198,9 @@ uk:
       add_new_category: 'Додати нову категорію'
     new:
       title: 'Додати новий каталог'
+    edit:
+      empty_category: 'Ця категорія наразі порожня'
+      add_new_item: 'Додати позицію?'
   shared:
     header:
       about_us: "Про нас"

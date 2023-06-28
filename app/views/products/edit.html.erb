@@ -2,6 +2,7 @@
 <div>
   <%= simple_form_for @product, data: { turbo: true } do |form| %>
     <%= form.input :name %>
+    <%= form.input :product_category_id, collection: @product_categories %>
     <%= form.input :sku %>
     <%= form.input :price, hint: t('.only_digits') %>
     <%= simple_fields_for :inventory_quantity do |q| %>

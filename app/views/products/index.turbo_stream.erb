@@ -1,36 +1,40 @@
 <%= turbo_stream.append :products do %>
   <% (!current_user.nil? && (current_user.has_role? :admin)) ? current_admin = true : current_admin = false %>
   <div class="product-index">
-    <% @products.each do |product| %>
-      <div class="product-item">
-        <div class="item-img">
-          <% if product.images.attached? %>
-            <%= link_to (image_tag (product.images.first.variant(resize_to_limit: [300, 300]))), product_path(product)%>
-          <% end %>
-        </div>
-        <div class="item-description">
-          <div class="item-name"><%= link_to("#{product.name} /#{product.sku}/", product_path(product)) %></div>
-          <div class="item-code"><%= link_to "#{t(".product_price")}: #{product.price}", product_path(product)%></div>
-          <div class="item-cart">
-            <% @products_in_cart.include?(product.id) ? products_in_cart = true : products_in_cart = false %>
-            <%= render 'cart_item_form', products_in_cart: products_in_cart, product: product %>
+    <% if @products%>
+      <% @products.each do |product| %>
+        <div class="product-item">
+          <div class="item-img">
+            <% if product.images.attached? %>
+              <%= link_to (image_tag (product.images.first.variant(resize_to_limit: [300, 300]))), product_path(product)%>
+            <% end %>
+          </div>
+          <div class="item-description">
+            <div class="item-name"><%= link_to("#{product.name} /#{product.sku}/", product_path(product)) %></div>
+            <div class="item-code"><%= link_to "#{t(".product_price")}: #{product.price}", product_path(product)%></div>
+            <div class="item-cart">
+              <% @products_in_cart.include?(product.id) ? products_in_cart = true : products_in_cart = false %>
+              <%= render 'cart_item_form', products_in_cart: products_in_cart, product: product %>
+            </div>
+          </div>
+          <div>
+            <% if current_admin %>
+              <%= link_to(t('buttons.edit'), edit_product_path(product)) %>
+              <%= link_to(t('buttons.delete'), product_path(product), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %>
+            <% end %>
           </div>
         </div>
-        <div>
-          <% if current_admin %>
-            <%= link_to(t('buttons.edit'), edit_product_path(product)) %>
-            <%= link_to(t('buttons.delete'), product_path(product), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
+    <% else %>
+      <h3><%= 'This folder now is empty' %></h3>
+    <%end%>
   </div>
 <% end %>
 
-<% search_params = params[:search] || {} %>
+<% search_params = params[:search]&.to_unsafe_h || {} %>
 <% search_params[:product_category_id] = params[:product_category_id] if params[:product_category_id] %>
-
-<% if @pagy.next.present?%>
+<%= binding.pry %>
+<% if @pagy && @pagy.next.present?%>
   <%= turbo_stream.replace :pagination do %>
     
     <%= turbo_frame_tag :pagination, loading: :lazy, src: products_path(format: :turbo_stream, page: @pagy.next, search: search_params) %>

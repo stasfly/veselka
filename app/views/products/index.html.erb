@@ -33,9 +33,9 @@
   <% end %>
 </div>
 
-<% search_params = params[:search] || {} %>
+<% search_params = params[:search]&.to_unsafe_h || {} %>
 <% search_params[:product_category_id] = params[:product_category_id] if params[:product_category_id] %>
-
+<%= binding.pry %>
 <hr>
 <%= turbo_frame_tag :results, data: { turbo_action: 'advance' } do %>
   <div id="products"></div>

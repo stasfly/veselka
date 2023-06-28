@@ -15,7 +15,7 @@ user = User.new(
 user.add_role :admin
 user.save
 
-150.times do |n|
+1500.times do |n|
   user = User.new(
     email: Faker::Internet.email,
     password: 'qwerty',
@@ -24,33 +24,33 @@ user.save
   user.skip_confirmation_notification!
   user.skip_confirmation!
   user.save
-  # user.cart = Cart.create
+  user.cart = Cart.create
 end
 
-3.times do |n|
-  ProductCategory.create(name: "Cat#{n}")
+5.times do |n|
+  ProductCategory.create(name: "Cat#{n + 1}")
 end
 
 product_categories = ProductCategory.all
-10.times do |n|
+100.times do |n|
   product = Product.new(
-    name: "item#{n}",
+    name: "item#{n + 1}",
     description: Faker::Lorem.paragraph,
-    sku: "sku#{n}",
+    sku: "sku#{n + 1}",
     price: rand(1000)
   )
   product.product_category_id = product_categories.sample.id
   product.save
-  product_inventory = ProductInventory.create(quantity: rand(20), product_id: product.id)
+  product_inventory = ProductInventory.create(quantity: rand(50), product_id: product.id)
 end
 
 products = Product.all
-carts = Cart.all
+carts = Cart.first(10)
 20.times do |n|
   cart_item = CartItem.new(
     cart_id: carts.sample.id,
     product_id: products.sample.id,
-    quantity: rand(10)
+    quantity: rand(5)
   )
   cart_item.save  
 end

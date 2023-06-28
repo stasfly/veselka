@@ -14,7 +14,7 @@ class Order < ApplicationRecord
     products = Product.where(id: product_ids)
     product_details = {}
     products.map do |product|
-      product_details[product.id] = { name: product.name, price: product.price }
+      product_details[product.id] = { name: product.name }
     end
     Hash.new(order:, product_details:)
   end
