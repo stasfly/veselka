@@ -89,7 +89,12 @@ GEM
     bindex (0.8.1)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
+    breadcrumbs_on_rails (4.1.0)
+      railties (>= 5.0)
     builder (3.2.4)
+    bullet (7.0.7)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     capybara (3.37.1)
       addressable
       matrix
@@ -176,6 +181,7 @@ GEM
       racc (~> 1.4)
     normalize-rails (8.0.1)
     orm_adapter (0.5.0)
+    pagy (6.0.3)
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
@@ -223,6 +229,10 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
+    ransack (4.0.0)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
     redis (4.8.0)
     regexp_parser (2.6.0)
     reline (0.3.1)
@@ -301,6 +311,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
+    uniform_notifier (1.16.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -326,6 +337,8 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk-s3
   bootsnap
+  breadcrumbs_on_rails (~> 4.1.0)
+  bullet (~> 7.0.7)
   capybara
   debug
   devise (~> 4.8)
@@ -336,12 +349,14 @@ DEPENDENCIES
   jbuilder
   letter_opener (~> 1.8.1)
   normalize-rails (~> 8.0)
+  pagy (~> 6.0)
   pg (~> 1.1)
   pry (~> 0.14.1)
   puma (~> 5.0)
   pundit
   rails (~> 7.0.4)
   rails-i18n (~> 7.0.0)
+  ransack (~> 4.0)
   redis (~> 4.0)
   rolify (~> 6.0.1)
   rspec-rails (~> 6.0.0)

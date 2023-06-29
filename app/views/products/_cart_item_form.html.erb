@@ -5,8 +5,8 @@
       <%= f.hidden_field :cart_id, value: current_user.cart.id %>
       <%= f.hidden_field :product_id, value: product.id %>
       <% if product.product_inventory.quantity > 0 %>
-        <%= f.input :quantity, collection: 1..product.product_inventory.quantity %>
-          <% if CartItem.where('product_id = ? AND cart_id = ?', product.id, current_user.cart.id).any? %>
+        <%= f.input :quantity, collection: 1..product.product_inventory.quantity, include_blank: false %>
+          <% if products_in_cart %>
             <%= f.button :submit, value: t('simple_form.buttons.product.olready_in_the_cart') %>
           <% else %>
             <%= f.button :submit, value: t('simple_form.buttons.product.put_to_cart') %>

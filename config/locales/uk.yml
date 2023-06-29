@@ -41,6 +41,9 @@ uk:
       product:
       inventory_quantity:
     placeholders:
+      admin:
+        email_cont: 'Пошук по e-mail'
+        role_cont: 'Пошук по ролі'
       product:
         price: 'Дійсне число'
       inventory_quantity:
@@ -66,18 +69,59 @@ uk:
     sign_in: 'Увійти'
     sign_out: 'Вийти'
     sign_up: 'Зареєструватись'
+    link_to_index: 'Повернутись до каталогу товарів'
+    search: 'Пошук'
+#                                @@@@@   bread_crumbs   @@@@@    
+  breadcrumbs:
+    cart: 'кошик'
+    home: 'Головна'
+    orders: 'Замовлення'
+    products: 'Товари'
+    registration: 'Реєстрація'
+    sign_in: 'Вхід'
+    users: 'Користувачі'
+    product_new: 'Нова одиниця товару'
+    product_category_new: 'Створити новий каталог'
+    product_category_edit: 'Рудагування каталогу'
+#                                @@@@@   search form   @@@@@    
+  search_form:
+    search_by_name: "Пошук за назвою товару"
+    search_by_email: 'Пошук по email'
+    select_role: 'Обрати роль'
+    search_by_role: 'Пошук по ролі'
+    user_date_range: 'Пошук по даті реєстрації користувача'
+    order_date_range: 'Пошук по даті замовлення'
+    to: 'До:'
+    from: 'Від:'
+    user_orders_value_range: 'Пошук по загальній вартості замовлень'
+    sort: "Сортування результату пошуку по:"
+    sort_name: "Назва товару"
+    sort_email: "email"
+    sort_registration: "Дата реєстрації"
+    sort_cost: 'Вартість замовлення'
+    search_by_order_cost_from: 'Віртість від'
+    search_by_order_cost_to: 'Вартість до'
 #                                @@@@@   views  @@@@@     
   admins:
     edit:
       user: 'Користувач: '
       update_roles: 'Оновити ролі користувача'
     index:
+      
+      sort_order: "Дата замовлення"
+      created_at: 'Зареєстровано'
+      date: 'дата'
+      cost: 'вартість'
       users: 'База користувачів'
       roles: 'Активні ролі'
       available_roles: 'Переглянути'
       edit_roles: 'Редагувати ролі'
       block_account: 'Заблокувати аккаунт'
       confirmation: 'Точно заблокувати?'
+      orders: 'Замовлення'
+      cost: 'Вартість'
+      quantity_of_orders: 'Загальна к-ть замовлень'
+      no_order: 'Цей клієнт ще нічого не замовив'
     show:
       user: 'Профіль користувача'
       edit_profile: 'Редагувати профіль'
@@ -85,7 +129,7 @@ uk:
     show:
       cart: "Кошик"
       name: "Ім'я"
-      scu: 'Номер товару'
+      sku: 'Номер товару'
       quantity: 'К-ть'
       price: 'Ціна'
       cost: 'Вартість'
@@ -94,6 +138,8 @@ uk:
       no_item_in_the_cart: 'Жодної позиції у кошику' 
       put_at_least_one_item: 'Замовте принаймні одну позицію' 
   layouts:
+    application:
+      categories: 'Каталог товарів'
   order_mailer:
     incoming_order:
       new_order_from: 'Замовлення від: '
@@ -102,7 +148,7 @@ uk:
       id: 'Номер замовлення: '
       details: 'Деталі замовлення'
       item_name: 'Назва товару'
-      scu: 'Номер товару'
+      sku: 'Номер товару'
       price: 'Ціна'
       quantity: 'К-ть'
       cost: 'Вартість'
@@ -115,6 +161,11 @@ uk:
       details: 'Деталі замовлення'
     show:
       details: 'Деталі замовлення:'
+      order_item_name: 'Назва товару'
+      order_item_cost: 'Вартість'
+      order_item_quantity: 'К-ть'
+      order_item_price: 'Ціна'
+      order_cost: 'Вартість замовлення:'
   products:
     cat_item_form:
       olready_in_the_cart: 'Вже у кошику' 
@@ -139,10 +190,22 @@ uk:
       integer_only: 'ціле число'
     show:
       product_name: 'Назва товару: '
-      product_scu: 'Код товару: '
+      product_sku: 'Код товару: '
       product_price: 'Ціна: '
       description: 'Опис товару: '
-      link_to_intex: 'Повернутись до каталогу товарів'
+  product_categories:
+    index:
+      add_new_category: 'Додати нову категорію'
+    new:
+      title: 'Додати новий каталог'
+    edit:
+      empty_category: 'Ця категорія наразі порожня'
+      add_new_item: 'Додати позицію?'
+      name: "Ім'я"
+      sku: 'Номер товару'
+      quantity: 'К-ть'
+      price: 'Ціна'
+      category: 'Категорія'
   shared:
     header:
       about_us: "Про нас"
@@ -206,9 +269,15 @@ uk:
       created: 'Замовлення успішно створено'
       error: 'Трапилась помилка, замовлення не створено' 
     products:
+      new: 'Нова одиниця товару'
       created: 'Продукт успішно створено'
       incorrect_input: 'Невірно введені дані'
       updated: 'Продукт успішно оновлено'
       destroyed: 'Продукт видалено з бази даних'
       image_destroyed: 'Зображення видалено'
       all_images_destroyed: 'Усі зображення видалено'
+      bulk_update: 'Групу товарів успішно оновлено'
+    product_categories:
+      updated: 'Категорія успішно оновлена'
+      deleted: 'Категорія успішно видалена'
+      deletion_forbidden: 'Ви не можете видалити цю категорію. Вона досі містить товари'

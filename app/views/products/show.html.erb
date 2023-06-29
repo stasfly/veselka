@@ -9,10 +9,10 @@
     </div>
     <div class="property-block col-5">
       <div><h4><%= t('.product_name') %> <%= @product.name %></h4></div>
-      <div><h4><%= t('.product_scu') %> <%= @product.sku %></h4></div>
+      <div><h4><%= t('.product_sku') %> <%= @product.sku %></h4></div>
       <div><h4><%= t('.product_price') %> <%= @product.price %></h4></div>
       
-      <%= render partial: 'cart_item_form', locals: {product: @product} %>
+      <%= render 'cart_item_form', products_in_cart: @product_in_cart, product: @product %>
       
     </div>
   </div>
@@ -21,5 +21,5 @@
   </div>
 </div>
 <div class="show-control">
-  <span><%= link_to t('buttons.back'), :back %>  |  <%= link_to t('.link_to_intex'), products_path %></span>
+  <span><%= link_to t('buttons.back'), :back %>  |  <%= link_to t('buttons.link_to_index'), product_categories_path %></span>
 </div>

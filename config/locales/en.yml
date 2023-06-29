@@ -41,6 +41,9 @@ en:
       product:
       inventory_quantity:
     placeholders:
+      admin:
+        email_cont: 'Пошук по e-mail'
+        role_cont: 'Пошук по ролі'
       product:
         price: 'Float only'
       inventory_quantity:
@@ -66,18 +69,58 @@ en:
     sign_in: 'log in'
     sign_out: 'log out'
     sign_up: 'sign up'
-#                                @@@@@   views  @@@@@     
+    link_to_index: 'Back to the index'
+    search: 'Search'
+#                                @@@@@   bread_crumbs   @@@@@    
+  breadcrumbs:
+    cart: 'cart'
+    home: 'home'
+    orders: 'orderc'
+    products: 'products'
+    registration: 'registration'
+    sign_in: 'sign_in'
+    users: 'users'
+    product_new: 'New product'
+    product_category_new: 'New product category'
+    product_category_edit: 'Edit product category'
+#                                @@@@@   search form   @@@@@    
+  search_form:
+    search_by_name: "Search by name"
+    search_by_email: 'Search by email'
+    select_role: 'Select role'
+    search_by_role: 'Search by role'
+    user_date_range: 'User date range'
+    order_date_range: 'Order date range'
+    to: 'To:'
+    from: 'From:'
+    user_orders_value_range: "User's orders total amount"
+    sort: "Result's order by:"
+    sort_name: "By name"
+    sort_email: "email"
+    sort_registration: "registration"
+    sort_cost: 'Order cost'
+    search_by_order_cost_from: 'Cost from'
+    search_by_order_cost_to: 'Cost to'
+#                                @@@@@   views   @@@@@     
   admins:
     edit:
       user: 'User: '
       update_roles: 'Update roles'
     index:
+      
+      sort_order: "order"
+      created_at: 'Created_at'
+      date: 'date'
+      cost: 'cost'
       users: 'Users'
       roles: 'Active roles'
       available_roles: 'Available roles'
       edit_roles: 'Edit roles'
       block_account: 'Block account'
-      confirmation: 'Are you sure?'
+      orders: 'Orders'
+      cost: 'Cost'
+      quantity_of_orders: 'Quantity of orders'
+      no_order: 'This customer has no order yet'
     show:
       user: "User's profile"
       edit_profile: 'Edit profile'
@@ -85,7 +128,7 @@ en:
     show:
       cart: "Cart"
       name: "Name"
-      scu: 'SCU'
+      sku: 'sku'
       quantity: 'Q-ty'
       price: 'Price'
       cost: 'Cost'
@@ -94,6 +137,8 @@ en:
       no_item_in_the_cart: 'No item in the cart'
       put_at_least_one_item: 'Put at least one item into the cart, please'
   layouts:
+    application:
+      categories: 'Categories'
   order_mailer:
     incoming_order:
       new_order_from: 'New order from: '
@@ -102,7 +147,7 @@ en:
       id: 'Order ID: '
       details: 'Order details'
       item_name: 'Name'
-      scu: 'SCU'
+      sku: 'sku'
       price: 'Price'
       quantity: 'Q-ty'
       cost: 'cost'
@@ -115,6 +160,11 @@ en:
       details: 'Order details'
     show:
       details: 'Order details:'
+      order_item_name: 'Item name'
+      order_item_cost: 'Cost'
+      order_item_quantity: 'Q-ty'
+      order_item_price: 'Price'
+      order_cost: 'Total cost:'
   products:
     cat_item_form:
       olready_in_the_cart: 'Olready in the cart'
@@ -130,7 +180,7 @@ en:
     index:
       title: 'Catalogue'
       product_name: 'Name'
-      product_sku: 'SCU'
+      product_sku: 'sku'
       product_price: 'Price'
       product_category: 'Category'
     new:
@@ -139,10 +189,22 @@ en:
       integer_only: 'integer only'
     show:
       product_name: 'Item: '
-      product_scu: 'SCU: '
+      product_sku: 'sku: '
       product_price: 'Price: '
       description: 'Description: '
-      link_to_intex: 'Back to the index'
+  product_categories:
+    index:
+      add_new_category: 'Add new caterory'
+    new:
+      title: 'Add new catalog item'
+    edit:
+      empty_category: 'This category is empty'
+      add_new_item: 'Add new item?'
+      name: "Name"
+      sku: 'sku'
+      quantity: 'Q-ty'
+      price: 'Price'
+      category: 'Category'
   shared:
     header:
       about_us: "About us"
@@ -187,7 +249,7 @@ en:
       product:
         name: "Name"
         description: "Descriptions"
-        sku: "SCU"
+        sku: "sku"
         price: "Price"
       cart_item:
         quantity: 'Q-ty'
@@ -206,9 +268,15 @@ en:
       created: 'Order successfully created'
       error: 'Error has been occured'
     products:
+      new: 'New item'
       created: 'Product successfully created'
       incorrect_input: 'Wrong data input'
       updated: 'Product successfully updated'
       destroyed: 'Product has been deleted'
       image_destroyed: 'Image deleted'
       all_images_destroyed: 'All images deleted'
+      bulk_update: 'Products were updated'
+    product_categories:
+      updated: 'Category has been updated'
+      deleted: 'Category has been removed'
+      deletion_forbidden: 'You cannot delete this category. It still contains items!'

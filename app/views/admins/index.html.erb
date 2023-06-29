@@ -1,21 +1,54 @@
-<h1> <%= t('.users') %> </h1>
-<table>
-  <tr>
-    <th>Id</th>
-    <th>email</th>
-    <th><%= t('.roles') %></th>
-    <th><%= t('.available_roles') %></th>
-    <th><%= t('.edit_roles') %></th>
-    <th></th>
-  </tr>
-  <% @users.each do |user| %>
-    <tr>
-      <th><%= user.id %></th>
-      <th><%= user.email %></th>
-      <th><%= user.roles.pluck(:name) %></th>
-      <th><%= link_to t('buttons.show'),  user_path(user) %></th>
-      <th><%= link_to t('buttons.edit'),  user_edit_path(user) %></th>
-      <th><%= button_to t('.block_account'), user_update_path(user), params: {set_user_role: :blocked}, form: { data: { confirm: t('.confirmation') } }, method: :put %></th>
-    </tr>
+<h1> <%= "#{t('.users')} (##{User.count})" %> </h1>
+
+
+
+<%= form_for users_path, data: { turbo_frame: :results }, method: :get do %>
+  <%= fields_for 'search' do |search_form| %>
+    <div><%= search_form.search_field :email,  placeholder: t('search_form.search_by_email'),
+                          oninput: 'this.form.requestSubmit()', autofocus: true, autocomplete: 'off' %></div>
+    <div>
+      <%= search_form.label :role, t('search_form.search_by_role') %>
+      <%= search_form.select(:role, Role.all.collect { |role| role.name}, { include_blank: t('search_form.select_role') }) %>
+    </div>
+    <div><%= t('search_form.user_date_range') %></div>
+    <div>
+      <%= search_form.label :created_at_to, t('search_form.to') %>
+      <%= search_form.date_select :created_at_to, include_blank: true %>
+    </div>
+    <div>
+      <%= search_form.label :created_at_from, t('search_form.from') %>
+      <%= search_form.date_select :created_at_from, include_blank: true %>
+    </div>
+    <div><%= t('search_form.order_date_range') %></div>
+    <div>
+      <%= search_form.label :order_created_at_to, t('search_form.to') %>
+      <%= search_form.date_select :order_created_at_to, include_blank: true %>
+    </div>
+    <div>
+      <%= search_form.label :order_created_at_from, t('search_form.from') %>
+      <%= search_form.date_select :order_created_at_from, include_blank: true %>
+    </div>
+    <div>
+      <%= search_form.label :sort, t('search_form.sort') %>
+      <div>
+        <%= search_form.label :sort_email, t('search_form.sort_email') %>
+        <%= search_form.radio_button :sort, 'email asc', checked: 'checked' %>
+        <%= search_form.radio_button :sort, 'email desc' %>
+        <%= search_form.label :sort_reg, t('search_form.sort_registration') %>
+        <%= search_form.radio_button :sort, 'created_at asc' %>
+        <%= search_form.radio_button :sort, 'created_at desc' %>
+        
+      </div>
+    </div>
   <% end %>
-</table>
+  <%= button_tag t('buttons.search') %>
+<% end %>
+
+<hr>
+<%= turbo_frame_tag :results, data: { turbo_action: 'advsnce' } do %>
+  <div id="users"></div>
+  <%= turbo_frame_tag :pagination, loading: :lazy, src: users_path(format: :turbo_stream, search: params[:search]&.to_unsafe_h) %>
+<% end %>
+
+
+

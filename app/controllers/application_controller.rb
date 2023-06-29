@@ -2,8 +2,11 @@
 
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  include Pagy::Backend
   before_action :set_locale
-  # around_action :switch_locale
+  before_action { @pagy_locale = params[:locale] }
+
+  add_breadcrumb I18n.t('breadcrumbs.home'), :root_path
 
   def extract_locale
     parsed_locale = params[:locale]
@@ -11,6 +14,15 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  def unsorted_category
+    unless ProductCategory.find_by(name: 'Unsorted')
+      return ProductCategory.create(name: 'Unsorted',
+                                    description: 'Unsortet products')
+    end
+
+    ProductCategory.find_by(name: 'Unsorted')
+  end
 
   private
 

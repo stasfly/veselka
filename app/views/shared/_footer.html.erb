@@ -35,9 +35,9 @@
         <% else %>
           <h3>My account</h3>
           <ul>
-            <li><%= link_to 'My account', user_path(current_user.id) unless current_user.nil?%></li>
+            <li><%= link_to 'My account', user_path(current_user.id) %></li>
             <li><%= link_to 'Order history', orders_path %></li>
-            <li><%= link_to 'List of desired items', '#' %></li>
+            <li><%= link_to 'Cart', cart_path(current_user.cart.id) %></li>
             <li><%= link_to 'Advertise emainling', '#' %></li>
           </ul>
         <% end %>

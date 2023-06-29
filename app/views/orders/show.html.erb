@@ -1,2 +1,29 @@
 <h2><%= t('.details') %></h2>
-<%= @order %>
+<table>
+  <thead>
+    <tr>
+      <th><%= t('.order_item_name') %></th>
+      <th><%= t('.order_item_quantity') %></th>
+      <th><%= t('.order_item_price') %></th>
+      <th><%= t('.order_item_cost') %></th>
+    </tr>
+  </thead>
+  <% @order.order_items.map do |order_item| %>
+    <tbody>
+      <td>
+        <% if @product_details[order_item.product_id] %>
+          <%= link_to @product_details[order_item.product_id][:name], product_path(order_item.product_id) %>
+        <% else %>
+          <%= 'Item is obsolet' %>
+        <% end %>
+      </td>
+      <td><%= order_item.quantity %></td>
+      <td><%= order_item.item_cost %></td>
+      <td><%= order_item.quantity * order_item.item_cost %></td>
+    </tbody>
+  <% end %>
+</table>
+<br>
+<%= "#{t('.order_cost')} #{@order.cost}" %>
+
+<p><%= link_to t('buttons.back'), :back %></p>

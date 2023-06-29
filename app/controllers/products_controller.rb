@@ -2,27 +2,33 @@
 
 class ProductsController < ApplicationController
   before_action :product_categories, only: %i[new edit]
-  before_action :product, only: %i[show edit edit destroy]
+  before_action :product, only: %i[show edit update destroy]
   before_action :authorize_product, only: %i[edit]
 
+  add_breadcrumb I18n.t('breadcrumbs.products'), :product_categories_path, only: %i[index show new edit]
+
   def index
-    if params[:query].nil?
-      products
-      @products.order('name ASC')
-    else
-      @products = Product.where(product_category_id: params[:query][:product_category_id].to_i).order('id ASC')
-    end
-    product_inventories
+    incoming_params = params.permit(:locale, :format, :page,
+                                    search: %i[product_category_id cost_from cost_to name sort])
+    @pagy, @products = pagy(Product.product_search(incoming_params[:search]), items: 3)
     @cart_item = CartItem.new
+    @products_in_cart = current_user.nil? ? [] : Product.products_in_cart(current_user.id)
+    product_category_bread_crumb
   end
 
   def show
     @cart_item = CartItem.new(product_id: product.id, cart_id: current_user.cart.id) unless current_user.nil?
     product_inventory
+    @product_in_cart = Product.products_in_cart(current_user.id).include?(product.id) unless current_user.nil?
+    add_breadcrumb @product.product_category.name,
+                   product_category_path(@product.product_category_id,
+                                         product_category_id: @product.product_category_id)
+    add_breadcrumb @product.name, product_path
   end
 
   def new
     @product = Product.new
+    add_breadcrumb I18n.t('breadcrumbs.product_new'), new_product_path
     authorize_product
   end
 
@@ -33,8 +39,7 @@ class ProductsController < ApplicationController
     authorize_product
     if @product.valid?
       @product.save
-      params[:inventory_quantity][:quantity] = 0 if params[:inventory_quantity][:quantity].nil?
-      ProductInventory.create(product_id: @product.id, quantity: (params[:inventory_quantity][:quantity] || 0))
+      ProductInventory.create(product_id: @product.id, quantity: params[:inventory_quantity][:quantity].to_i)
       redirect_to @product, notice: I18n.t('controllers.products.created')
     else
       render :new, notice: I18n.t('controllers.products.incorrect_input')
@@ -42,7 +47,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = Product.find(params[:id])
+    # @product = Product.find(params[:id])
     authorize_product
     if product.update(product_params)
       product_inventory = ProductInventory.find_by(product_id: @product.id)
@@ -51,15 +56,15 @@ class ProductsController < ApplicationController
       product_inventory.update(quantity: stock_quantity)
       redirect_to @product, notice: I18n.t('controllers.products.updated')
     else
-      # flash.now[:message] = I18n.t('controllers.products.incorrect_input')
       render :edit, status: I18n.t('controllers.products.incorrect_input')
     end
   end
 
   def destroy
     authorize_product
-    @product.destroy
-    redirect_to products_path, notice: I18n.t('controllers.products.destroyed')
+    remove_to_unsort?(@product)
+    redirect_to products_path(product_category_id: @product.product_category.id),
+                notice: I18n.t('controllers.products.destroyed')
   end
 
   def purge_one_attachment
@@ -73,10 +78,32 @@ class ProductsController < ApplicationController
     redirect_back fallback_location: root_path, notice: I18n.t('controllers.products.all_images_destroyed')
   end
 
+  def bulk_update
+    product_categories
+    prods_before_update = Product.where(product_category_id: params[:id]).includes(:product_inventory)
+    bulk_product_params.each do |_id, attributes|
+      prod = prods_before_update.detect { |record| record[:id] == attributes[:id].to_i }
+      prod_cat = @product_categories.detect { |cat| cat[:name] == attributes[:product_category_id] }
+      if attributes[:dstr].to_i == 1
+        remove_to_unsort?(prod)
+      else
+        prod.update(name: attributes[:name])          unless prod.name == attributes[:name]
+        prod.update(sku: attributes[:sku])            unless prod.sku == attributes[:sku]
+        prod.update(price: attributes[:price])        unless prod.price == attributes[:price]
+        prod.update(product_category_id: prod_cat.id) unless prod.product_category_id == prod_cat.id
+        unless prod.product_inventory.quantity == attributes[:product_inventory][:quantity]
+          prod.product_inventory.quantity = attributes[:product_inventory][:quantity]
+          prod.save
+        end
+      end
+    end
+    redirect_to product_categories_path, notice: I18n.t('controllers.products.bulk_update')
+  end
+
   private
 
   def products
-    @products = Product.all.with_attached_images
+    @products = Product.includes(:product_category, :product_inventory, [:images_attachments]) # .with_attached_images
   end
 
   def product_categories
@@ -97,6 +124,32 @@ class ProductsController < ApplicationController
 
   def authorize_product
     authorize @product
+  end
+
+  def product_category_bread_crumb
+    if params[:product_category_id]
+      crumb_name = ProductCategory.find(params[:product_category_id]).name
+    elsif params[:search] && params[:search][:product_category_id].present?
+      crumb_name = ProductCategory.find(params[:search][:product_category_id]).name
+    end
+    add_breadcrumb crumb_name unless crumb_name.nil?
+  end
+
+  def remove_to_unsort?(product_item)
+    unsorted = unsorted_category
+    if product_item.product_category_id == unsorted.id
+      product_item.destroy
+    else
+      product_item.update(product_category_id: unsorted.id)
+    end
+  end
+
+  def bulk_product_params
+    products = params.require(:product).permit!
+    products.each do |id, attributes|
+      products[id] = attributes.permit(:id, :name, :description, :sku, :price, :product_category_id, :dstr,
+                                       :quantity, product_inventory: %i[quantity id])
+    end
   end
 
   def product_params

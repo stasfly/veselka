@@ -9,7 +9,7 @@ class CartItemsController < ApplicationController
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.update("cart_item_form_#{@cart_item.product.id}", partial: 'products/cart_item_form',
-                                                                         locals: { product: @cart_item.product })
+                                                                         locals: { product: @cart_item.product, products_in_cart: true })
         ]
       end
     end

@@ -17,19 +17,16 @@
         <% if flash.any? %>
           <%= render 'shared/messages' %>
         <% else %>
-         <%= 'Important information!' %>
+         <div class="breadcrumbs"><%= render_breadcrumbs :separator => ' / ' %></div>
         <% end %>
         <% render 'shared/messages' %>
       </div>
       <div class="content-container">
         <div class="gap-3"></div>
         <div class="sidebar-container">
-          <div id="categories"><%= link_to 'All items', products_path %></div>
+          <div id="categories"><%= link_to t('.categories'), product_categories_path %></div>
           <% ProductCategory.all.map do |product_category| %>
-            <div class="category"><%= link_to "#{product_category.name}", products_path(query: {product_category_id: product_category.id }) %></div>
-          <% end %>
-          <% if current_user != nil %>
-            <div><%= link_to 'Cart', cart_path(current_user.cart.id) %></div>
+            <div class="category"><%= link_to "#{product_category.name}", product_category_path(product_category, product_category_id: product_category.id) %></div>
           <% end %>
         </div>
         <div class="yield-container">
