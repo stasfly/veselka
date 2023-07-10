@@ -1,5 +1,9 @@
 <h1><%= t('layouts.application.categories') %></h1>
 
+<div class="btn-container">
+  <div><%= link_to "#{t('.add_new_category')}", new_product_category_path %></div>
+  <%= render 'csv_import' %>
+</div>  
 <div class="product-index">
   <% @product_categories.each do |product_category| %>
     <div class="product-item">
@@ -23,4 +27,3 @@
     </div>
   <% end %>
 </div>
-<div class="btn-container"><div><%= link_to "#{t('.add_new_category')}", new_product_category_path %></div></div>  

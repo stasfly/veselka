@@ -1,0 +1,46 @@
+<h1>csv file preview</h1>
+<div>
+  <% if @products.any? %>
+    <%= form_for :products, url: csv_update_path, html: { method: :put }  do |form| %>
+      <table>
+        <thead>
+          <tr>
+            <th><%= t('id') %></th>
+            <th><%= t('product_categories.edit.name') %></th>
+            <th><%= t('product_categories.edit.sku') %></th>
+            <th><%= t('product_categories.edit.price') %></th>
+            <th><%= t('product_categories.edit.quantity') %></th>
+            <th><%= t('product_categories.edit.category') %></th>
+            <th><%= t('buttons.delete') %></th>
+          </tr>
+        </thead>
+        <% @products.each_with_index do |product, index| %>
+          <%= fields_for "product[#{product[:id]}]", product do |product_fields| %>
+            <tbody>
+              <td><%= product_fields.text_field :id, value: product[:id], readonly: true %></td>
+              <td><%= product_fields.text_field :name, value: product[:name],  required: true, label: false %></td>
+              <td><%= product_fields.text_field :sku, value: product[:sku],  required: true, label: false %></td>
+              <td><%= product_fields.text_field :price, as: :decimal, value: product[:price], label: false %></td>
+              <td>
+                <%= product_fields.fields_for :product_inventory do |product_inventory| %>
+                  <%= product_inventory.text_field :quantity, value: product[:quantity], validate: { only_integer: true }, required: true, label: false %>
+                <% end %>
+              </td>
+              <td><%= product_fields.select :product_category_id, @product_categories.pluck('name'),
+                                              selected: @product_categories.where(id: product[:product_category_id]).sample.name %></td>
+              <td><%= product_fields.check_box :dstr, checked: false %></td>
+            </tbody>
+          <% end %>
+        <% end %>
+      </table>
+      <div class="btn-container">
+        <%= form.button :submit, class: 'submit-btn' %>
+      </div>
+    <% end %>
+  <% else %>
+    <h2>
+      <%= t('.empty_category') %>
+      <%= link_to t('.add_new_item'), new_product_path %>
+    </h2>
+  <% end %>
+</div>

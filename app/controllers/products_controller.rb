@@ -79,8 +79,66 @@ class ProductsController < ApplicationController
   end
 
   def bulk_update
+    # binding.pry
     product_categories
     prods_before_update = Product.where(product_category_id: params[:id]).includes(:product_inventory)
+    bulk_product_params.each do |_id, attributes|
+      prod = prods_before_update.detect { |record| record[:id] == attributes[:id].to_i }
+      prod_cat = @product_categories.detect { |cat| cat[:name] == attributes[:product_category_id] }
+      if attributes[:dstr].to_i == 1
+        remove_to_unsort?(prod)
+      else
+        prod.update(name: attributes[:name])          unless prod.name == attributes[:name]
+        prod.update(sku: attributes[:sku])            unless prod.sku == attributes[:sku]
+        prod.update(price: attributes[:price])        unless prod.price == attributes[:price]
+        prod.update(product_category_id: prod_cat.id) unless prod.product_category_id == prod_cat.id
+        unless prod.product_inventory.quantity == attributes[:product_inventory][:quantity]
+          prod.product_inventory.quantity = attributes[:product_inventory][:quantity]
+          prod.save
+        end
+      end
+    end
+    redirect_to product_categories_path, notice: I18n.t('controllers.products.bulk_update')
+  end
+
+  # POST
+  def csv_accept
+    require 'csv'
+    return redirect_to request.referer, notice: 'No file added' if params[:file].nil?
+    return redirect_to request.referer, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
+
+    opened_file = File.open(params[:file])
+    options = { headers: true, col_sep: ';' }
+    @products = []
+    @uploaded_products = CSV.parse(opened_file, col_sep: ';', headers: true)
+    @uploaded_products.each do |record|
+      next if record['name'].blank?
+
+      row = { id: record['id'],
+              name: record['name'],
+              sku: record['sku'],
+              price: record['price'],
+              description: record['description'],
+              product_category_id: record['product_category_id'],
+              quantity: record['quantity'] }
+      @products << row
+    end
+    # binding.pry
+    redirect_to csv_edit_path(products: @products)
+  end
+
+  # GET
+  def csv_edit
+    product_categories
+    @products = params[:products]
+    # @products_to_edit = CSV.parse(csv_str, col_sep: ',', headers: true)
+    # binding.pry
+  end
+
+  # PUT
+  def csv_update
+    product_categories
+    prods_before_update = Product.all.includes(:product_inventory)
     bulk_product_params.each do |_id, attributes|
       prod = prods_before_update.detect { |record| record[:id] == attributes[:id].to_i }
       prod_cat = @product_categories.detect { |cat| cat[:name] == attributes[:product_category_id] }

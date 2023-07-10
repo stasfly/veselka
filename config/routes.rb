@@ -8,11 +8,15 @@ Rails.application.routes.draw do
     resources :cart_items, only: [:create, :update, :destroy]
     resources :carts, only: [:show]
     resources :orders, only: [:index, :show, :create]
-    get 'customers', to: 'admins#index', as: 'users'
-    get 'customer/:id', to: 'admins#show', as: 'user'
-    get 'customer/:id/edit', to: 'admins#edit', as: 'user_edit'
-    put 'customer/:id', to: 'admins#update', as: 'user_update'
-    delete 'customer/:id', to: 'admins#destroy', as: 'user_destroy'
+    get     'customers',          to: 'admins#index',   as: 'users'
+    get     'customer/:id',       to: 'admins#show',    as: 'user'
+    get     'customer/:id/edit',  to: 'admins#edit',    as: 'user_edit'
+    put     'customer/:id',       to: 'admins#update',  as: 'user_update'
+    delete  'customer/:id',       to: 'admins#destroy', as: 'user_destroy'
+    
+    post  'csv_accept',   to: 'products#csv_accept'
+    get   'csv_edit',     to: 'products#csv_edit'
+    put   'csv_update',   to: 'products#csv_update'
 
     devise_for :users, controllers: {
       registrations:  'users/registrations',
