@@ -35,4 +35,12 @@ class ProductPolicy < ApplicationPolicy
   def destroy?
     @user.has_any_role? :admin
   end
+
+  def bulk_update?
+    @user.has_any_role? :admin
+  end
+
+  def csv_accept?
+    @user.has_any_role? :admin
+  end
 end

@@ -1,5 +1,5 @@
 <% if @products.any? %>
-  <%= form_for :products, url: bulk_update_product_path, html: { method: :put }  do |form| %>
+  <%= form_for :products, url: bulk_update_path, html: { method: :put }  do |form| %>
     <table>
       <thead>
         <tr>

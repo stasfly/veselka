@@ -1,7 +1,7 @@
 <h1>csv file preview</h1>
 <div>
   <% if @products.any? %>
-    <%= form_for :products, url: csv_update_path, html: { method: :put }  do |form| %>
+    <%= form_for :products, url: bulk_update_path, local: true, data: { turbo: false }, html: { method: :put }  do |form| %>
       <table>
         <thead>
           <tr>

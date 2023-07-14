@@ -1,8 +1,10 @@
 <h1><%= t('layouts.application.categories') %></h1>
 
 <div class="btn-container">
-  <div><%= link_to "#{t('.add_new_category')}", new_product_category_path %></div>
-  <%= render 'csv_import' %>
+  <% if current_user_admin? %>
+    <div><%= link_to "#{t('.add_new_category')}", new_product_category_path %></div>
+    <%= render 'csv_import' %>
+  <% end %>
 </div>  
 <div class="product-index">
   <% @product_categories.each do |product_category| %>
@@ -17,7 +19,7 @@
       </div>
       <div class="item-description">
         <div class="item-name"><%= link_to(product_category.name, product_category_path(product_category, { product_category_id: product_category.id, source: 'index' } )) %></div>
-        <% if current_user.has_role? :admin %>
+        <% if current_user_admin? %>
           <div class="item-name"><%= link_to(t('buttons.edit'), edit_product_category_path(product_category)) %></div>
           <div class="item-code">
             <%= link_to(t('buttons.delete'), product_category_path(product_category), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %>

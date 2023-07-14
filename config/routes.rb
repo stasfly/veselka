@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    resources :product_categories do
-      # member do
-      #   post :category_stuff_editor
-      # end
-    end
+    resources :product_categories
     resources :cart_items, only: [:create, :update, :destroy]
     resources :carts, only: [:show]
     resources :orders, only: [:index, :show, :create]
@@ -15,8 +11,7 @@ Rails.application.routes.draw do
     delete  'customer/:id',       to: 'admins#destroy', as: 'user_destroy'
     
     post  'csv_accept',   to: 'products#csv_accept'
-    get   'csv_edit',     to: 'products#csv_edit'
-    put   'csv_update',   to: 'products#csv_update'
+    put   'bulk_update',   to: 'products#bulk_update'
 
     devise_for :users, controllers: {
       registrations:  'users/registrations',
@@ -27,7 +22,6 @@ Rails.application.routes.draw do
       member do
         delete :purge_one_attachment
         delete :purge_all_attachments
-        put :bulk_update
       end 
     end
   end

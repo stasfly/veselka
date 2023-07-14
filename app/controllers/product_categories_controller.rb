@@ -11,11 +11,7 @@ class ProductCategoriesController < ApplicationController
 
   def show
     add_breadcrumb product_category.name, product_category_path(product_category)
-    # if params[:source] == 'index'
     render 'products/index', params: { product_category_id: product_category.id }
-    # else
-    # redirect_to products_path#(product_category_id: @product.product_category.id)
-    # end
   end
 
   def new
@@ -46,9 +42,6 @@ class ProductCategoriesController < ApplicationController
   def update
     authorize_product_category
     if product_category.update(product_category_params)
-      product_category.products.map do |product|
-        # params[:product_category][:products_attributes]['0'][:id]
-      end
       redirect_to product_categories_path, notice: I18n.t('controllers.product_categories.updated')
     else
       render :edit, status: I18n.t('controllers.products.incorrect_input')
@@ -63,7 +56,7 @@ class ProductCategoriesController < ApplicationController
   private
 
   def product_categories
-    @product_categories = ProductCategory.all
+    @product_categories = ProductCategory.all.order(name: :asc)
   end
 
   def product_category

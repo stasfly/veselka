@@ -39,7 +39,7 @@ class ProductsController < ApplicationController
     authorize_product
     if @product.valid?
       @product.save
-      ProductInventory.create(product_id: @product.id, quantity: params[:inventory_quantity][:quantity].to_i)
+      @product.product_inventory.update(quantity: params[:inventory_quantity][:quantity].to_i)
       redirect_to @product, notice: I18n.t('controllers.products.created')
     else
       render :new, notice: I18n.t('controllers.products.incorrect_input')
@@ -47,7 +47,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-    # @product = Product.find(params[:id])
     authorize_product
     if product.update(product_params)
       product_inventory = ProductInventory.find_by(product_id: @product.id)
@@ -79,83 +78,71 @@ class ProductsController < ApplicationController
   end
 
   def bulk_update
-    # binding.pry
+    @product = Product.new
+    authorize_product
     product_categories
-    prods_before_update = Product.where(product_category_id: params[:id]).includes(:product_inventory)
+    prods_before_update = Product.all.includes(:product_inventory)
     bulk_product_params.each do |_id, attributes|
-      prod = prods_before_update.detect { |record| record[:id] == attributes[:id].to_i }
-      prod_cat = @product_categories.detect { |cat| cat[:name] == attributes[:product_category_id] }
-      if attributes[:dstr].to_i == 1
+      prod_cat = @product_categories.detect { |cat| cat[:name] == attributes[:product_category_id] } ||
+                 @product_categories.detect { |cat| cat[:name] == 'Unsorted' }
+      prod =  if prods_before_update.detect { |record| record[:id] == attributes[:id].to_i }
+                prods_before_update.detect { |record| record[:id] == attributes[:id].to_i }
+              elsif prods_before_update.detect do |record|
+                      (record[:name] == attributes[:name]) && (record[:sku] == attributes[:sku])
+                    end
+                prods_before_update.detect { |record| record[:name] == attributes[:name] }
+              else
+                Product.new
+              end
+      prod.id = nil if prod.id.to_i.zero?
+      if prod.id && attributes[:dstr].to_i == 1
         remove_to_unsort?(prod)
       else
-        prod.update(name: attributes[:name])          unless prod.name == attributes[:name]
-        prod.update(sku: attributes[:sku])            unless prod.sku == attributes[:sku]
-        prod.update(price: attributes[:price])        unless prod.price == attributes[:price]
-        prod.update(product_category_id: prod_cat.id) unless prod.product_category_id == prod_cat.id
+        prod.name = attributes[:name]          unless prod.name == attributes[:name]
+        prod.sku = attributes[:sku]            unless prod.sku == attributes[:sku]
+        prod.price = attributes[:price]        unless prod.price == attributes[:price]
+        prod.product_category_id = prod_cat.id unless prod.product_category_id == prod_cat.id
+        prod.description = 'No description' if prod.description.blank?
+        prod.save if prod.id.nil?
         unless prod.product_inventory.quantity == attributes[:product_inventory][:quantity]
-          prod.product_inventory.quantity = attributes[:product_inventory][:quantity]
-          prod.save
+          prod.product_inventory.update(quantity: attributes[:product_inventory][:quantity])
         end
+        prod.save if prod.changed?
       end
     end
     redirect_to product_categories_path, notice: I18n.t('controllers.products.bulk_update')
   end
 
-  # POST
   def csv_accept
+    @product = Product.new
+    authorize_product
     require 'csv'
     return redirect_to request.referer, notice: 'No file added' if params[:file].nil?
     return redirect_to request.referer, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
 
     opened_file = File.open(params[:file])
-    options = { headers: true, col_sep: ';' }
     @products = []
     @uploaded_products = CSV.parse(opened_file, col_sep: ';', headers: true)
-    @uploaded_products.each do |record|
+    @uploaded_products.each_with_index do |record, index|
       next if record['name'].blank?
 
-      row = { id: record['id'],
+      prod_cat = if product_categories.detect { |cat| cat[:id] == record['product_category_id'].to_i }
+                   record['product_category_id']
+                 else
+                   product_categories.where(name: 'Unsorted').sample.id
+                 end
+      prod_id = record['id'].blank? ? "new_#{index + 1}" : record['quantity']
+      row = { id: prod_id,
               name: record['name'],
               sku: record['sku'],
               price: record['price'],
               description: record['description'],
-              product_category_id: record['product_category_id'],
+              product_category_id: prod_cat,
               quantity: record['quantity'] }
       @products << row
     end
-    # binding.pry
-    redirect_to csv_edit_path(products: @products)
-  end
-
-  # GET
-  def csv_edit
     product_categories
-    @products = params[:products]
-    # @products_to_edit = CSV.parse(csv_str, col_sep: ',', headers: true)
-    # binding.pry
-  end
-
-  # PUT
-  def csv_update
-    product_categories
-    prods_before_update = Product.all.includes(:product_inventory)
-    bulk_product_params.each do |_id, attributes|
-      prod = prods_before_update.detect { |record| record[:id] == attributes[:id].to_i }
-      prod_cat = @product_categories.detect { |cat| cat[:name] == attributes[:product_category_id] }
-      if attributes[:dstr].to_i == 1
-        remove_to_unsort?(prod)
-      else
-        prod.update(name: attributes[:name])          unless prod.name == attributes[:name]
-        prod.update(sku: attributes[:sku])            unless prod.sku == attributes[:sku]
-        prod.update(price: attributes[:price])        unless prod.price == attributes[:price]
-        prod.update(product_category_id: prod_cat.id) unless prod.product_category_id == prod_cat.id
-        unless prod.product_inventory.quantity == attributes[:product_inventory][:quantity]
-          prod.product_inventory.quantity = attributes[:product_inventory][:quantity]
-          prod.save
-        end
-      end
-    end
-    redirect_to product_categories_path, notice: I18n.t('controllers.products.bulk_update')
+    render :csv_edit, status: 422
   end
 
   private
