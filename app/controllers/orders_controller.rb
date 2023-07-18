@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
   add_breadcrumb I18n.t('breadcrumbs.orders'), :orders_path, only: %i[index show]
 
   def index
-    # binding.pry
     incoming_params = params.permit(:locale, :format, :page,
                                     search: [:email, :sort, :cost_from, :cost_to,
                                              'order_created_at_to(3i)', 'order_created_at_to(2i)', 'order_created_at_to(1i)',

@@ -25,7 +25,7 @@
         <div class="gap-3"></div>
         <div class="sidebar-container">
           <div id="categories"><%= link_to t('.categories'), product_categories_path %></div>
-          <% ProductCategory.all.map do |product_category| %>
+          <% ProductCategory.all.order(name: :asc).map do |product_category| %>
             <div class="category"><%= link_to "#{product_category.name}", product_category_path(product_category, product_category_id: product_category.id) %></div>
           <% end %>
         </div>

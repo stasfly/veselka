@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  # protected
+
+  private
+
   def unsorted_category
     unless ProductCategory.find_by(name: 'Unsorted')
       return ProductCategory.create(name: 'Unsorted',
@@ -24,7 +28,9 @@ class ApplicationController < ActionController::Base
     ProductCategory.find_by(name: 'Unsorted')
   end
 
-  private
+  def product_categories
+    @product_categories ||= ProductCategory.all.order(name: :asc)
+  end
 
   def default_url_options
     { locale: I18n.locale }

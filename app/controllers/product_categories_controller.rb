@@ -55,10 +55,6 @@ class ProductCategoriesController < ApplicationController
 
   private
 
-  def product_categories
-    @product_categories = ProductCategory.all.order(name: :asc)
-  end
-
   def product_category
     @product_category ||= ProductCategory.find(params[:id])
   end
