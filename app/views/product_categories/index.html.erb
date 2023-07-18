@@ -4,6 +4,15 @@
   <% if current_user_admin? %>
     <div><%= link_to "#{t('.add_new_category')}", new_product_category_path %></div>
     <%= render 'csv_import' %>
+    <div>
+      <form action="<%= csv_export_path(format: 'csv') %>" method="get" target="_self">
+        <%= fields_for 'search' do |search_form| %> 
+          <%= search_form.select(:product_category_name, ProductCategory.all.order(name: :asc).collect { |cat| cat.name}, { include_blank: t('search_form.select_all_cat') }) %>
+        <% end %>
+        <%= button_tag t('buttons.csv_export') %>
+        <%= hidden_field_tag('format', 'csv') %>
+      </form>
+    </div>
   <% end %>
 </div>  
 <div class="product-index">

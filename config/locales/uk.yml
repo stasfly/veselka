@@ -71,6 +71,8 @@ uk:
     sign_up: 'Зареєструватись'
     link_to_index: 'Повернутись до каталогу товарів'
     search: 'Пошук'
+    csv_export: 'Завнтажити CSV'
+    csv_import: 'Надіслати CSV'
 #                                @@@@@   bread_crumbs   @@@@@    
   breadcrumbs:
     cart: 'кошик'
@@ -101,6 +103,7 @@ uk:
     sort_cost: 'Вартість замовлення'
     search_by_order_cost_from: 'Віртість від'
     search_by_order_cost_to: 'Вартість до'
+    select_all_cat: 'Всі категорії'
 #                                @@@@@   views  @@@@@     
   admins:
     edit:

@@ -11,7 +11,8 @@ Rails.application.routes.draw do
     delete  'customer/:id',       to: 'admins#destroy', as: 'user_destroy'
     
     post  'csv_accept',   to: 'products#csv_accept'
-    put   'bulk_update',   to: 'products#bulk_update'
+    put   'bulk_update',  to: 'products#bulk_update'
+    get   'csv_export',   to: 'products#csv_export'
 
     devise_for :users, controllers: {
       registrations:  'users/registrations',

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 class ProductsController < ApplicationController
   before_action :product_categories, only: %i[new edit]
   before_action :product, only: %i[show edit update destroy]
@@ -116,7 +118,6 @@ class ProductsController < ApplicationController
   def csv_accept
     @product = Product.new
     authorize_product
-    require 'csv'
     return redirect_to request.referer, notice: 'No file added' if params[:file].nil?
     return redirect_to request.referer, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
 
@@ -143,6 +144,14 @@ class ProductsController < ApplicationController
     end
     product_categories
     render :csv_edit, status: 422
+  end
+
+  def csv_export
+    params.permit(:format, :button, :locale, search: [:product_category_name])
+    respond_to do |format|
+      format.csv { send_data export_to_csv, filename: "products-#{DateTime.now.strftime('%d%m%Y%H%M')}.csv" }
+    end
+    # send_data export_to_csv, type: 'text/csv', disposition: 'attachment', filename: "products-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"
   end
 
   private
@@ -194,6 +203,31 @@ class ProductsController < ApplicationController
     products.each do |id, attributes|
       products[id] = attributes.permit(:id, :name, :description, :sku, :price, :product_category_id, :dstr,
                                        :quantity, product_inventory: %i[quantity id])
+    end
+  end
+
+  def export_to_csv
+    incoming_params = params.permit(:locale, :format, :button, search: [:product_category_name])
+    prods = if incoming_params[:search][:product_category_name].blank?
+              Product.all.includes(:product_inventory)
+            else
+              Product.includes(:product_inventory)
+                     .where(product_category_id: ProductCategory.find_by(name: params[:search][:product_category_name]))
+            end
+    CSV.generate do |csv|
+      csv << %w[product_category_id id sku name price quantity updated_at description] # Product.column_names
+      prods.each do |prod|
+        ary = []
+        ary << prod.product_category_id
+        ary << prod.id
+        ary << prod.sku
+        ary << prod.name
+        ary << prod.price
+        ary << prod.product_inventory.quantity
+        ary << prod.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+        ary << prod.description
+        csv << ary
+      end
     end
   end
 
