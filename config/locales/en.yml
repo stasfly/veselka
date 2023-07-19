@@ -181,7 +181,7 @@ en:
       delete_image: 'Delete image'
       delete_all_images: 'Delete all images'
     index:
-      title: 'Catalogue'
+      add_new_product: 'Add new product'
       product_name: 'Name'
       product_sku: 'sku'
       product_price: 'Price'

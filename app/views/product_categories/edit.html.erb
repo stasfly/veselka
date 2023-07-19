@@ -1,4 +1,4 @@
-<h1>ProductCategory#edit</h1>
+<h1><%= "#{t('breadcrumbs.product_category_edit')} #{@product_category.name}" %></h1>
 <div>
   <%= simple_form_for @product_category, data: { turbo: false } do |form| %>
     <%= form.input :name, required: true %>

@@ -61,9 +61,10 @@ class ProductsController < ApplicationController
 
   def destroy
     authorize_product
-    remove_to_unsort?(@product)
-    redirect_to products_path(product_category_id: @product.product_category.id),
-                notice: I18n.t('controllers.products.destroyed')
+    ::Products::ProductCsv.new.remove_to_unsort?(@product)
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@product) }
+    end
   end
 
   def purge_one_attachment
@@ -134,15 +135,6 @@ class ProductsController < ApplicationController
       crumb_name = ProductCategory.find(params[:search][:product_category_id]).name
     end
     add_breadcrumb crumb_name unless crumb_name.nil?
-  end
-
-  def remove_to_unsort?(product_item)
-    unsorted = unsorted_category
-    if product_item.product_category_id == unsorted.id
-      product_item.destroy
-    else
-      product_item.update(product_category_id: unsorted.id)
-    end
   end
 
   def bulk_product_params

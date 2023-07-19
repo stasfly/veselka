@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+require_relative '../services/shared_methods'
+
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include Pagy::Backend
+  include SharedMethods
   before_action :set_locale
   before_action { @pagy_locale = params[:locale] }
 
@@ -15,18 +18,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  # protected
-
   private
-
-  def unsorted_category
-    unless ProductCategory.find_by(name: 'Unsorted')
-      return ProductCategory.create(name: 'Unsorted',
-                                    description: 'Unsortet products')
-    end
-
-    ProductCategory.find_by(name: 'Unsorted')
-  end
 
   def product_categories
     @product_categories ||= ProductCategory.all.order(name: :asc)

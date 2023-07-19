@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+require_relative '../shared_methods'
+
 module Products
   class ProductCsv
     require 'csv'
+    include SharedMethods
 
     def csv_import(file, product_categories)
       opened_file = File.open(file)
@@ -82,6 +85,15 @@ module Products
           end
           prod.save if prod.changed?
         end
+      end
+    end
+
+    def remove_to_unsort?(product_item)
+      unsorted = unsorted_category
+      if product_item.product_category_id == unsorted.id
+        product_item.destroy
+      else
+        product_item.update(product_category_id: unsorted.id)
       end
     end
   end

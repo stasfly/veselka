@@ -182,7 +182,7 @@ uk:
       delete_image: 'Видалити зображення'
       delete_all_images: 'Видалити всі зображення'
     index:
-      title: 'Каталог товарів'
+      add_new_product: 'Додати нову позицію'
       product_name: 'Назва'
       product_sku: 'Складський номер'
       product_price: 'Ціна'
