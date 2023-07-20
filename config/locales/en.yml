@@ -183,7 +183,7 @@ en:
     index:
       add_new_product: 'Add new product'
       product_name: 'Name'
-      product_sku: 'sku'
+      product_sku: 'Sku'
       product_price: 'Price'
       product_category: 'Category'
     new:
