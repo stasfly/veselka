@@ -10,7 +10,6 @@ class AdminsController < ApplicationController
   end
 
   def index
-    # binding.pry
     incoming_params = params.permit(:locale, :format, :page,
                                     search: [:email, :role, :sort,
                                              'created_at_to(3i)', 'created_at_to(2i)', 'created_at_to(1i)',

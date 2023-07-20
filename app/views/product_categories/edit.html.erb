@@ -1,4 +1,4 @@
-<h1>ProductCategory#edit</h1>
+<h1><%= "#{t('breadcrumbs.product_category_edit')} #{@product_category.name}" %></h1>
 <div>
   <%= simple_form_for @product_category, data: { turbo: false } do |form| %>
     <%= form.input :name, required: true %>
@@ -11,49 +11,9 @@
 </div>
 
 <div>
-  <% if @products.any? %>
-    <%= form_for :products, url: bulk_update_product_path, html: { method: :put }  do |form| %>
-      <table>
-        <thead>
-          <tr>
-            <th><%= t('.name') %></th>
-            <th><%= t('.sku') %></th>
-            <th><%= t('.price') %></th>
-            <th><%= t('.quantity') %></th>
-            <th><%= t('.category') %></th>
-            <th><%= t('buttons.delete') %></th>
-          </tr>
-        </thead>
-        <% @products.each_with_index do |product, index| %>
-          <%= fields_for "product[#{product.id}]", product do |product_fields| %>
-            <tbody>
-              <%= product_fields.hidden_field :id, value: product.id %>
-              <td><%= product_fields.text_field :name, value: product.name,  required: true, label: false %></td>
-              <td><%= product_fields.text_field :sku, value: product.sku,  required: true, label: false %></td>
-              <td><%= product_fields.text_field :price, as: :decimal, value: product.price, label: false %></td>
-              <td>
-                <%= product_fields.fields_for :product_inventory do |product_inventory| %>
-                  <%= product_inventory.text_field :quantity, value: product.product_inventory.quantity, validate: { only_integer: true }, required: true, label: false %>
-                <% end %>
-              </td>
-              <td><%= product_fields.select :product_category_id, @product_categories.pluck('name'), selected: @product_category.name %></td>
-              <td><%= product_fields.check_box :dstr, checked: false %></td>
-            </tbody>
-          <% end %>
-        <% end %>
-      </table>
-      <div class="btn-container">
-        <%= form.button :submit, class: 'submit-btn' %>
-      </div>
-    <% end %>
-  <% else %>
-    <h2>
-      <%= t('.empty_category') %>
-      <%= link_to t('.add_new_item'), new_product_path %>
-    </h2>
-  <% end %>
+  <%= render 'bulk_update' %>
 </div>
 
 <div class="show-control">
-  <span><%= link_to t('buttons.back'), :back %>  |  <%= link_to t('buttons.link_to_index'), products_path %></span>
+  <span><%= link_to t('buttons.back'), :back %>  |  <%= link_to t('buttons.link_to_index'), product_categories_path %></span>
 </div>

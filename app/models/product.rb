@@ -19,6 +19,8 @@ class Product < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_one :product_inventory, dependent: :destroy
 
+  after_create :add_product_inventory
+
   def self.product_search(search)
     if search
       sort_key    = sort_key_order(search[:sort])[:key]
@@ -47,5 +49,9 @@ class Product < ApplicationRecord
     products_in_cart = []
     user.cart.cart_items.map { |cart_item| products_in_cart << cart_item.product_id }
     products_in_cart
+  end
+
+  def add_product_inventory
+    ProductInventory.create(product_id: id, quantity: 0)
   end
 end

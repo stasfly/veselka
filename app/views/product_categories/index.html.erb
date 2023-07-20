@@ -1,5 +1,20 @@
 <h1><%= t('layouts.application.categories') %></h1>
 
+<div class="btn-container">
+  <% if current_user_admin? %>
+    <div><%= link_to "#{t('.add_new_category')}", new_product_category_path %></div>
+    <%= render 'csv_import' %>
+    <div>
+      <form action="<%= csv_export_path(format: 'csv') %>" method="get" target="_self">
+        <%= fields_for 'search' do |search_form| %> 
+          <%= search_form.select(:product_category_name, ProductCategory.all.order(name: :asc).collect { |cat| cat.name}, { include_blank: t('search_form.select_all_cat') }) %>
+        <% end %>
+        <%= button_tag t('buttons.csv_export') %>
+        <%= hidden_field_tag('format', 'csv') %>
+      </form>
+    </div>
+  <% end %>
+</div>  
 <div class="product-index">
   <% @product_categories.each do |product_category| %>
     <div class="product-item">
@@ -13,7 +28,7 @@
       </div>
       <div class="item-description">
         <div class="item-name"><%= link_to(product_category.name, product_category_path(product_category, { product_category_id: product_category.id, source: 'index' } )) %></div>
-        <% if current_user.has_role? :admin %>
+        <% if current_user_admin? %>
           <div class="item-name"><%= link_to(t('buttons.edit'), edit_product_category_path(product_category)) %></div>
           <div class="item-code">
             <%= link_to(t('buttons.delete'), product_category_path(product_category), data: {turbo_method: :delete, turbo_confirm: 'Sure?'}) %>
@@ -23,4 +38,3 @@
     </div>
   <% end %>
 </div>
-<div class="btn-container"><div><%= link_to "#{t('.add_new_category')}", new_product_category_path %></div></div>  

@@ -71,6 +71,8 @@ en:
     sign_up: 'sign up'
     link_to_index: 'Back to the index'
     search: 'Search'
+    csv_export: 'Download CSV'
+    csv_import: 'Upwnload CSV'
 #                                @@@@@   bread_crumbs   @@@@@    
   breadcrumbs:
     cart: 'cart'
@@ -101,6 +103,7 @@ en:
     sort_cost: 'Order cost'
     search_by_order_cost_from: 'Cost from'
     search_by_order_cost_to: 'Cost to'
+    select_all_cat: 'All categories'
 #                                @@@@@   views   @@@@@     
   admins:
     edit:
@@ -178,7 +181,7 @@ en:
       delete_image: 'Delete image'
       delete_all_images: 'Delete all images'
     index:
-      title: 'Catalogue'
+      add_new_product: 'Add new product'
       product_name: 'Name'
       product_sku: 'sku'
       product_price: 'Price'

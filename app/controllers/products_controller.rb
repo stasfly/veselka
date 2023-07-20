@@ -39,7 +39,7 @@ class ProductsController < ApplicationController
     authorize_product
     if @product.valid?
       @product.save
-      ProductInventory.create(product_id: @product.id, quantity: params[:inventory_quantity][:quantity].to_i)
+      @product.product_inventory.update(quantity: params[:inventory_quantity][:quantity].to_i)
       redirect_to @product, notice: I18n.t('controllers.products.created')
     else
       render :new, notice: I18n.t('controllers.products.incorrect_input')
@@ -47,7 +47,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-    # @product = Product.find(params[:id])
     authorize_product
     if product.update(product_params)
       product_inventory = ProductInventory.find_by(product_id: @product.id)
@@ -62,9 +61,10 @@ class ProductsController < ApplicationController
 
   def destroy
     authorize_product
-    remove_to_unsort?(@product)
-    redirect_to products_path(product_category_id: @product.product_category.id),
-                notice: I18n.t('controllers.products.destroyed')
+    ::Products::ProductCsv.new.remove_to_unsort?(@product)
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@product) }
+    end
   end
 
   def purge_one_attachment
@@ -79,35 +79,37 @@ class ProductsController < ApplicationController
   end
 
   def bulk_update
+    @product = Product.new
+    authorize_product
+    ::Products::ProductCsv.new.bulk_product_update(bulk_product_params, product_categories)
+    redirect_to product_categories_path, notice: I18n.t('controllers.products.bulk_update')
+  end
+
+  def csv_accept
+    @product = Product.new
+    authorize_product
+    return redirect_to request.referer, notice: 'No file added' if params[:file].nil?
+    return redirect_to request.referer, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
+
+    @products = ::Products::ProductCsv.new.csv_import(params[:file], product_categories)
     product_categories
-    prods_before_update = Product.where(product_category_id: params[:id]).includes(:product_inventory)
-    bulk_product_params.each do |_id, attributes|
-      prod = prods_before_update.detect { |record| record[:id] == attributes[:id].to_i }
-      prod_cat = @product_categories.detect { |cat| cat[:name] == attributes[:product_category_id] }
-      if attributes[:dstr].to_i == 1
-        remove_to_unsort?(prod)
-      else
-        prod.update(name: attributes[:name])          unless prod.name == attributes[:name]
-        prod.update(sku: attributes[:sku])            unless prod.sku == attributes[:sku]
-        prod.update(price: attributes[:price])        unless prod.price == attributes[:price]
-        prod.update(product_category_id: prod_cat.id) unless prod.product_category_id == prod_cat.id
-        unless prod.product_inventory.quantity == attributes[:product_inventory][:quantity]
-          prod.product_inventory.quantity = attributes[:product_inventory][:quantity]
-          prod.save
-        end
+    render :csv_edit, status: 422
+  end
+
+  def csv_export
+    params.permit(:format, :button, :locale, search: [:product_category_name])
+    respond_to do |format|
+      format.csv do
+        send_data ::Products::ProductCsv.new.csv_export(params[:search][:product_category_name]),
+                  filename: "products-#{DateTime.now.strftime('%d%m%Y%H%M')}.csv"
       end
     end
-    redirect_to product_categories_path, notice: I18n.t('controllers.products.bulk_update')
   end
 
   private
 
   def products
     @products = Product.includes(:product_category, :product_inventory, [:images_attachments]) # .with_attached_images
-  end
-
-  def product_categories
-    @product_categories = ProductCategory.all
   end
 
   def product
@@ -133,15 +135,6 @@ class ProductsController < ApplicationController
       crumb_name = ProductCategory.find(params[:search][:product_category_id]).name
     end
     add_breadcrumb crumb_name unless crumb_name.nil?
-  end
-
-  def remove_to_unsort?(product_item)
-    unsorted = unsorted_category
-    if product_item.product_category_id == unsorted.id
-      product_item.destroy
-    else
-      product_item.update(product_category_id: unsorted.id)
-    end
   end
 
   def bulk_product_params
