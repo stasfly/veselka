@@ -2,7 +2,7 @@
 
 class ProductsController < ApplicationController
   before_action :product_categories, only: %i[new edit]
-  before_action :product, only: %i[show edit update destroy]
+  before_action :product, only: %i[edit update destroy]
   before_action :authorize_product, only: %i[edit]
 
   add_breadcrumb I18n.t('breadcrumbs.products'), :product_categories_path, only: %i[index show new edit]
@@ -17,6 +17,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    # product.includes([:blob])
     @cart_item = CartItem.new(product_id: product.id, cart_id: current_user.cart.id) unless current_user.nil?
     product_inventory
     @product_in_cart = Product.products_in_cart(current_user.id).include?(product.id) unless current_user.nil?

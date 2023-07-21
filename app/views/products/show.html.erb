@@ -1,12 +1,17 @@
 <div class="show-container">
-  <div class="show-row">
-    <div class="show-img col-7">
-      <% if @product.images.attached? %>
-        <% @product.images.each do |img| %>
-          <div><%= image_tag(img.variant(resize_to_limit: [200, 200])) %></div>
-        <% end %> 
+  <div class="product-gallery">
+    <div class="full-size-image">
+      <%= image_tag(@product.images.first.variant(resize_to_limit: [800, 600])) %>
+    </div>
+    <div class="thumbnail-container">
+      <% @product.images.each do |image| %>
+        <div class="thumbnail">
+          <%= image_tag(image.variant(resize_to_limit: [800, 600])) %>
+        </div>
       <% end %>
     </div>
+  </div>
+  <div class="show-row">
     <div class="property-block col-5">
       <div><h4><%= t('.product_name') %> <%= @product.name %></h4></div>
       <div><h4><%= t('.product_sku') %> <%= @product.sku %></h4></div>
