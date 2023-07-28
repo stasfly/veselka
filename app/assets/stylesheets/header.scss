@@ -2,14 +2,14 @@
 @import 'fonts';
 
 .gap-1 {
-  flex: 1 15 150px;
-  // border: 1px solid rgb(84, 41, 186);
+  flex: 0 15 20vh;
+  border: 1px solid rgb(165, 155, 189);
   height: inherit;
 }
 
 .gap-2 {
-  flex: 1 10 10vh;
-  // border: 1px solid rgb(84, 41, 186);
+  flex: 0 10 10vh;
+  border: 1px solid rgb(96, 192, 101);
   height: inherit;
 }
 
@@ -22,122 +22,126 @@
   // position: fixed;
   z-index: 3;
   margin: 0px 0 0 0;
-
-  & .header-container {
-    position: fixed;
-    width: inherit;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    height: 60px;
-    background-color: $back2;
-    color: white;
-    align-items: stretch;
-    
-    & > div {
-      text-align: center;
-      line-height: 35px;
-      width: 19vh;
-      // border: 1px solid green;
+}
   
-      &.link-block {
-        flex: 3 1 65vh;
-        // border: 1px solid green;
-        padding: 3px;
-        display: flex;
-        
-        & > div {
-          // border: 1px solid yellow;
-          width: 15vh;
-          align-self: center;
-          text-align: center;
-        }
-      }
-
-      &.devise-menu {
-        flex: 3 1 14vh;
-        align-self: center;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: end;
-        padding-right: 25px;
-        // border: 1px solid blue;
-        
-        & > div {
-          // border: 1px dotted yellow;
-          width: 9vh;
-          align-self: center;
-          text-align: center;
-        }
-      }
-
-      &.languages {
-        flex: 3 1 5vh;
-        align-self: center;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: end;
-        padding-right: 25px;
-        // border: 1px solid blue;
-        
-        & > div {
-          // border: 1px dotted yellow;
-          width: 3vh;
-          align-self: center;
-          text-align: center;
-        }
-      }
-  
-      &.menu-item {
-        flex: 1 1 25vh;
-        align-self: center;
-        
-        & a {
-          font-size: 1.3em;
-
-          &:hover {
-            font-size: 1.6em;
-          }
-        }
-      }
-    }
-
-    & a {
-      color: white;
-      text-decoration: none;
-
-      &:hover {
-        color: $color2;
-        font-weight: bold;
-        font-size: 1.3em;
-      }
-    }
-  }
-
-  & .container {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    padding-top: 60px;
-    height: 95px;
-    margin-bottom: 30px;
-    background-color: $back3;
-    color: $color1;
-    align-items: center;
+.header-container {
+  position: fixed;
+  width: inherit;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  height: 60px;
+  background-color: $back2;
+  color: white;
+  align-items: stretch;
+}    
     
-    & .search-container {
-      flex: 4 1 80vh;
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: space-between;
-      align-items: center;
-
-      & > div {
-        text-align: center;
-        line-height: 35px;
-        width: auto;
-        border: 1px dotted #801500;
-      }
-    }
+  
+.link-block {
+  flex: 0 1 800px;
+  border: 1px solid green;
+  padding: 3px;
+  display: flex;
+  justify-content: space-around;
+  
+  & > div {
+    flex: auto;
+    border: 1px solid yellow;
+    width: 18vh;
+    align-self: center;
+    text-align: center;
   }
 }
+
+.devise-menu {
+  // flex: 0 1 28vh;
+  width: 300px;
+  align-self: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  // padding-right: 25px;
+  align-items: center;
+  height: 2em;
+  // border: 1px solid blue;
+  
+  & > div {
+    display: flex;
+    justify-content: space-around;
+    width: 6em;
+    // border: 1px solid green;
+  }
+}
+
+.languages {
+  flex: 0 1 15vh;
+  align-self: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  // padding-right: 25px;
+  // border: 1px solid blue;
+  margin: 0 20px 0 20px;
+  height: 2em;
+  align-items: center;
+  
+  & > div {
+    // border: 1px dotted yellow;
+    // width: 3vh;
+    display: flex;
+    justify-content: space-around;
+    width: 2em;
+    // border: 1px solid green;
+    // flex: 0 1 80px;
+    // margin-right: 20px;
+  }
+}
+  
+.menu-item {
+  flex: 1 1 10vh;
+  align-self: center;
+  align-self: center;
+  text-align: center;
+}
+
+a.header-link {
+  font-size: 1.3e;
+  padding: 0 10px 0 10px;
+  transition: all 100ms;
+  &:hover {
+    border: 1px solid pink;
+    border-radius: 15px;
+    font-size: 1.45em;
+    text-decoration: none;
+  }
+}
+
+button.header-btn {
+  background-color: inherit;
+  color: white;
+  font-size: 1.3e;
+  padding: 0 10px 0 10px;
+  transition: all 100ms;
+  &:hover {
+    border: 1px solid pink;
+    border-radius: 15px;
+    font-size: 1.45em;
+    text-decoration: none;
+  }
+}
+
+
+//     // & a {
+//     //   color: white;
+//     //   text-decoration: none;
+
+//     //   &:hover {
+//     //     color: $color2;
+//     //     font-weight: bold;
+//     //     font-size: 1.3em;
+//     //   }
+//     // }
+  
+
+
+

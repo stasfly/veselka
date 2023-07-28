@@ -5,26 +5,26 @@
   <div class="header-container">
     <div class="gap-1"></div>
     <div class="link-block">
-      <div><%= link_to t('.about_us'), '#' %></div>  
-      <div><%= link_to t('.payment'), '#' %></div>  
-      <div><%= link_to t('.contact'), '#' %></div>  
-      <div><%= link_to t('.about_project'), '#' %></div>  
+      <div><%= link_to t('.about_us'), '#', class: 'header-link' %></div>  
+      <div><%= link_to t('.payment'), '#', class: 'header-link' %></div>  
+      <div><%= link_to t('.contact'), '#', class: 'header-link' %></div>  
+      <div><%= link_to t('.about_project'), '#', class: 'header-link' %></div>  
     </div>
     <div class="gap-1"></div>
-    <div class="menu-item"><%= link_to t('.menu', default: 'no translate'), '#' %></div>
+    <div class="menu-item"><%= link_to t('.menu', default: 'no translate'), '#', class: 'header-link' %></div>
     <div class="devise-menu">
       <% if user_signed_in? %>
-        <div><%= button_to t('buttons.sign_out'), destroy_user_session_path, method: :delete %></div>
+        <div><%= link_to t('buttons.sign_out'), destroy_user_session_path, data: {turbo_method: :delete}, class: 'header-link' %></div>
       <% else %>
-        <div><%= link_to t('buttons.sign_in'), new_user_session_path, method: :post %></div>
+        <div><%= link_to t('buttons.sign_in'), new_user_session_path, method: :post, class: 'header-link' %></div>
         <div class="vertical-rod"><span><%= ' | ' %></span></div>
-        <div><%= link_to t('buttons.sign_up'), new_user_registration_path, method: :post %></div>
+        <div><%= link_to t('buttons.sign_up'), new_user_registration_path, method: :post, class: 'header-link' %></div>
       <% end %>
     </div>
     <div class="languages">
-      <div><%= link_to_unless_current 'UK', url_for(locale: :uk) %></div>
+      <div><%= link_to_unless_current 'UK', url_for(locale: :uk), class: 'header-link' %></div>
       <div class="vertical-rod"><span> | </span></div>
-      <div><%= link_to_unless_current 'EN', url_for(locale: :en) %></div>
+      <div><%= link_to_unless_current 'EN', url_for(locale: :en), class: 'header-link' %></div>
     </div>
   </div>
   <div class="container">
