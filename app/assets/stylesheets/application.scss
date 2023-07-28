@@ -6,6 +6,8 @@
 @import 'products/index';
 @import 'products/show';
 @import 'products/_form';
+@import 'product_categories/index';
+@import 'admins/index';
 
 body {
   margin: 0 0 0 0;
@@ -34,6 +36,39 @@ body {
       font-weight: bold;
     }
   }
+}
+
+.btn-container {
+  display: flex;
+  width: 250px;
+  height: 4em;
+  align-items: center;
+  justify-content: center;
+
+  & .submit-btn {
+    color: $color3;
+    background-color: $back2;
+    // margin: 1em;
+    font-size: 1.15em;
+    border-radius: 5px;
+    flex: 0 0 250px;
+    height: 40px;
+    vertical-align: middle;
+    justify-self: center;
+    transition: all 100ms;
+  
+    &:hover {
+      color: $color2;
+      font-size: 1.3em;
+      // border-color: $color2;
+      border-radius: 15px;
+    }
+  }
+}
+
+.btn-width-250 {
+  width: 250px;
+  justify-content: center;
 }
 
 .header-msg-container {
@@ -92,7 +127,7 @@ body {
 
   & .yield-container {
     flex: 2 1 1000px;
-    background-color: $back3;
+    background-color: $back1;
     margin: 15px;
     // border: 1px solid black;
   }
@@ -115,4 +150,17 @@ body {
 .start-block {
   padding-top: 0px;
   min-height: 58vh;
+}
+
+.font-bolt-medium {
+  font-size: 1.4em;
+  font-weight: bolt;
+}
+
+.row-even input, .row-evev select, .row-evev li, .row-evev div {
+  background-color: $back3;
+}
+
+.row-odd input, .row-odd select, .row-odd li, .row-odd div {
+  background-color: $back_ash_green;
 }

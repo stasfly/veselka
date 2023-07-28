@@ -3,7 +3,7 @@
   <h3><%= link_to(t('.add_new_product'), new_product_path) if policy(Product).index? %></h3>
 </div>
 <% instance_variable_names.inspect %>
-<div>
+<div class="search-container">
   <%= form_for products_path, data: { turbo_frame: :results }, method: :get do %>
     <%= fields_for 'search' do |search_form| %>
       <div><%= search_form.search_field :name,  placeholder: t('search_form.search_by_name'),

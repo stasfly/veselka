@@ -16,7 +16,8 @@
         </thead>
         <% @products.each_with_index do |product, index| %>
           <%= fields_for "product[#{product[:id]}]", product do |product_fields| %>
-            <tbody>
+            <% tbody_class = index.even? ? 'row-even' : 'row-odd' %>
+            <tbody class="<%= tbody_class %>">
               <td><%= product_fields.text_field :id, value: product[:id], readonly: true %></td>
               <td><%= product_fields.text_field :name, value: product[:name],  required: true, label: false %></td>
               <td><%= product_fields.text_field :sku, value: product[:sku],  required: true, label: false %></td>
