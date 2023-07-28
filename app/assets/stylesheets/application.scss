@@ -92,61 +92,64 @@ body {
   flex-flow: row nowrap;
   align-items: flex-start;
   // border: 1px solid green;
+}
 
-  & .sidebar-container {
-    flex: 1 2 200px;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 15px;
-    margin-right: 10px;
-    display: flex;
-    background-color: $back4;
-    flex-flow: column nowrap;
-    // border: 1px solid black;
+.sidebar-container {
+  flex: 1 2 200px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  // align-items: center;
+  margin-top: 15px;
+  margin-right: 10px;
+  // border: 1px solid black;
+}
 
-    & div {
-      height: 40px;
-      width: 100%;
-      padding-top: 0.8em;
-      background-color: $back4;
-      text-align: center;
-      align-self: center;
-      border-bottom: 2px solid $back1;
-
-      & a {
-        color: $color3;
-        text-decoration: none;
-    
-        &:hover {
-          color: $color2;
-          font-size: 1.3em;
-        }
-      }
-    }
-  }
-
-  & .yield-container {
-    flex: 2 1 1000px;
-    background-color: $back1;
-    margin: 15px;
-    // border: 1px solid black;
-  }
-
-  & .filter-container {
-    flex: 1 2 200px;
-    border: 1px solid black;
-  }
-
-  & a {
-    color: $color1;
+.category {
+  display: flex;
+  height: 55px;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: $back4;
+  border-bottom: 2px solid $back1;
+ & a {
+    color: $color3;
     text-decoration: none;
 
     &:hover {
-      color: $color5;
+      color: $color2;
+      font-size: 1.3em;
     }
   }
 }
 
+.logo {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  padding: 5px 0 0 0;
+  background-color: $back1;
+}
+
+.yield-container {
+  flex: 2 1 1000px;
+  background-color: $back1;
+  margin: 15px;
+  // border: 1px solid black;
+}
+.filter-container {
+  flex: 1 2 200px;
+  border: 1px solid black;
+}
+// a {
+//   color: $color1;
+//   text-decoration: none;
+//   &:hover {
+//     color: $color5;
+//   }
+// }
 .start-block {
   padding-top: 0px;
   min-height: 58vh;

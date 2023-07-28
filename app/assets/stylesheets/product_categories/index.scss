@@ -13,5 +13,21 @@
     align-self: center;
     padding: 0.6em 1em 0 1em;
     border-radius: 15px;
+
+    
+  }
+}
+
+.csv-block a, .product-index a {
+  color: $color1;
+  transition: all 100ms;
+  padding: 3px 5px 3px 5px;
+
+  &:hover {
+    color: $dark_green;
+    // font-weight: bold;
+    text-decoration: none;
+    border: 1px solid $pink;
+    border-radius: 10px;
   }
 }
