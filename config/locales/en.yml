@@ -191,6 +191,7 @@ en:
       quantity: 'Q-ty'
       integer_only: 'integer only'
     show:
+      product_picture: 'image for '
       product_name: 'Item: '
       product_sku: 'sku: '
       product_price: 'Price: '

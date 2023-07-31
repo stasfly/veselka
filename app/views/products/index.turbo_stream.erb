@@ -8,7 +8,10 @@
           <div class="product-item">
             <div class="item-img">
               <% if product.images.attached? %>
-                <%= link_to (image_tag (product.images.first.variant(resize_to_limit: [300, 300]))), product_path(product)%>
+                <%= link_to (image_tag(product.images.first.variant(resize_to_limit: [300, 300]))), product_path(product)%>
+              <% else %>
+                <% image_path = 'no-image-icon-23483.png' %>
+                <%= link_to (image_tag(image_path, alt: "#{t('.product_picture')} #{product.name}")), product_path(product) %>
               <% end %>
             </div>
             <div class="item-description">

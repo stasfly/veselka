@@ -23,6 +23,10 @@
           <% if product_category.products.first.images.attached? %>
             <%= link_to (image_tag (product_category.products.first.images.first.variant(resize_to_limit: [300, 300]))),
                                     product_category_path(product_category, product_category_id: product_category.id, source: 'index')%>
+          <% else %>
+            <% image_path = 'no-image-icon-23483.png' %>
+            <%= link_to (image_tag image_path, alt: "#{t('products.product_picture')} #{product_category.name}"),
+                                    product_category_path(product_category, product_category_id: product_category.id, source: 'index') %>
           <% end %>
         <% end %>
       </div>

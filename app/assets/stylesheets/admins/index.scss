@@ -7,9 +7,17 @@
   padding: 15px 10px 10px 10px;
 }
 
+.user-even a {
+    border: 1px dotted $back_ash_green;
+  }
+
 .user-odd div, .user-odd li {
   background-color: $back3;
   padding: 15px 10px 10px 10px;
+}
+
+.user-odd a {
+  border: 1px dotted $back3;
 }
 
 .user_orders {

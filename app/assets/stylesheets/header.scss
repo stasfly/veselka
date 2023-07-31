@@ -104,10 +104,13 @@
 }
 
 a.header-link {
+  color: $color3;
   font-size: 1.3e;
   padding: 0 10px 0 10px;
   transition: all 100ms;
+  
   &:hover {
+    color: $color2;
     border: 1px solid $pink;
     border-radius: 15px;
     font-size: 1.45em;
