@@ -1,6 +1,6 @@
 
 <% if current_user != nil %>
-  <div id=<%= "cart_item_form_#{product.id}" %>>
+  <div id=<%= "cart_item_form_#{product.id}" %>, class="cart-item">
     <%= simple_form_for @cart_item, url: cart_items_path, html: {class: "cart-input-form"} do |f| %>
       <%= f.hidden_field :cart_id, value: current_user.cart.id %>
       <%= f.hidden_field :product_id, value: product.id %>

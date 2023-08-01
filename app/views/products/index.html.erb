@@ -1,6 +1,6 @@
 <div>
   <h1><%= @product_category.name %></h1>
-  <h3><%= link_to(t('.add_new_product'), new_product_path) if policy(Product).index? %></h3>
+  <h3 class="add-new-item"><%= link_to(t('.add_new_product'), new_product_path) if policy(Product).index? %></h3>
 </div>
 <% instance_variable_names.inspect %>
 <div class="search-container">

@@ -1,34 +1,33 @@
+<h1><%= @product.name %></h1>
 <div class="show-container">
   <div class="product-gallery">
-   <div class="full-size-image">
-    <% if @product.images.attached? %>
-      <%= image_tag(@product.images.first.variant(resize_to_limit: [800, 600]), alt: "#{t('.product_picture')} #{@product.name}") %>
-    <% else %>
-      <% image_path = 'no-image-icon-23483.png' %>
-      <%= image_tag(image_path, alt: "#{t('.product_picture')} #{@product.name}") %>
-    <% end %>
-  </div>
-    <div class="thumbnail-container">
+    <div class="add-img">
       <% @product.images.each do |image| %>
         <div class="thumbnail">
           <%= image_tag(image.variant(resize_to_limit: [800, 600])) %>
         </div>
       <% end %>
     </div>
-  </div>
-  <div class="show-row">
-    <div class="property-block col-5">
-      <div><h4><%= t('.product_name') %> <%= @product.name %></h4></div>
-      <div><h4><%= t('.product_sku') %> <%= @product.sku %></h4></div>
-      <div><h4><%= t('.product_price') %> <%= @product.price %></h4></div>
-      
-      <%= render 'cart_item_form', products_in_cart: @product_in_cart, product: @product %>
-      
+    <div class="full-size-image">
+      <% if @product.images.attached? %>
+        <%= image_tag(@product.images.first.variant(resize_to_limit: [800, 600]), alt: "#{t('.product_picture')} #{@product.name}") %>
+      <% else %>
+        <% image_path = 'no-image-icon-23483.png' %>
+        <%= image_tag(image_path, alt: "#{t('.product_picture')} #{@product.name}") %>
+      <% end %>
     </div>
   </div>
-  <div class="show-row">
-    <div><h4> <%= t('.description') %> </h4><%= @product.description %></div>
+  <div class="product-cart-block">
+      <div class="product-sku"><%= t('.product_sku') %> <%= @product.sku %></div>
+      <div class="product-price"><%= t('.product_price') %> <%= @product.price %></div>
+      
+      <div class="product-cart-container"><%= render 'cart_item_form', products_in_cart: @product_in_cart, product: @product %></div>
+      
   </div>
+</div>
+<div class="product-description-block">
+  <h4><%= t('.description') %></h4>
+  <div><%= @product.description %></div>
 </div>
 <div class="show-control">
   <span><%= link_to t('buttons.back'), :back %>  |  <%= link_to t('buttons.link_to_index'), product_categories_path %></span>
