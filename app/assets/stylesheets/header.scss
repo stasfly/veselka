@@ -1,6 +1,48 @@
 @import 'colors';
 @import 'fonts';
 
+#cart {
+  max-height: 50px;
+  max-width: 45px;
+  background-color: $back1;
+  margin-top: 15px;
+  padding-top: 5px;
+  border: 1px solid $back1;
+  border-radius: 10px;
+
+  & span#cart-total {
+    position: relative;
+    display: block;
+
+    & span.cart-quntity {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      background: #fd6440;
+      border-radius: 50%;
+      display: flex;
+      width: 20px;
+      height: 20px;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    & a {
+      border-radius: 10px;
+      background: $back1;
+      transition: all 100ms;
+      padding: 12px 5px 3px 5px;
+
+      &:hover {
+        background: $mint_green;
+        border: none;
+      }
+    }
+  }
+}
+
 .gap-1 {
   flex: 0 15 20vh;
   // border: 1px solid rgb(165, 155, 189);

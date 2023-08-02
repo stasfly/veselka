@@ -21,6 +21,17 @@
         <div><%= link_to t('buttons.sign_up'), new_user_registration_path, method: :post, class: 'header-link' %></div>
       <% end %>
     </div>
+    <div class="block-cart">
+      <% if user_signed_in? %>
+        <div id="cart">
+          <span id="cart-total">
+            <%= link_to (image_tag('icon_basket.png', alt: t('.cart'), class: 'header-link' )), cart_path(current_user.cart.id)%>
+            <span class="cart-quntity"><%= current_user.cart.cart_items.count %></span>
+          </span>
+        </div>
+      <% end %>
+
+    </div>
     <div class="languages">
       <div><%= link_to_unless_current 'UK', url_for(locale: :uk), class: 'header-link' %></div>
       <div class="vertical-rod"><span> | </span></div>
