@@ -1,48 +1,46 @@
 <div class="mobile-menu">
 </div>
-
 <div class="header">
   <div class="header-container">
     <div class="gap-1"></div>
     <div class="link-block">
-      <div><%= link_to t('.about_us'), '#' %></div>  
-      <div><%= link_to t('.payment'), '#' %></div>  
-      <div><%= link_to t('.contact'), '#' %></div>  
-      <div><%= link_to t('.about_project'), '#' %></div>  
+      <div><%= link_to t('.about_us'), '#', class: 'header-link' %></div>  
+      <div><%= link_to t('.payment'), '#', class: 'header-link' %></div>  
+      <div><%= link_to t('.contact'), '#', class: 'header-link' %></div>  
+      <div><%= link_to t('.about_project'), '#', class: 'header-link' %></div>  
     </div>
     <div class="gap-1"></div>
-    <div class="menu-item"><%= link_to t('.menu', default: 'no translate'), '#' %></div>
+    <div class="menu-item"><%= link_to t('.menu', default: 'no translate'), '#', class: 'header-link' %></div>
     <div class="devise-menu">
       <% if user_signed_in? %>
-        <div><%= button_to t('buttons.sign_out'), destroy_user_session_path, method: :delete %></div>
+        <div><%= link_to t('buttons.sign_out'), destroy_user_session_path, data: {turbo_method: :delete}, class: 'header-link' %></div>
       <% else %>
-        <div><%= link_to t('buttons.sign_in'), new_user_session_path, method: :post %></div>
+        <div><%= link_to t('buttons.sign_in'), new_user_session_path, method: :post, class: 'header-link' %></div>
         <div class="vertical-rod"><span><%= ' | ' %></span></div>
-        <div><%= link_to t('buttons.sign_up'), new_user_registration_path, method: :post %></div>
+        <div><%= link_to t('buttons.sign_up'), new_user_registration_path, method: :post, class: 'header-link' %></div>
       <% end %>
     </div>
+    <div class="block-cart">
+      <% if user_signed_in? %>
+        <div id="cart">
+          <span id="cart-total">
+            <%= link_to (image_tag('icon_basket.png', alt: t('.cart'), class: 'header-link' )), cart_path(current_user.cart.id)%>
+            <% unless current_user.nil? %>
+              <% counter = current_user.cart.cart_items.count %>
+              <% if counter > 0 %> 
+                <span class="cart-quantity" id="cart_quantity"><%= counter %></span>
+              <% end %>
+            <% end %>
+          </span>
+        </div>
+      <% end %>
+      
+    </div>
     <div class="languages">
-      <div><%= link_to_unless_current 'UK', url_for(locale: :uk) %></div>
+      <div><%= link_to_unless_current 'UK', url_for(locale: :uk), class: 'header-link' %></div>
       <div class="vertical-rod"><span> | </span></div>
-      <div><%= link_to_unless_current 'EN', url_for(locale: :en) %></div>
+      <div><%= link_to_unless_current 'EN', url_for(locale: :en), class: 'header-link' %></div>
     </div>
   </div>
-  <div class="container">
-    <div class="gap-2"></div>
-    <div class="search-container">
-      <div class="logo">
-        <%= link_to root_path do %>
-          <%= image_tag('veselka_logo.jpg', class: 'logo-main') %>
-        <% end %>
-      </div>
-      <div id="company-info">
-        <ul>
-          <li>Company address</li>
-          <li>Working time</li>
-        </ul>
-      </div>
-      <div class="search-bar">Here will be a search bar</div>
-    </div>
-    <div class="gap-2"></div>
-  </div>
+  
 </div>

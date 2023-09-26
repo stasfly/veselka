@@ -1,16 +1,22 @@
 $base-color: #046003;
 $header-bk: rgba(168, 206, 184, 0.5);
 $header-text-col: rgb(14, 54, 32);
-$back1:  blanchedalmond;
+$back1:  rgb(241, 237, 229);
 $back2:  rgb(0, 0, 0);
 $back3:  rgb(255, 255, 255);
 $back4:  rgb(31, 31, 31);
 $back5:  blue;
+$back_light_gray: lightgray;
+$back_ash_green: #b5e9b573;
 $color1: black;
 $color2: rgb(183, 255, 0);
 $color3: white;
 $color4: red;
 $color5: blue;
+$dark_blue: darkblue;
+$dark_green: #1a4605d1;
+$mint_green: rgb(160, 231, 160);
+$pink: pink;
 
 @mixin header-footer-container {
   background-color: $header-bk;

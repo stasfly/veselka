@@ -6,6 +6,9 @@
 @import 'products/index';
 @import 'products/show';
 @import 'products/_form';
+@import 'product_categories/index';
+@import 'admins/index';
+@import 'devise/devise';
 
 body {
   margin: 0 0 0 0;
@@ -20,6 +23,22 @@ body {
   font-size: 1.2em;
 }
 
+a {
+  color: $color1;
+  transition: all 100ms;
+  padding: 3px 5px 3px 5px;
+  // border: 1px solid $back3;
+
+
+  &:hover {
+    color: $dark_green;
+    // font-weight: bold;
+    text-decoration: none;
+    border: 1px solid $pink;
+    border-radius: 10px;
+  }
+}
+
 .breadcrumbs {
   color: $color1;
   font-size: 1.0em;
@@ -31,9 +50,43 @@ body {
     color: black;
     &:hover {
       color: $color5;
-      font-weight: bold;
+      border: none;
+      // font-weight: bold;
     }
   }
+}
+
+.btn-container {
+  display: flex;
+  width: 250px;
+  height: 4em;
+  align-items: center;
+  justify-content: center;
+
+  & .submit-btn {
+    color: $color3;
+    background-color: $back2;
+    // margin: 1em;
+    font-size: 1.15em;
+    border-radius: 5px;
+    flex: 0 0 250px;
+    height: 40px;
+    vertical-align: middle;
+    justify-self: center;
+    transition: all 100ms;
+  
+    &:hover {
+      color: $color2;
+      font-size: 1.3em;
+      // border-color: $color2;
+      border-radius: 15px;
+    }
+  }
+}
+
+.btn-width-250 {
+  width: 250px;
+  justify-content: center;
 }
 
 .header-msg-container {
@@ -50,69 +103,93 @@ body {
 }
 
 .gap-3 {
-  flex: 1 10 150px;
+  flex: 1 10 250px;
+  height: inherit;
 }
+
 .content-container {
   display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
+  margin-top: 30px;
   // border: 1px solid green;
+}
 
-  & .sidebar-container {
-    flex: 1 2 200px;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 15px;
-    margin-right: 10px;
-    display: flex;
-    background-color: $back4;
-    flex-flow: column nowrap;
-    // border: 1px solid black;
+.sidebar-container {
+  flex: 1 2 200px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  // align-items: center;
+  margin-top: 15px;
+  margin-right: 10px;
+  // border: 1px solid black;
+}
 
-    & div {
-      height: 40px;
-      width: 100%;
-      padding-top: 0.8em;
-      background-color: $back4;
-      text-align: center;
-      align-self: center;
-      border-bottom: 2px solid $back1;
-
-      & a {
-        color: $color3;
-        text-decoration: none;
-    
-        &:hover {
-          color: $color2;
-          font-size: 1.3em;
-        }
-      }
-    }
-  }
-
-  & .yield-container {
-    flex: 2 1 1000px;
-    background-color: $back3;
-    margin: 15px;
-    border: 1px solid black;
-  }
-
-  & .filter-container {
-    flex: 1 2 200px;
-    border: 1px solid black;
-  }
-
-  & a {
-    color: $color1;
+.category {
+  display: flex;
+  height: 55px;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: $back4;
+  border-bottom: 2px solid $back1;
+ & a {
+    color: $color3;
     text-decoration: none;
 
     &:hover {
-      color: $color5;
+      color: $color2;
+      font-size: 1.3em;
     }
   }
 }
 
+.logo {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  padding: 5px 0 0 0;
+  background-color: $back1;
+  
+  & a {
+    border: 1px solid $back1;
+  }
+}
+
+.yield-container {
+  flex: 2 1 1000px;
+  background-color: $back1;
+  margin: 15px;
+  // border: 1px solid black;
+}
+.filter-container {
+  flex: 1 2 200px;
+  border: 1px solid black;
+}
+// a {
+//   color: $color1;
+//   text-decoration: none;
+//   &:hover {
+//     color: $color5;
+//   }
+// }
 .start-block {
   padding-top: 0px;
   min-height: 58vh;
+  padding-top: 80px;
+}
+
+.font-bolt-medium {
+  font-size: 1.4em;
+  font-weight: bolt;
+}
+
+.row-even input, .row-evev select, .row-evev li, .row-evev div {
+  background-color: $back3;
+}
+
+.row-odd input, .row-odd select, .row-odd li, .row-odd div {
+  background-color: $back_ash_green;
 }

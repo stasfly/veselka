@@ -184,7 +184,7 @@ uk:
     index:
       add_new_product: 'Додати нову позицію'
       product_name: 'Назва'
-      product_sku: 'Складський номер'
+      product_sku: 'Код'
       product_price: 'Ціна'
       product_category: 'Категорія'
     new:
@@ -192,6 +192,7 @@ uk:
       quantity: 'к-ть'
       integer_only: 'ціле число'
     show:
+      product_picture: 'зображення '
       product_name: 'Назва товару: '
       product_sku: 'Код товару: '
       product_price: 'Ціна: '

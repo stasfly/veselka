@@ -63,7 +63,7 @@ en:
     update: 'Update'
     delete: 'Delete'
     back: 'Back'
-    remove_it: 'Remivee it'
+    remove_it: 'Remove it'
     back_to_site: 'Back to the site'
     log_in_first: 'Log in first'
     sign_in: 'log in'
@@ -183,7 +183,7 @@ en:
     index:
       add_new_product: 'Add new product'
       product_name: 'Name'
-      product_sku: 'sku'
+      product_sku: 'Sku'
       product_price: 'Price'
       product_category: 'Category'
     new:
@@ -191,6 +191,7 @@ en:
       quantity: 'Q-ty'
       integer_only: 'integer only'
     show:
+      product_picture: 'image for '
       product_name: 'Item: '
       product_sku: 'sku: '
       product_price: 'Price: '

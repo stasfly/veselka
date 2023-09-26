@@ -22,5 +22,6 @@ module Veselka
     # config.eager_load_paths << Rails.root.join("extras")
     config.factory_bot.definition_file_paths = ["spec/factories"]
     # config.autoloader = :classic
+    config.assets.enabled = true
   end
 end

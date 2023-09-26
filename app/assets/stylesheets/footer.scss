@@ -15,21 +15,16 @@ li {
   padding: 5px 10px 5px 10px;
 }
 
-a {
+footer a {
   text-decoration: none;
   color: $color3;
+  border: 1px solid $back4;
   
   &:hover {
     color: $color2;
     font-size: 1.0em;
     text-decoration: underline;
   }
-}
-
-.gap-3 {
-  flex: 1 10 10vh;
-  border: 1px solid rgb(84, 41, 186);
-  height: inherit;
 }
 
 footer {

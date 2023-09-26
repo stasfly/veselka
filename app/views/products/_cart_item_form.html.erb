@@ -1,15 +1,17 @@
 
 <% if current_user != nil %>
-  <div id=<%= "cart_item_form_#{product.id}" %>>
-    <%= simple_form_for @cart_item, url: cart_items_path do |f| %>
+  <div id=<%= "cart_item_form_#{product.id}" %> class="cart-item">
+    <%= simple_form_for @cart_item, url: cart_items_path, html: {class: "cart-input-form"} do |f| %>
       <%= f.hidden_field :cart_id, value: current_user.cart.id %>
       <%= f.hidden_field :product_id, value: product.id %>
       <% if product.product_inventory.quantity > 0 %>
-        <%= f.input :quantity, collection: 1..product.product_inventory.quantity, include_blank: false %>
+        <%= f.input :quantity, collection: 1..product.product_inventory.quantity, include_blank: false, input_html: {class: "quantity-input"} %>
           <% if products_in_cart %>
-            <%= f.button :submit, value: t('simple_form.buttons.product.olready_in_the_cart') %>
+            <div>
+              <%= f.button :submit, value: t('simple_form.buttons.product.olready_in_the_cart'), class: "olready_in_the_cart" %>
+            </div>
           <% else %>
-            <%= f.button :submit, value: t('simple_form.buttons.product.put_to_cart') %>
+            <%= f.button :submit, value: t('simple_form.buttons.product.put_to_cart'), class: "put_to_cart" %>
           <% end %>
       <% else %>
           <%= f.label :quantity, t('simple_form.labels.product.zero_quantity') %>
