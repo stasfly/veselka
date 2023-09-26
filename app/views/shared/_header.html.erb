@@ -1,6 +1,5 @@
 <div class="mobile-menu">
 </div>
-
 <div class="header">
   <div class="header-container">
     <div class="gap-1"></div>
@@ -26,11 +25,16 @@
         <div id="cart">
           <span id="cart-total">
             <%= link_to (image_tag('icon_basket.png', alt: t('.cart'), class: 'header-link' )), cart_path(current_user.cart.id)%>
-            <span class="cart-quntity"><%= current_user.cart.cart_items.count %></span>
+            <% unless current_user.nil? %>
+              <% counter = current_user.cart.cart_items.count %>
+              <% if counter > 0 %> 
+                <span class="cart-quantity" id="cart_quantity"><%= counter %></span>
+              <% end %>
+            <% end %>
           </span>
         </div>
       <% end %>
-
+      
     </div>
     <div class="languages">
       <div><%= link_to_unless_current 'UK', url_for(locale: :uk), class: 'header-link' %></div>

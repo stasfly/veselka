@@ -9,7 +9,8 @@ class CartItemsController < ApplicationController
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.update("cart_item_form_#{@cart_item.product.id}", partial: 'products/cart_item_form',
-                                                                         locals: { product: @cart_item.product, products_in_cart: true })
+                                                                         locals: { product: @cart_item.product, products_in_cart: true }),
+          turbo_stream.replace('cart', partial: 'shared/header', locals: { cart_quantity: })
         ]
       end
     end
@@ -29,8 +30,10 @@ class CartItemsController < ApplicationController
           format.turbo_stream do
             render turbo_stream: [
               turbo_stream.remove(@cart_item),
+              turbo_stream.replace('cart', partial: 'shared/header', locals: { cart_quantity: }),
               turbo_stream.update('cart_sum', partial: 'carts/cart_sum')
             ]
+            format.html { render layout: 'shared/header' }
           end
         end
       else
@@ -50,6 +53,10 @@ class CartItemsController < ApplicationController
     cart_item.cart.cart_items.map do |cart_item|
       @cart_sum += cart_item.quantity * cart_item.product.price
     end
+  end
+
+  def cart_quantity
+    @cart_quantity = cart_item.cart.cart_items.count
   end
 
   def authorize_cart_item
