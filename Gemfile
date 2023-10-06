@@ -51,6 +51,7 @@ gem 'sassc-rails'
 gem 'aws-sdk-s3', require: false
 gem 'breadcrumbs_on_rails', '~> 4.1.0'
 gem 'devise', '~> 4.8'
+gem 'factory_bot_rails'
 gem 'image_processing', '~> 1.2'
 gem 'normalize-rails', '~> 8.0'
 gem 'pagy', '~> 6.0'
@@ -65,9 +66,9 @@ gem 'simple_form', '~> 5.1'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails'
   gem 'faker', '~>3.1.1'
   gem 'rspec-rails', '~> 6.0.0'
+  gem 'shoulda-matchers', '~> 5.0'
 end
 
 group :development do

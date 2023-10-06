@@ -4,5 +4,4 @@ class OrderItem < ApplicationRecord
   validates :quantity, presence: true
   validates :quantity, numericality: { only_integer: true }
   belongs_to :order
-  # has_one :product
 end

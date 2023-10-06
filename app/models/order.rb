@@ -9,7 +9,6 @@ class Order < ApplicationRecord
 
   def self.order_details(order_id)
     order = Order.includes(:order_items).where(id: order_id).sample
-    # binding.pry
     product_ids = order.order_items.map(&:product_id)
     products = Product.where(id: product_ids)
     product_details = {}
@@ -32,7 +31,6 @@ class Order < ApplicationRecord
 
       cost_from = search[:cost_from]  == '' ? 0 : search[:cost_from]
       cost_to   = search[:cost_to]    == '' ? 1_000_000_000_000 : search[:cost_to]
-      # binding.pry
       Order.includes(:user).joins(:user)
            .where('users.email LIKE ?', "%#{search[:email]}%")
            .where('cost BETWEEN ? AND ?', cost_from, cost_to)

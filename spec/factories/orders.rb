@@ -2,5 +2,6 @@
 
 FactoryBot.define do
   factory :order do
+    user_id { create(:user) }
   end
 end
