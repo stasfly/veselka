@@ -2,9 +2,16 @@
 
 FactoryBot.define do
   factory :product do
+    # product_category = create(:product_category)
     name { Faker::Vehicle.make }
-    product_type { Faker::Vehicle.car_type }
-    product_code { Faker::Vehicle.mileage }
+    price { rand(1..100) }
+    sku { Faker::Vehicle.mileage }
     description { Faker::ChuckNorris.fact }
+  end
+
+  trait :product_inventory do
+    after(:create) do |product|
+      product.product_inventory.quantity = 10
+    end
   end
 end
