@@ -9,7 +9,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    # binding.pry
     @user.nil? ? false : (@user.has_role? :admin)
   end
 
