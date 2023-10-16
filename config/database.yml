@@ -15,6 +15,8 @@ development:
 production:
   <<: *default
   database: 'veselka_production'
+  url: <%= ENV['DATABASE_URL'] %>
+
   
 test:
   <<: *default
