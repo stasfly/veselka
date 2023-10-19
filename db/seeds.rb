@@ -13,9 +13,11 @@ user = User.new(
   password: 'qwerty',
   password_confirmation: 'qwerty')
 user.add_role :admin
+user.skip_confirmation_notification!
+user.skip_confirmation!
 user.save
 
-1500.times do |n|
+50.times do |n|
   user = User.new(
     email: Faker::Internet.email,
     password: 'qwerty',
