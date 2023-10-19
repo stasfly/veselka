@@ -2,11 +2,13 @@ databases:
   - name: veselka
     databaseName: veselka
     user: veselka
+    plan: free
 
 services:
   - type: web
     name: veselka
     runtime: ruby
+    plan: free
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
