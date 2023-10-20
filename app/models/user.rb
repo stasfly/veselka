@@ -74,7 +74,7 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    UserMailer.welcome(self).deliver_now unless Rails.env.development?
+    # UserMailer.welcome(self).deliver_now # unless Rails.env.development?
   end
 
   private

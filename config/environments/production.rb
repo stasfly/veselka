@@ -16,7 +16,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'http://0.0.0.0:3000',
+    domain:               'veselka.onrender.com',
     user_name:            Rails.application.credentials.gmail.user_name,
     password:             Rails.application.credentials.gmail.secret_key,
     authentication:       'plain',
@@ -25,7 +25,7 @@ Rails.application.configure do
     read_timeout:         5 
   }
 
-  config.action_mailer.default_url_options = { host: 'veselka-loadbalancer-975022747.eu-west-2.elb.amazonaws.com' }
+  config.action_mailer.default_url_options = { host: 'veselka.onrender.com' }
   # Code is not reloaded between requests.
   config.cache_classes = true
 
