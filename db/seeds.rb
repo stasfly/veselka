@@ -34,7 +34,7 @@ end
 end
 
 product_categories = ProductCategory.all
-100.times do |n|
+10.times do |n|
   product = Product.new(
     name: "item#{n + 1}",
     description: Faker::Lorem.paragraph,
@@ -43,12 +43,12 @@ product_categories = ProductCategory.all
   )
   product.product_category_id = product_categories.sample.id
   product.save
-  product_inventory = ProductInventory.create(quantity: rand(50), product_id: product.id)
+  ProductInventory.find_by(product_id: product.id).update(quantity: rand(50))
 end
 
 products = Product.all
 carts = Cart.first(10)
-20.times do |n|
+2.times do |n|
   cart_item = CartItem.new(
     cart_id: carts.sample.id,
     product_id: products.sample.id,
@@ -56,5 +56,3 @@ carts = Cart.first(10)
   )
   cart_item.save  
 end
-# FactoryBot.create_list(:product, 8)
-# FactoryBot.create_list(:user, 2)

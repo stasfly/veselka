@@ -104,7 +104,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_120719) do
     t.string "name", null: false
     t.string "sku"
     t.text "description"
-    t.integer "product_code"
     t.decimal "price", precision: 6, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
