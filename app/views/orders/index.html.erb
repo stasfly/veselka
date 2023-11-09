@@ -3,8 +3,11 @@
 <div>
   <%= form_for orders_path, data: { turbo_frame: :results }, method: :get do %>
     <%= fields_for 'search' do |search_form| %>
-      <div><%= search_form.search_field :email,  placeholder: t('search_form.search_by_email'),
-                            oninput: 'this.form.requestSubmit()', autofocus: true, autocomplete: 'off' %></div>
+      
+      <% if current_user.has_role? :admin %>
+        <div><%= search_form.search_field :email,  placeholder: t('search_form.search_by_email'),
+                              oninput: 'this.form.requestSubmit()', autofocus: true, autocomplete: 'off' %></div>
+      <% end %>
 
       <div>
         <%= search_form.search_field :cost_from,   placeholder: t('search_form.search_by_order_cost_from'),
@@ -27,9 +30,11 @@
       <div>
         <%= search_form.label :sort, t('search_form.sort') %>
         <div>
-          <%= search_form.label :sort_email, t('search_form.sort_email'), oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.radio_button :sort, 'users.email asc', checked: 'checked', oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.radio_button :sort, 'users.email desc', oninput: 'this.form.requestSubmit()' %>
+          <% if current_user.has_role? :admin %>
+            <%= search_form.label :sort_email, t('search_form.sort_email'), oninput: 'this.form.requestSubmit()' %>
+            <%= search_form.radio_button :sort, 'users.email asc', checked: 'checked', oninput: 'this.form.requestSubmit()' %>
+            <%= search_form.radio_button :sort, 'users.email desc', oninput: 'this.form.requestSubmit()' %>
+          <% end %>
           <%= search_form.label :sort_reg, t('search_form.sort_registration') %>
           <%= search_form.radio_button :sort, 'created_at asc', oninput: 'this.form.requestSubmit()' %>
           <%= search_form.radio_button :sort, 'created_at desc', oninput: 'this.form.requestSubmit()' %>
@@ -44,7 +49,7 @@
 </div>
 
 <hr>
-<%= turbo_frame_tag :results, data: { turbo_action: 'advsnce' } do %>
+<%= turbo_frame_tag :results, data: { turbo_action: 'advance' } do %>
   <div id="orders"></div>
   <%= turbo_frame_tag :pagination, loading: :lazy, src: orders_path(format: :turbo_stream, search: params[:search]&.to_unsafe_h) %>
 <% end %>

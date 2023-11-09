@@ -2,7 +2,7 @@
   <% @orders.map do |order| %>
    <div>
       <%= link_to "#{order.id} | #{order.created_at.strftime("%d/%m/%Y %k:%M")} | #{order.cost} | ", order_path(order) %>
-      <%== link_to highlight(order.user.email, params.dig(:search, :email)), order_path(order) %>
+      <%== link_to(highlight(order.user.email, params.dig(:search, :email)), order_path(order)) if current_user.has_role? :admin %>
    </div>
   <% end %>
 <% end %>
