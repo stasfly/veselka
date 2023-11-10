@@ -1,21 +1,59 @@
+# The old version. works fine in local
+
+# default: &default
+#   adapter:  postgresql
+#   encoding: unicode
+#   pool:     5
+#   host:     localhost
+#   username: postgres
+#   password: postgres
+#   port:     5432
+#   timeout:  5000
+  
+# development:
+#   <<: *default
+#   database: 'veselka_development'
+
+# production:
+#   <<: *default
+#   database: 'veselka_production'
+#   url: <%= ENV['DATABASE_URL'] %>
+
+  
+# test:
+#   <<: *default
+#   database: 'veselka_test'
+
+
+# wersion for deployment in render.com
 default: &default
   adapter:  postgresql
   encoding: unicode
   pool:     5
+  host: postgres
+
+  
+  
+development:
+  <<: *default
   host:     localhost
   username: postgres
   password: postgres
   port:     5432
   timeout:  5000
-  
-development:
-  <<: *default
   database: 'veselka_development'
 
 production:
   <<: *default
   database: 'veselka_production'
+  url: <%= ENV['DATABASE_URL'] %>
+  password: <%= ENV['MYSITE_DATABASE_PASSWORD'] %>
   
 test:
   <<: *default
+  host:     localhost
+  username: postgres
+  password: postgres
+  port:     5432
+  timeout:  5000
   database: 'veselka_test'

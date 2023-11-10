@@ -1,18 +1,25 @@
 
 <% if current_user != nil %>
   <div id=<%= "cart_item_form_#{product.id}" %> class="cart-item">
-    <%= simple_form_for @cart_item, url: cart_items_path, html: {class: "cart-input-form"} do |f| %>
+  <% if products_in_cart %>
+    <% @cart_item = CartItem.where(product_id: product.id).where(cart_id: current_user.cart.id).sample %>
+    <% form_path = cart_item_path(@cart_item.id) %>
+    <% submit_button_value = 'simple_form.buttons.product.olready_in_the_cart' %>
+    <% submit_button_class = "olready_in_the_cart" %>
+  <% else %>
+    <% @cart_item = CartItem.new %>
+    <% form_path = cart_items_path %>
+    <% submit_button_value = 'simple_form.buttons.product.put_to_cart' %>
+    <% submit_button_class = "put_to_cart" %>
+  <% end %>
+    <%= simple_form_for @cart_item, url: form_path, html: {class: "cart-input-form"} do |f| %>
       <%= f.hidden_field :cart_id, value: current_user.cart.id %>
       <%= f.hidden_field :product_id, value: product.id %>
       <% if product.product_inventory.quantity > 0 %>
         <%= f.input :quantity, collection: 1..product.product_inventory.quantity, include_blank: false, input_html: {class: "quantity-input"} %>
-          <% if products_in_cart %>
-            <div>
-              <%= f.button :submit, value: t('simple_form.buttons.product.olready_in_the_cart'), class: "olready_in_the_cart" %>
-            </div>
-          <% else %>
-            <%= f.button :submit, value: t('simple_form.buttons.product.put_to_cart'), class: "put_to_cart" %>
-          <% end %>
+        <div>
+          <%= f.button :submit, type: :submit, value: t(submit_button_value), class: submit_button_class %>
+        </div>
       <% else %>
           <%= f.label :quantity, t('simple_form.labels.product.zero_quantity') %>
       <% end %>
