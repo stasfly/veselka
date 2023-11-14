@@ -23,6 +23,14 @@ body {
   font-size: 1.2em;
 }
 
+.invisible-container {
+  display: none;
+}
+
+.visible-container {
+  display: block;
+}
+
 a {
   color: $color1;
   transition: all 100ms;

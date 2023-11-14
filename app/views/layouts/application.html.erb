@@ -48,16 +48,19 @@
      <script>
 
         const mobileBtn = document.getElementById('mobile-cta')
-              mobileFilterBtn = document.getElementById('mobile-filter-cta')
-              filter = document.getElementById('sidebar-menu')
-              nav = document.querySelector('nav')
               mobileBtnExit = document.getElementById('mobile-exit');
+              mobileFilterBtn = document.getElementById('mobile-filter-cta')
+              mobileSearchBtn = document.getElementById('mobile-search-cta')
+              nav = document.querySelector('nav')
+              filter = document.getElementById('sidebar-menu')
+              search = document.getElementById('search-block')
               counter = 2
 
         mobileBtn.addEventListener('click', () => {
             nav.classList.add('menu-btn');
         })
 
+// Sidebar menu
         mobileFilterBtn.addEventListener('click', () => {
             if (counter % 2 == 0)
               { filter.classList.add('mobile-sidebar-container');
@@ -66,6 +69,23 @@
               }
             else
               { filter.classList.remove('mobile-sidebar-container');
+                mobileFilterBtn.classList.remove('icon-checked');
+                mobileSearchBtn.classList.remove('icon-checked');
+                counter = 2
+              }
+        })
+// search block
+        mobileSearchBtn.addEventListener('click', () => {
+            if (counter % 2 == 0)
+              { search.classList.remove('search-container');
+                mobileSearchBtn.classList.add('icon-checked');
+                mobileFilterBtn.classList.remove('icon-checked');
+
+                counter = 1
+              }
+            else
+              { search.classList.add('search-container');
+                mobileSearchBtn.classList.remove('icon-checked');
                 mobileFilterBtn.classList.remove('icon-checked');
                 counter = 2
               }
