@@ -9,10 +9,10 @@
     <nav>
       <%= image_tag('exit.svg', alt: t('.exit_menu'), class: 'mobile-menu-exit', id: 'mobile-exit' ) %>
       <div>
-        <div><%= link_to t('.about_project'), '#', class: 'header-link' %></div>  
-        <div><%= link_to t('.about_us'), '#', class: 'header-link' %></div>  
-        <div><%= link_to t('.my_account'), '#', class: 'header-link' %></div>  
-        <div><%= link_to t('.order_history'), '#', class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.about_project'), '#', class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.about_us'), '#', class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.my_account'), '#', class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.order_history'), '#', class: 'header-link' %></div>  
       </div>
     </nav>
     

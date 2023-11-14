@@ -125,13 +125,9 @@ nav {
   width: 66%;
   left: 0;
   top: 0;
-  background: #20272E;
+  background: $back4;
   height: 100vh;
   padding: 1em;
-
-  div {
-    margin-top: 5em;
-  }
 }
   
 .link-block, .gap-1, .menu-item, .devise-menu, .languages {
