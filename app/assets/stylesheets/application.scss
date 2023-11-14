@@ -116,6 +116,10 @@ a {
 }
 
 .sidebar-container {
+  display: none;
+}
+
+.mobile-sidebar-container {
   flex: 1 2 200px;
   display: flex;
   flex-flow: column nowrap;
@@ -192,4 +196,17 @@ a {
 
 .row-odd input, .row-odd select, .row-odd li, .row-odd div {
   background-color: $back_ash_green;
+}
+
+@media only screen and (min-width: 768px) {
+  .sidebar-container {
+    flex: 1 2 200px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    // align-items: center;
+    margin-top: 15px;
+    margin-right: 10px;
+    // border: 1px solid black;
+  }
 }

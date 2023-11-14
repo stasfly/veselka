@@ -216,6 +216,8 @@ en:
       contact: "Contacts"
       about_project: "About project"
       menu: 'Menu'
+      my_account: 'My account'
+      order_history: 'Order history'
     footer:
     messages:
   user_mailer:

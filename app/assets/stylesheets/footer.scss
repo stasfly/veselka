@@ -28,18 +28,25 @@ footer a {
 }
 
 footer {
-  background-color: $back4;
-  margin-top: 30%;
+  display: none;
+}
 
-  & .footer-container {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-
-    & > div {
-      flex: 5 1 auto;
-      margin-right: 10px;
-      // border: 1px dotted yellow;
+@media only screen and (min-width: 768px) {
+  footer {
+    display: block;
+    background-color: $back4;
+    margin-top: 30%;
+  
+    & .footer-container {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+  
+      & > div {
+        flex: 5 1 auto;
+        margin-right: 10px;
+        // border: 1px dotted yellow;
+      }
     }
   }
 }
