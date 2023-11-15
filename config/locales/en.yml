@@ -65,6 +65,7 @@ en:
     back: 'Back'
     remove_it: 'Remove it'
     back_to_site: 'Back to the site'
+    users: 'Users'
     log_in_first: 'Log in first'
     sign_in: 'log in'
     sign_out: 'log out'
@@ -77,7 +78,7 @@ en:
   breadcrumbs:
     cart: 'cart'
     home: 'home'
-    orders: 'orderc'
+    orders: 'orders'
     products: 'products'
     registration: 'registration'
     sign_in: 'sign_in'
@@ -211,6 +212,12 @@ en:
       category: 'Category'
   shared:
     header:
+      burger_menu: 'Mobile menu icon'
+      filter: 'filter icon'
+      search: 'search icon'
+      exit_menu: 'Exit mobile menu icon'
+      uk_flag: 'Ukraine language icon'
+      en_flag: 'English language icon'
       about_us: "About us"
       payment: "Payment"
       contact: "Contacts"
