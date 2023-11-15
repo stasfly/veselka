@@ -121,7 +121,8 @@ nav.menu-btn {
 nav {
   display: none;
   position: fixed;
-  z-index: 999;
+  margin-top: 60px;
+  z-index: 100;
   width: 66%;
   left: 0;
   top: 0;
@@ -161,6 +162,10 @@ button.header-btn {
     font-size: 1.45em;
     text-decoration: none;
   }
+}
+
+.mobile-filter, .mobile-search {
+  z-index: 200;
 }
 
 // Screen resolution dependencies

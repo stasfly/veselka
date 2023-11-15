@@ -11,8 +11,8 @@
       <div>
         <div class="category"><%= link_to t('.about_project'), '#', class: 'header-link' %></div>  
         <div class="category"><%= link_to t('.about_us'), '#', class: 'header-link' %></div>  
-        <div class="category"><%= link_to t('.my_account'), '#', class: 'header-link' %></div>  
-        <div class="category"><%= link_to t('.order_history'), '#', class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.my_account'), user_path(current_user.id), class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.order_history'), orders_path, class: 'header-link' %></div>  
       </div>
     </nav>
     
