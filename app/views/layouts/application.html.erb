@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag 'turbo', defer: true, "data-turbo-track": "reload" %>
@@ -25,7 +24,7 @@
       </div>
       <div class="content-container">
         <div class="gap-3"></div>
-        <div class="sidebar-container">
+        <div class="sidebar-container", id="sidebar-menu">
           <div class="logo">
             <%= link_to root_path do %>
               <%= image_tag('veselka_logo.jpg', class: 'logo-main') %>
@@ -44,5 +43,62 @@
     </div>
 
     <%= render 'shared/footer' %>
+
+     <script>
+
+        var mobileBtn = document.getElementById('mobile-cta')
+             mobileBtnExit = document.getElementById('mobile-exit');
+             mobileFilterBtn = document.getElementById('mobile-filter-cta')
+             mobileSearchBtn = document.getElementById('mobile-search-cta')
+             nav = document.querySelector('nav')
+             filter = document.getElementById('sidebar-menu')
+             search = document.getElementById('search-block')
+             counter = 2
+             filterCounter = 2
+             searchCounter = 2
+             
+// Hamburger menu
+        mobileBtn.addEventListener('click', () => {
+            nav.classList.add('menu-btn');
+            filter.classList.remove('mobile-sidebar-container');
+            mobileFilterBtn.classList.remove('icon-checked');
+            filterCounter = 2
+            searchCounter = 2
+        })
+        
+        mobileBtnExit.addEventListener('click', () => {
+            nav.classList.remove('menu-btn');
+        })
+
+// Sidebar menu
+        mobileFilterBtn.addEventListener('click', () => {
+            if (filterCounter % 2 == 0) {
+                nav.classList.remove('menu-btn');
+                filter.classList.add('mobile-sidebar-container');
+                mobileFilterBtn.classList.add('icon-checked');
+                filterCounter = 1
+                searchCounter = 2
+              }
+            else {
+                filter.classList.remove('mobile-sidebar-container');
+                mobileFilterBtn.classList.remove('icon-checked');
+                filterCounter = 2
+            }
+        })
+        
+// Search block
+        mobileSearchBtn.addEventListener('click', () => {
+            if (searchCounter % 2 == 0) {
+                search.classList.remove('search-container');
+                mobileSearchBtn.classList.add('icon-checked');
+                searchCounter = 1
+              }
+            else {
+                search.classList.add('search-container');
+                mobileSearchBtn.classList.remove('icon-checked');
+                searchCounter = 2
+            }
+        })
+    </script>
   </body>
 </html>

@@ -1,13 +1,25 @@
-<div class="mobile-menu">
-</div>
 <div class="header">
   <div class="header-container">
+      <%= image_tag('burger_menu.svg', alt: t('.burger_menu'), class: 'mobile-menu', id: 'mobile-cta' ) %>
+      <%= image_tag('filter.svg', alt: t('.filter'), class: 'mobile-filter', id: 'mobile-filter-cta' ) %>
+      <%= image_tag('search.svg', alt: t('.search'), class: 'mobile-search', id: 'mobile-search-cta' ) %>
+    
+    <nav>
+      <%= image_tag('exit.svg', alt: t('.exit_menu'), class: 'mobile-menu-exit', id: 'mobile-exit' ) %>
+      <div>
+        <div class="category"><%= link_to t('.about_project'), '#', class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.about_us'), '#', class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.my_account'), user_path(current_user.id), class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.order_history'), orders_path, class: 'header-link' %></div>  
+      </div>
+    </nav>
+    
     <div class="gap-1"></div>
     <div class="link-block">
-      <div><%= link_to t('.about_us'), '#', class: 'header-link' %></div>  
-      <div><%= link_to t('.payment'), '#', class: 'header-link' %></div>  
-      <div><%= link_to t('.contact'), '#', class: 'header-link' %></div>  
       <div><%= link_to t('.about_project'), '#', class: 'header-link' %></div>  
+      <div><%= link_to t('.about_us'), '#', class: 'header-link' %></div>  
+      <div><%= link_to t('.my_account'), user_path(current_user.id), class: 'header-link' %></div>  
+      <div><%= link_to t('.order_history'), orders_path, class: 'header-link' %></div> 
     </div>
     <div class="gap-1"></div>
     <div class="menu-item"><%= link_to t('.menu', default: 'no translate'), '#', class: 'header-link' %></div>

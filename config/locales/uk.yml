@@ -217,6 +217,8 @@ uk:
       contact: "Контакти"
       about_project: "Про проект"
       menu: 'Меню'
+      my_account: 'Профіль'
+      order_history: 'Історія замовлень'
     footer:
     messages:
   user_mailer:

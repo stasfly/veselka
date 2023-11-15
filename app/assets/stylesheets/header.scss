@@ -9,6 +9,9 @@
   padding-top: 5px;
   border: 1px solid $back1;
   border-radius: 10px;
+  position: fixed;  
+  right: 5px;
+  top: -10px;
 
   & span#cart-total {
     position: relative;
@@ -43,9 +46,38 @@
   }
 }
 
+.mobile-menu-exit, .mobile-menu, .mobile-filter, .mobile-search {
+  color: white;
+  max-height: 30px;
+  max-width: 30px;
+  background-color: $back1;
+  position: fixed;
+  top: 5px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: $mint_green;
+  }
+}
+
+.icon-checked {
+  background-color: $mint_green;
+}
+
+.mobile-menu-exit, .mobile-menu {
+  left: 5px;
+}
+
+.mobile-filter {
+  left: 45px;
+}
+
+.mobile-search {
+  left: 85px;
+}
+
 .gap-1 {
   flex: 0 15 20vh;
-  // border: 1px solid rgb(165, 155, 189);
   height: inherit;
 }
 
@@ -79,73 +111,26 @@
   color: $color3;
   align-items: stretch;
 }    
-    
-  
-.link-block {
-  flex: 0 1 800px;
-  // border: 1px solid green;
-  padding: 3px;
-  display: flex;
-  justify-content: space-around;
-  
-  & > div {
-    flex: auto;
-    // border: 1px solid yellow;
-    width: 18vh;
-    align-self: center;
-    text-align: center;
-  }
+
+nav.menu-btn {
+  display: block;
 }
 
-.devise-menu {
-  // flex: 0 1 28vh;
-  width: 300px;
-  align-self: center;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  // padding-right: 25px;
-  align-items: center;
-  height: 2em;
-  // border: 1px solid blue;
-  
-  & > div {
-    display: flex;
-    justify-content: space-around;
-    width: 6em;
-    // border: 1px solid green;
-  }
-}
-
-.languages {
-  flex: 0 1 15vh;
-  align-self: center;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  // padding-right: 25px;
-  // border: 1px solid blue;
-  margin: 0 20px 0 20px;
-  height: 2em;
-  align-items: center;
-  
-  & > div {
-    // border: 1px dotted yellow;
-    // width: 3vh;
-    display: flex;
-    justify-content: space-around;
-    width: 2em;
-    // border: 1px solid green;
-    // flex: 0 1 80px;
-    // margin-right: 20px;
-  }
+nav {
+  display: none;
+  position: fixed;
+  margin-top: 60px;
+  z-index: 100;
+  width: 66%;
+  left: 0;
+  top: 0;
+  background: $back4;
+  height: 100vh;
+  padding: 1em;
 }
   
-.menu-item {
-  flex: 1 1 10vh;
-  align-self: center;
-  align-self: center;
-  text-align: center;
+.link-block, .gap-1, .menu-item, .devise-menu, .languages {
+  display: none;
 }
 
 a.header-link {
@@ -174,5 +159,75 @@ button.header-btn {
     border-radius: 15px;
     font-size: 1.45em;
     text-decoration: none;
+  }
+}
+
+.mobile-filter, .mobile-search {
+  z-index: 200;
+}
+
+// Screen resolution dependencies
+
+@media only screen and (min-width: 768px) {
+  .mobile-menu, .mobile-menu-exit, .mobile-filter, .mobile-search {
+    display: none;
+  }
+
+  .link-block {
+    flex: 0 1 800px;
+    padding: 3px;
+    display: flex;
+    justify-content: space-around;
+    
+    & > div {
+      flex: auto;
+      width: 18vh;
+      align-self: center;
+      text-align: center;
+    }
+  }
+  
+  .devise-menu {
+    width: 300px;
+    align-self: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 2em;
+    
+    & > div {
+      display: flex;
+      justify-content: space-around;
+      width: 6em;
+    }
+  }
+
+  #cart {
+    position: relative;
+  }
+  
+  .languages {
+    flex: 0 1 15vh;
+    align-self: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    margin: 0 20px 0 20px;
+    height: 2em;
+    align-items: center;
+    
+    & > div {
+      display: flex;
+      justify-content: space-around;
+      width: 2em;
+    }
+  }
+    
+  .menu-item {
+    flex: 1 1 10vh;
+    align-self: center;
+    align-self: center;
+    text-align: center;
   }
 }

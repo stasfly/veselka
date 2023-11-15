@@ -1,51 +1,53 @@
 <h2><%= t('.history') %></h2>
 
 <div>
-  <%= form_for orders_path, data: { turbo_frame: :results }, method: :get do %>
-    <%= fields_for 'search' do |search_form| %>
-      
-      <% if current_user.has_role? :admin %>
-        <div><%= search_form.search_field :email,  placeholder: t('search_form.search_by_email'),
-                              oninput: 'this.form.requestSubmit()', autofocus: true, autocomplete: 'off' %></div>
-      <% end %>
+  <div class="search-container", id="search-block">
+    <%= form_for orders_path, data: { turbo_frame: :results }, method: :get do %>
+      <%= fields_for 'search' do |search_form| %>
 
-      <div>
-        <%= search_form.search_field :cost_from,   placeholder: t('search_form.search_by_order_cost_from'),
-                            oninput: 'this.form.requestSubmit()', autofocus: false, autocomplete: 'off' %>
-        <span> - </span>
-        <%= search_form.search_field :cost_to,     placeholder: t('search_form.search_by_order_cost_to'),
-                            oninput: 'this.form.requestSubmit()', autofocus: false, autocomplete: 'off' %>
-      </div>
+        <% if current_user.has_role? :admin %>
+          <div><%= search_form.search_field :email,  placeholder: t('search_form.search_by_email'),
+                                oninput: 'this.form.requestSubmit()', autofocus: true, autocomplete: 'off' %></div>
+        <% end %>
 
-      <div><%= t('search_form.order_date_range') %></div>
-      <div>
-        <%= search_form.label :order_created_at_to, t('search_form.to') %>
-        <%= search_form.date_select :order_created_at_to, include_blank: true, oninput: 'this.form.requestSubmit()' %>
-      </div>
-      <div>
-        <%= search_form.label :order_created_at_from, t('search_form.from') %>
-        <%= search_form.date_select :order_created_at_from, include_blank: true, oninput: 'this.form.requestSubmit()' %>
-      </div>
-      
-      <div>
-        <%= search_form.label :sort, t('search_form.sort') %>
         <div>
-          <% if current_user.has_role? :admin %>
-            <%= search_form.label :sort_email, t('search_form.sort_email'), oninput: 'this.form.requestSubmit()' %>
-            <%= search_form.radio_button :sort, 'users.email asc', checked: 'checked', oninput: 'this.form.requestSubmit()' %>
-            <%= search_form.radio_button :sort, 'users.email desc', oninput: 'this.form.requestSubmit()' %>
-          <% end %>
-          <%= search_form.label :sort_reg, t('search_form.sort_registration') %>
-          <%= search_form.radio_button :sort, 'created_at asc', oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.radio_button :sort, 'created_at desc', oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.label :sort_cost, t('search_form.sort_cost') %>
-          <%= search_form.radio_button :sort, 'cost asc', oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.radio_button :sort, 'cost desc', oninput: 'this.form.requestSubmit()' %>
+          <%= search_form.search_field :cost_from,   placeholder: t('search_form.search_by_order_cost_from'),
+                              oninput: 'this.form.requestSubmit()', autofocus: false, autocomplete: 'off' %>
+          <span> - </span>
+          <%= search_form.search_field :cost_to,     placeholder: t('search_form.search_by_order_cost_to'),
+                              oninput: 'this.form.requestSubmit()', autofocus: false, autocomplete: 'off' %>
         </div>
-      </div>
+
+        <div><%= t('search_form.order_date_range') %></div>
+        <div>
+          <%= search_form.label :order_created_at_to, t('search_form.to') %>
+          <%= search_form.date_select :order_created_at_to, include_blank: true, oninput: 'this.form.requestSubmit()' %>
+        </div>
+        <div>
+          <%= search_form.label :order_created_at_from, t('search_form.from') %>
+          <%= search_form.date_select :order_created_at_from, include_blank: true, oninput: 'this.form.requestSubmit()' %>
+        </div>
+
+        <div>
+          <%= search_form.label :sort, t('search_form.sort') %>
+          <div>
+            <% if current_user.has_role? :admin %>
+              <%= search_form.label :sort_email, t('search_form.sort_email'), oninput: 'this.form.requestSubmit()' %>
+              <%= search_form.radio_button :sort, 'users.email asc', checked: 'checked', oninput: 'this.form.requestSubmit()' %>
+              <%= search_form.radio_button :sort, 'users.email desc', oninput: 'this.form.requestSubmit()' %>
+            <% end %>
+            <%= search_form.label :sort_reg, t('search_form.sort_registration') %>
+            <%= search_form.radio_button :sort, 'created_at asc', oninput: 'this.form.requestSubmit()' %>
+            <%= search_form.radio_button :sort, 'created_at desc', oninput: 'this.form.requestSubmit()' %>
+            <%= search_form.label :sort_cost, t('search_form.sort_cost') %>
+            <%= search_form.radio_button :sort, 'cost asc', oninput: 'this.form.requestSubmit()' %>
+            <%= search_form.radio_button :sort, 'cost desc', oninput: 'this.form.requestSubmit()' %>
+          </div>
+        </div>
+      <% end %>
+      <%= button_tag t('buttons.search') %>
     <% end %>
-    <%= button_tag t('buttons.search') %>
-  <% end %>
+  </div>
 </div>
 
 <hr>

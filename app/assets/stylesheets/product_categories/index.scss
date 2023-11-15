@@ -27,9 +27,18 @@
 
   &:hover {
     color: $dark_green;
-    // font-weight: bold;
     text-decoration: none;
     border: 1px solid $pink;
     border-radius: 10px;
+  }
+}
+
+.search-container {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .search-container {
+    display: block;
   }
 }
