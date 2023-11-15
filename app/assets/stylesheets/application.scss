@@ -141,7 +141,8 @@ a {
   align-items: center;
   justify-content: center;
   background-color: $back4;
-  border-bottom: 2px solid $back1;
+  font-size: 1.3em;
+  // border-bottom: 2px solid $back1;
  & a {
     color: $color3;
     text-decoration: none;
@@ -154,7 +155,8 @@ a {
 }
 
 .logo {
-  display: flex;
+  display: none;
+  // display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
   padding: 5px 0 0 0;
@@ -202,5 +204,9 @@ a {
     justify-content: center;
     margin-top: 15px;
     margin-right: 10px;
+  }
+
+  .logo {
+    display: flex;
   }
 }
