@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag 'turbo', defer: true, "data-turbo-track": "reload" %>
@@ -58,12 +57,11 @@
               filterCounter = 2
               searchCounter = 2
 
+// Hamburger menu
         mobileBtn.addEventListener('click', () => {
             nav.classList.add('menu-btn');
             filter.classList.remove('mobile-sidebar-container');
-            // search.classList.add('search-container');
             mobileFilterBtn.classList.remove('icon-checked');
-            // mobileSearchBtn.classList.remove('icon-checked');
             filterCounter = 2
             searchCounter = 2
         })
@@ -77,9 +75,7 @@
             if (filterCounter % 2 == 0) {
                 nav.classList.remove('menu-btn');
                 filter.classList.add('mobile-sidebar-container');
-                // search.classList.add('search-container');
                 mobileFilterBtn.classList.add('icon-checked');
-                // mobileSearchBtn.classList.remove('icon-checked');
                 filterCounter = 1
                 searchCounter = 2
               }
@@ -89,15 +85,12 @@
                 filterCounter = 2
             }
         })
-// search block
+        
+// Search block
         mobileSearchBtn.addEventListener('click', () => {
             if (searchCounter % 2 == 0) {
-                // nav.classList.remove('menu-btn');
-                // filter.classList.remove('mobile-sidebar-container');
                 search.classList.remove('search-container');
-                // mobileFilterBtn.classList.remove('icon-checked');
                 mobileSearchBtn.classList.add('icon-checked');
-                // filterCounter = 2
                 searchCounter = 1
               }
             else {
@@ -106,9 +99,6 @@
                 searchCounter = 2
             }
         })
-
-
     </script>
-
   </body>
 </html>

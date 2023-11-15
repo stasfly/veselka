@@ -35,12 +35,9 @@ a {
   color: $color1;
   transition: all 100ms;
   padding: 3px 5px 3px 5px;
-  // border: 1px solid $back3;
-
 
   &:hover {
     color: $dark_green;
-    // font-weight: bold;
     text-decoration: none;
     border: 1px solid $pink;
     border-radius: 10px;
@@ -59,7 +56,6 @@ a {
     &:hover {
       color: $color5;
       border: none;
-      // font-weight: bold;
     }
   }
 }
@@ -74,7 +70,6 @@ a {
   & .submit-btn {
     color: $color3;
     background-color: $back2;
-    // margin: 1em;
     font-size: 1.15em;
     border-radius: 5px;
     flex: 0 0 250px;
@@ -86,7 +81,6 @@ a {
     &:hover {
       color: $color2;
       font-size: 1.3em;
-      // border-color: $color2;
       border-radius: 15px;
     }
   }
@@ -120,7 +114,6 @@ a {
   flex-flow: row nowrap;
   align-items: flex-start;
   margin-top: 30px;
-  // border: 1px solid green;
 }
 
 .sidebar-container {
@@ -128,12 +121,6 @@ a {
 }
 
 .mobile-sidebar-container {
-  // flex: 1 2 200px;
-  // display: flex;
-  // flex-flow: column nowrap;
-  // justify-content: center;
-  // margin-top: 15px;
-  // margin-right: 10px;
   display: block;
   position: fixed;
   margin-top: 60px;
@@ -182,19 +169,12 @@ a {
   flex: 2 1 1000px;
   background-color: $back1;
   margin: 15px;
-  // border: 1px solid black;
 }
 .filter-container {
   flex: 1 2 200px;
   border: 1px solid black;
 }
-// a {
-//   color: $color1;
-//   text-decoration: none;
-//   &:hover {
-//     color: $color5;
-//   }
-// }
+
 .start-block {
   padding-top: 0px;
   min-height: 58vh;
@@ -220,9 +200,7 @@ a {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    // align-items: center;
     margin-top: 15px;
     margin-right: 10px;
-    // border: 1px solid black;
   }
 }
