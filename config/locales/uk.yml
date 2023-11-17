@@ -102,6 +102,7 @@ uk:
     sort_email: "email"
     sort_registration: "Дата реєстрації"
     sort_cost: 'Вартість замовлення'
+    sort_price: 'Ціна'
     search_by_order_cost_from: 'Віртість від'
     search_by_order_cost_to: 'Вартість до'
     select_all_cat: 'Всі категорії'
