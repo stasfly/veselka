@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'static_pages/home', as: 'home'
+  get 'static_pages/about_project', as: 'about_project'
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     resources :product_categories
     resources :cart_items, only: [:create, :update, :destroy]
@@ -18,7 +20,7 @@ Rails.application.routes.draw do
       registrations:  'users/registrations',
       sessions:       'users/sessions'
     }
-    root "product_categories#index"
+    root "static_pages#home"
     resources :products do
       member do
         delete :purge_one_attachment

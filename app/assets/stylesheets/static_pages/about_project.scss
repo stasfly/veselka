@@ -1,0 +1,62 @@
+@import 'colors';
+@import 'fonts';
+
+.static-content {
+  
+  p {
+    text-align: justify;
+  }
+
+  h4 {
+    font-size: 1.2em;
+    margin: 2em 0 0 2em;
+  }
+
+  ul {
+    line-height: 1.5;
+	  margin: 1em 1em;
+	  list-style: none;
+    
+    li {
+      position: relative;
+	    // font-weight: 700;
+	    transition: .25s ease-in-out;
+    }
+
+    li:hover {
+      color: $header-text-col;
+    }
+    li::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      left: -1.0em;
+      top: 34%;
+      width: 0.65em;
+      height: 0.65em;
+      box-sizing: border-box;
+      border-radius: 100%;
+      border: .2em solid $dark_green;
+      background-color: $header-bk;
+      transition: .125s ease-in-out;
+      box-shadow: 0 0 .1rem .1rem $dark_green;
+      animation: pulse 1s 1s infinite linear alternate;
+    }
+    
+    li:hover::before {
+      border-width: 0;
+      background-color: $color5;
+      box-shadow: 0 0 .5rem .1rem $color5;
+      animation: none;
+    }
+  }
+}
+
+@keyframes pulse {
+	from {
+		background-color: $header-bk;
+	}
+	to {
+		background-color: $dark_green;
+	}
+}

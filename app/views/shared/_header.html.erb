@@ -9,8 +9,8 @@
     <nav>
       <%= image_tag('exit.svg', alt: t('.exit_menu'), class: 'mobile-menu-exit', id: 'mobile-exit' ) %>
       <div>
-        <div class="category"><%= link_to t('.about_project'), '#', class: 'header-link' %></div>  
-        <div class="category"><%= link_to t('.about_us'), '#', class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.about_project'), about_project_path, class: 'header-link' %></div>  
+        <div class="category"><%= link_to t('.home'), home_path, class: 'header-link' %></div>  
         <% if user_signed_in? %>
           <div class="category"><%= link_to t('.my_account'), user_path(current_user.id), class: 'header-link' %></div>  
           <div class="category"><%= link_to t('.order_history'), orders_path, class: 'header-link' %></div>  
@@ -30,8 +30,8 @@
     
     <div class="gap-1"></div>
     <div class="link-block">
-      <div><%= link_to t('.about_project'), '#', class: 'header-link' %></div>  
-      <div><%= link_to t('.about_us'), '#', class: 'header-link' %></div>  
+      <div><%= link_to t('.about_project'), about_project_path, class: 'header-link' %></div>  
+      <div><%= link_to t('.home'), home_path, class: 'header-link' %></div>  
       <% if user_signed_in? %>
         <div><%= link_to t('.my_account'), user_path(current_user.id), class: 'header-link' %></div>  
         <div><%= link_to t('.order_history'), orders_path, class: 'header-link' %></div>
