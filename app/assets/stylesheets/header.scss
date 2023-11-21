@@ -143,7 +143,7 @@ nav {
 
 a.header-link {
   color: $color3;
-  font-size: 1.3e;
+  font-size: 1.0em;
   padding: 0 10px 0 10px;
   transition: all 100ms;
   
@@ -151,7 +151,7 @@ a.header-link {
     color: $color2;
     border: 1px solid $pink;
     border-radius: 15px;
-    font-size: 1.45em;
+    font-size: 1.1em;
     text-decoration: none;
   }
 }
@@ -199,7 +199,7 @@ button.header-btn {
       text-align: center;
     }
   }
-  
+
   .devise-menu {
     width: 300px;
     align-self: center;
@@ -242,5 +242,15 @@ button.header-btn {
     align-self: center;
     align-self: center;
     text-align: center;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  a.header-link {
+    font-size: 1.2em;
+    
+    &:hover {
+      font-size: 1.35em;
+    }
   }
 }
