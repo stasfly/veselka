@@ -1,6 +1,40 @@
 @import 'colors';
 @import 'fonts';
 
+@mixin category-style {
+  display: flex;
+  height: 55px;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+ & a {
+    color: $color3;
+    text-decoration: none;
+
+    &:hover {
+      color: $color2;
+      font-size: 1.3em;
+    }
+  }
+}
+
+@mixin link-stile {
+  color: $color3;
+  font-size: 1.0em;
+  padding: 0 10px 0 10px;
+  transition: all 100ms;
+  
+  &:hover {
+    color: $color2;
+    border: 1px solid $pink;
+    border-radius: 15px;
+    font-size: 1.1em;
+    text-decoration: none;
+  }
+}
+
 #cart {
   max-height: 50px;
   max-width: 45px;
@@ -96,6 +130,7 @@
 }
 
 .vertical-rod {
+  display: none;
   flex: 0 0 1.5vh;
 }
 
@@ -135,25 +170,18 @@ nav {
   background: $back4;
   height: 100vh;
   padding: 1em;
+
+  div div {
+    @include category-style;
+  }
 }
   
-.link-block, .gap-1, .menu-item, .devise-menu, .languages {
+.link-block, .gap-1, .menu-item, .devise-menu, .languages, .menu-container {
   display: none;
 }
 
 a.header-link {
-  color: $color3;
-  font-size: 1.0em;
-  padding: 0 10px 0 10px;
-  transition: all 100ms;
-  
-  &:hover {
-    color: $color2;
-    border: 1px solid $pink;
-    border-radius: 15px;
-    font-size: 1.1em;
-    text-decoration: none;
-  }
+  @include link-stile;
 }
 
 button.header-btn {
@@ -181,23 +209,41 @@ button.header-btn {
     display: none;
   }
 
+  .vertical-rod {
+    display: flex;
+  }
+
   .header-container {
     height: 60px;
   }    
   
-
-  .link-block {
-    flex: 0 1 800px;
-    padding: 3px;
-    display: flex;
-    justify-content: space-around;
+  .menu-container {
+    display: block;
+    width: 250px;
+    height: 40px;
     
-    & > div {
-      flex: auto;
-      width: 18vh;
-      align-self: center;
-      text-align: center;
+    div {
+      background-color: $back2;
     }
+  }
+
+  .dropdown-container {
+    display: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 250px;
+    height: auto;
+    background-color: $back2;
+
+    div {
+      @include category-style;
+      background-color: $back2;
+    }
+  }
+
+  .menu-container:hover .dropdown-container {
+    display: block;
   }
 
   .devise-menu {
@@ -245,7 +291,26 @@ button.header-btn {
   }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1368px) {
+  
+  .menu-container {
+    display: none;
+  }
+
+  .link-block {
+    flex: 0 1 800px;
+    padding: 3px;
+    display: flex;
+    justify-content: space-around;
+    
+    & > div {
+      flex: auto;
+      width: 18vh;
+      align-self: center;
+      text-align: center;
+    }
+  }
+
   a.header-link {
     font-size: 1.2em;
     

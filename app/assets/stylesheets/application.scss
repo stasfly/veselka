@@ -135,24 +135,9 @@ a {
 }
 
 .category {
-  display: flex;
-  height: 55px;
-  width: 100%;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
+  @include category-style;
   background-color: $back4;
-  font-size: 1.3em;
-  // border-bottom: 2px solid $back1;
- & a {
-    color: $color3;
-    text-decoration: none;
-
-    &:hover {
-      color: $color2;
-      font-size: 1.3em;
-    }
-  }
+  
 }
 
 .logo {

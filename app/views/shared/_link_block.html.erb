@@ -1,0 +1,9 @@
+<div><%= link_to t('.about_project'), about_project_path, class: 'header-link' %></div>  
+<div><%= link_to t('.home'), root_path, class: 'header-link' %></div>  
+<% if user_signed_in? %>
+  <div><%= link_to t('.my_account'), user_path(current_user.id), class: 'header-link' %></div>  
+  <div><%= link_to t('.order_history'), orders_path, class: 'header-link' %></div>  
+  <% if current_user.has_role? :admin  %>
+    <div><%= link_to(t('buttons.users'), users_path, class: 'header-link') %></div>
+  <% end %>
+<% end %>

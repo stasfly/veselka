@@ -1,0 +1,7 @@
+<% if user_signed_in? %>
+  <div><%= link_to t('buttons.sign_out'), destroy_user_session_path, data: {turbo_method: :delete}, class: 'header-link' %></div>
+<% else %>
+  <div><%= link_to t('buttons.sign_in'), new_user_session_path, method: :post, class: 'header-link' %></div>
+  <div class="vertical-rod"><span><%= ' | ' %></span></div>
+  <div><%= link_to t('buttons.sign_up'), new_user_registration_path, method: :post, class: 'header-link' %></div>
+<% end %>

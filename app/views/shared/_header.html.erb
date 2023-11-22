@@ -9,49 +9,26 @@
     <nav>
       <%= image_tag('exit.svg', alt: t('.exit_menu'), class: 'mobile-menu-exit', id: 'mobile-exit' ) %>
       <div>
-        <div class="category"><%= link_to t('.about_project'), about_project_path, class: 'header-link' %></div>  
-        <div class="category"><%= link_to t('.home'), home_path, class: 'header-link' %></div>  
-        <% if user_signed_in? %>
-          <div class="category"><%= link_to t('.my_account'), user_path(current_user.id), class: 'header-link' %></div>  
-          <div class="category"><%= link_to t('.order_history'), orders_path, class: 'header-link' %></div>  
-          <div class="category"></div>
-          <div class="category"><%= link_to t('buttons.sign_out'), destroy_user_session_path, data: {turbo_method: :delete}, class: 'header-link' %></div>
-          <% if current_user.has_role? :admin  %>
-            <div class="category"></div>
-            <div class="category"><%= link_to(t('buttons.users'), users_path, class: 'header-link') %></div>
-          <% end %>
-        <% else %>
-          <div class="category"></div>
-          <div class="category"><%= link_to t('buttons.sign_in'), new_user_session_path, method: :post, class: 'header-link' %></div>
-          <div class="category"><%= link_to t('buttons.sign_up'), new_user_registration_path, method: :post, class: 'header-link' %></div>
-        <% end %>
+        <%= render 'shared/link_block' %>
+        <div></div>
+        <%= render 'shared/registration_block' %>
       </div>
     </nav>
-    
+
     <div class="gap-1"></div>
+    <div class="menu-container">
+      <div class="category"><%= t('.menu') %></div>
+      <div class="dropdown-container">
+        <%= render 'shared/link_block' %>
+      </div>
+    </div>
     <div class="link-block">
-      <div><%= link_to t('.about_project'), about_project_path, class: 'header-link' %></div>  
-      <div><%= link_to t('.home'), home_path, class: 'header-link' %></div>  
-      <% if user_signed_in? %>
-        <div><%= link_to t('.my_account'), user_path(current_user.id), class: 'header-link' %></div>  
-        <div><%= link_to t('.order_history'), orders_path, class: 'header-link' %></div>
-        <% if current_user.has_role? :admin  %>
-          <div><%= link_to(t('buttons.users'), users_path, class: 'header-link') %></div>
-        <% end %> 
-      <% end %>
+      <%= render 'shared/link_block' %>
     </div>
     <div class="gap-1"></div>
-    <%# <div class="menu-item"> %>
       <% link_to t('.menu', default: 'no translate'), '#', class: 'header-link' %>
-    <%# </div> %>
     <div class="devise-menu">
-      <% if user_signed_in? %>
-        <div><%= link_to t('buttons.sign_out'), destroy_user_session_path, data: {turbo_method: :delete}, class: 'header-link' %></div>
-      <% else %>
-        <div><%= link_to t('buttons.sign_in'), new_user_session_path, method: :post, class: 'header-link' %></div>
-        <div class="vertical-rod"><span><%= ' | ' %></span></div>
-        <div><%= link_to t('buttons.sign_up'), new_user_registration_path, method: :post, class: 'header-link' %></div>
-      <% end %>
+      <%= render 'shared/registration_block' %> 
     </div>
     <div class="block-cart">
       <% if user_signed_in? %>
