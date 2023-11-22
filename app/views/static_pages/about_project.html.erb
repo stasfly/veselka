@@ -1,2 +1,47 @@
-<h1>StaticPages#about_project</h1>
-<p>Find me in app/views/static_pages/about_project.html.erb</p>
+<h1><%= t('shared.header.about_project') %></h1>
+<div class="static-content">
+  <h4>Short description</h4>
+  <p>The app has been developed on <b>Ruby on Rails</b> platform, the DB <b>Postgresql</b></p>
+  <p>This is an online trade platform. Fast and simple in use. 
+  The app divaded on client's and admin's sides.
+  Any visitor can surf catalogs of products as well as <%= link_to t('shared.header.about_project'), about_project_path %> 
+  and <%= link_to t('breadcrumbs.home'), home_path %> pages.
+  Any willing one can register on the site providing an valid email and after registration become able to make purchases.
+  After purchase a customer as well as app's administrator receive an email with confirmation.
+  Access to the admin side have only registered persons with admin rights.
+  Admins besides functions available for registered users can also edit product's DB (full CRUD operations),
+  lock/unlock user's account, grant or revoke admin's rights to certain users.
+  <h4 >Features utilized in the app</h3>
+  <ul>
+    <li>User registration, authorization and authentication</li>
+    <li>Fast and convenient tool for search in DB of products, orders or users </li>
+    <li>Mobile version of app</li>
+    <li>Adaptive design</li>
+    <li>Smooth item’s scrolling and fast content load due to “lazy load” feature</li>
+    <li>Cozy cart and order history</li>
+    <li>Last admin protection</li>
+    <li>Edition/deletion of product items individually as well as in bulk</li>
+    <li>Support upload of list of products through .CSV (full CRUD)</li>
+    <li>Support download DB of products in .CSV</li>
+  </ul>
+  <h4>DB structure</h3>
+  <p><%= image_tag('veselka_db_structure.png', alt: t('static_pages.db_structure')) %></p>
+  <h4>The tools used for the app development</h3>
+  <ul>
+    <li> Ruby on Rails </li>
+    <li> Postgresql </li>
+    <li>Hot Wire (Turbo Stream) </li>
+    <li>HTML, SCSS, CSS3, Java</li>
+    <li>### Captcha </li>
+    <li>gem I18n for internationalization. Two languages support</li>
+    <li>gem Devise user’s registration and authorization</li>
+    <li>gem Pandit access rights management</li>
+    <li>gem Rolify user’s authentification</li>
+    <li>gem Pagy pagination</li>
+    <li><b>Design, search tool, .CSV support and other app’s features have been written by your humble servant :-) </u></b></li>
+  </ul>
+  <p></p>
+  <p></p>
+  <p></p>
+  <p></p>
+</div>

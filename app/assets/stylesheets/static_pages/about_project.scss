@@ -2,9 +2,20 @@
 @import 'fonts';
 
 .static-content {
+  font-size: 1.15em;
   
   p {
     text-align: justify;
+  }
+
+  a {
+    font-weight: bold;
+
+    &:hover {
+    border: none;
+    text-decoration: none;
+    color: blue;
+    }
   }
 
   h4 {

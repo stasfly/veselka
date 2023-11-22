@@ -231,6 +231,8 @@ en:
   user_mailer:
     welcome:
       title: 'Welcome!'
+  static_pages:
+    db_structure: 'App DB structure'
   
 #                                @@@@@   activerecord  @@@@@     
   activerecord:

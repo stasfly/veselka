@@ -223,7 +223,7 @@ uk:
       about_us: "Про нас"
       payment: "Оплата"
       contact: "Контакти"
-      about_project: "Про проект"
+      about_project: "Про проєкт"
       menu: 'Меню'
       my_account: 'Профіль'
       order_history: 'Історія замовлень'
@@ -232,6 +232,8 @@ uk:
   user_mailer:
     welcome:
       title: 'Вітаю!'
+  static_pages:
+    db_structure: 'Структура бази даних додатку'
   
 #                                @@@@@   activerecord  @@@@@     
   activerecord:
