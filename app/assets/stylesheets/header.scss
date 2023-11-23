@@ -292,13 +292,16 @@ button.header-btn {
 }
 
 @media only screen and (min-width: 1368px) {
+  .mobile-menu-icons, .mobile-menu, .mobile-menu-exit, .mobile-filter, .mobile-search, .mobile-uk, .mobile-en {
+    display: none;
+  }
   
   .menu-container {
     display: none;
   }
 
   .link-block {
-    flex: 0 1 800px;
+    flex: 0 1 1000px;
     padding: 3px;
     display: flex;
     justify-content: space-around;

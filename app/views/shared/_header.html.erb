@@ -1,11 +1,12 @@
 <div class="header">
   <div class="header-container">
+    <div class="mobile-menu-icons">
       <%= image_tag('burger_menu.svg', alt: t('.burger_menu'), class: 'mobile-menu', id: 'mobile-cta' ) %>
       <%= image_tag('filter.svg', alt: t('.filter'), class: 'mobile-filter', id: 'mobile-filter-cta' ) %>
       <%= image_tag('search.svg', alt: t('.search'), class: 'mobile-search', id: 'mobile-search-cta' ) %>
       <%= link_to_unless_current(image_tag('uk.png', alt: t('.uk_flag'), class: 'mobile-uk'), url_for(locale: :uk)) %>
       <%= link_to_unless_current(image_tag('en.png', alt: t('.en_flag'), class: 'mobile-en'), url_for(locale: :en)) %>
-    
+    </div>
     <nav>
       <%= image_tag('exit.svg', alt: t('.exit_menu'), class: 'mobile-menu-exit', id: 'mobile-exit' ) %>
       <div>

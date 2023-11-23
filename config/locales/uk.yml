@@ -159,7 +159,7 @@ uk:
       cost: 'Вартість'
   orders:
     index:
-      history: 'Історія замовлень'
+      history: 'Архів замовлень'
       date: 'Дата замовлення'
       id: 'Номер замовлення'
       sum: 'Вартість'
@@ -226,7 +226,7 @@ uk:
       about_project: "Про проєкт"
       menu: 'Меню'
       my_account: 'Профіль'
-      order_history: 'Історія замовлень'
+      order_history: 'Архів замовлень'
     footer:
     messages:
   user_mailer:
