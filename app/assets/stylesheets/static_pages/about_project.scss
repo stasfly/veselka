@@ -97,7 +97,15 @@
   }
 }
 
+@keyframes pulse {
+	from {
+		background-color: $header-bk;
+	}
+	to {
+		background-color: $dark_green;
+	}
+}
+
 .google-map {
   margin-top: 5em;
 }
-
