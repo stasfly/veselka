@@ -1,6 +1,40 @@
 @import 'colors';
 @import 'fonts';
 
+.rainbow-logo {
+  // font-family: sans-serif;
+  // font-size: 48px;
+  // border-radius: 35px;
+  // background: $back2;
+  animation: rainbow 8s linear infinite;
+}
+
+@keyframes rainbow {
+  0% {
+    color: red;
+  }
+  20% {
+    color: orange;
+  }
+  40% {
+    color: yellow;
+  }
+  50% {
+    color: green;
+  }
+  70% {
+    color: blue;
+  }
+  90% {
+    color: purple;
+  }
+  100% {
+    color: red;
+  }
+}
+
+
+
 .static-content {
   font-size: 1.15em;
   
@@ -63,11 +97,7 @@
   }
 }
 
-@keyframes pulse {
-	from {
-		background-color: $header-bk;
-	}
-	to {
-		background-color: $dark_green;
-	}
+.google-map {
+  margin-top: 5em;
 }
+

@@ -77,7 +77,7 @@ en:
 #                                @@@@@   bread_crumbs   @@@@@    
   breadcrumbs:
     cart: 'cart'
-    home: 'home'
+    home: 'Home'
     orders: 'orders'
     products: 'products'
     registration: 'registration'
