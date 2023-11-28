@@ -61,6 +61,7 @@ gem 'pry', '~> 0.14.1'
 gem 'pundit', '~> 2.3.0'
 gem 'rails-i18n', '~> 7.0.0'
 gem 'ransack', '~> 4.0'
+gem 'recaptcha', '~> 5.16.0'
 gem 'rolify', '~> 6.0.1'
 gem 'rubocop', '~> 1.36', require: false
 gem 'simple_form', '~> 5.1'
