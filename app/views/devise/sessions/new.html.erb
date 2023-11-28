@@ -1,7 +1,8 @@
-<% environment = Rails.env.production? ? 'production' : 'development' %>
-<% site_key = Rails.application.credentials.recaptcha[environment].v3_site_key %>
-<script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
-<%= Time.now %>
+
+<%= content_for :recaptcha_js do %>
+  <%= include_recaptcha_js %>
+<% end %>
+
 <h2><%= t('devise.sessions.new.sign_in') %></h2>
 <% instance_variable_names.inspect %>
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
@@ -19,10 +20,7 @@
   <% if params[:show_checkbox_recaptcha] %>
     <%= recaptcha_tags %>
   <% else %>
-    
-    <%# <%= turbo_frame_tag 'recaptchas', data: { turbo_temporary: true } do %>
-      <%= recaptcha_v3 action: 'login', site_key: site_key %>
-    <%# end %>
+    <%= recaptcha_action('login') %>
   <% end %>
 
   <div class="form-actions">

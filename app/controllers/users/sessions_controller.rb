@@ -12,27 +12,24 @@ module Users
 
     # POST /resource/sign_in
     def create
-      environment = Rails.env.production? ? 'production' : 'development'
-      secret_key = Rails.application.credentials.recaptcha[environment].v3_secret_key
-      success = verify_recaptcha(action: 'login', minimum_score: 0.1, secret_key: secret_key)
-      checkbox_success = verify_recaptcha unless success
-      binding.pry
-      if success || checkbox_success
+      if NewGoogleRecaptcha.human?(params[:new_google_recaptcha_token], 'login') || verify_recaptcha
         inspected_user = User.find_by(email: params[:user][:email])
         if inspected_user && (inspected_user.has_role? :blocked)
           redirect_to(new_user_session_path,
-                      notice: "Account with email: #{params[:user][:email]} has been blocked. You cannot use it anymore.")
+                      notice: "#{I18n.t('controllers.users.sessions.account_with_email')} 
+                                #{params[:user][:email]} 
+                                #{I18n.t('controllers.users.sessions.been_blocked')}")
         elsif inspected_user && (inspected_user.has_role? :inactive)
           redirect_to(new_user_registration_path,
-                      alert: "Account with email: #{params[:user][:email]} has been canceled. To restore it use sign up form.")
+                      alert: "#{I18n.t('controllers.users.sessions.account_with_email')} 
+                              #{params[:user][:email]} 
+                              #{I18n.t('controllers.users.sessions.been_canceled')}")
         else
           super
         end
       else
         redirect_to new_user_session_path(user: { email: params[:user][:email], password: params[:user][:password] },
                                           show_checkbox_recaptcha: true)
-        # super
-        # render 'new'
       end
     end
 

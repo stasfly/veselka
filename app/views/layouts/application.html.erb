@@ -3,16 +3,13 @@
   <head>
     <title>Veselka</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%# <meta name="turbolinks-cache-control" content="no-cache"> %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag 'turbo', defer: true, "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'products' %>
-    <% environment = Rails.env.production? ? 'production' : 'development' %>
-    <% site_key = Rails.application.credentials.recaptcha[environment].v3_site_key %>
-    <script src="https://www.google.com/recaptcha/api.js?render=<%= site_key %>"></script>
+    <%= yield :recaptcha_js %>
   </head>
 
   <body>

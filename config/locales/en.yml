@@ -296,3 +296,9 @@ en:
       updated: 'Category has been updated'
       deleted: 'Category has been removed'
       deletion_forbidden: 'You cannot delete this category. It still contains items!'
+    users:
+        registrations:
+        sessions:
+          account_with_email: 'Обліковий запис:'
+          been_blocked: 'заблоковано. Ви не можете ним більше користуватись.'
+          been_canceled: 'скасовано. Для його відновлення скористайтесь формою реєстрації.'

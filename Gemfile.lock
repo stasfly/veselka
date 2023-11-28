@@ -187,6 +187,8 @@ GEM
       digest
       net-protocol
       timeout
+    new_google_recaptcha (1.4.0)
+      rails (>= 4.2.0)
     nio4r (2.5.8)
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
@@ -374,6 +376,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   letter_opener (~> 1.8.1)
+  new_google_recaptcha (~> 1.4.0)
   normalize-rails (~> 8.0)
   pagy (~> 6.0)
   pg (~> 1.1)

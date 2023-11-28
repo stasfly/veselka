@@ -297,3 +297,9 @@ uk:
       updated: 'Категорія успішно оновлена'
       deleted: 'Категорія успішно видалена'
       deletion_forbidden: 'Ви не можете видалити цю категорію. Вона досі містить товари'
+    users:
+      registrations:
+      sessions:
+        account_with_email: 'Account with email:'
+        been_blocked: 'has been blocked. You cannot use it anymore.'
+        been_canceled: 'has been canceled. To restore it use sign up form.'
