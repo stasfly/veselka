@@ -11,18 +11,20 @@ module Users
     end
 
     def create
-      if inspected_user = User.find_by(email: params[:user][:email])
-        if inspected_user.has_role? :blocked
-          return redirect_to new_user_registration_path,
-                             notice: "The account with email: #{inspected_user.email} has been blocked. You cannot use this email"
-        elsif inspected_user.has_role? :inactive
+      # binding.pry
+      yield_block = proc do
+        inspected_user = User.find_by(email: params[:user][:email])
+        if inspected_user && (inspected_user.has_role? :blocked)
+          redirect_to new_user_registration_path,
+            notice: "The account with email: #{inspected_user.email} has been blocked. You cannot use this email"
+        elsif inspected_user && (inspected_user.has_role? :inactive)
           inspected_user.remove_role :inactive
-          return redirect_to new_user_session_path, notice: 'Your acount now is an active. log in please'
+          redirect_to new_user_session_path, notice: 'Your acount now is an active. log in please'
         end
-      else
-        return super
+        super
       end
-      super
+      redirect_path = new_user_registration_path(user: { email: params[:user][:email] }, show_checkbox_recaptcha: true)
+      recaptcha_check('signup', redirect_path, &yield_block)
     end
 
     def edit

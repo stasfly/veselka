@@ -1,8 +1,4 @@
 
-<%= content_for :recaptcha_js do %>
-  <%= include_recaptcha_js %>
-<% end %>
-
 <h2><%= t('devise.sessions.new.sign_in') %></h2>
 <% instance_variable_names.inspect %>
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false, turbolinks: false }) do |f| %>

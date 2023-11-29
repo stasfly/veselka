@@ -1,11 +1,11 @@
 <h2> <%= t('devise.registrations.new.sign_up') %> </h2>
-
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false }) do |f| %>
+<%= Time.now %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false, turbolinks: false }) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <%= f.input :email,
-                required: true,
+                required: false,
                 autofocus: true,
                 input_html: { autocomplete: t('activerecord.attributes.user.email') }%>
     <%= f.input :password,
@@ -16,6 +16,8 @@
                 required: true,
                 input_html: { autocomplete: t('devise.passwords.edit.new_password')  } %>
   </div>
+
+  <%= render partial: 'shared/recaptcha', locals: { action: 'signup' } %>
 
   <div class="form-actions">
     <%= f.button :submit, t('devise.shared.links.sign_up') %>

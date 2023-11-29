@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     if NewGoogleRecaptcha.human?(params[:new_google_recaptcha_token], action_name) || verify_recaptcha
       yield
     else
-      binding.pry
+      # binding.pry
       redirect_to redirect_path
     end
   end
