@@ -5,8 +5,8 @@
   <div class="form-inputs">
   <%= f.association :roles, as: :check_boxes %>
     
-  <div class="form-actions">
-    <%= f.button :submit, t('.update_roles') %>
+  <div class="form-actions btn-container btn-width-450">
+    <%= f.button :submit, t('.update_roles'), class: 'submit-btn' %>
   </div>
 <% end %>
 

@@ -34,7 +34,9 @@
       </div>
       <%= search_form.hidden_field :product_category_id, value: @product_category.id %>
     <% end %>
-    <%= button_tag t('buttons.search') %>
+    <div class="btn-container">
+      <%= button_tag t('buttons.search'), class: 'submit-btn' %>
+    </div>
   <% end %>
 </div>
 

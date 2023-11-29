@@ -73,7 +73,8 @@ en:
     link_to_index: 'Back to the index'
     search: 'Search'
     csv_export: 'Download CSV'
-    csv_import: 'Upwnload CSV'
+    csv_import: 'Upload CSV*)'
+    csv_sep: '*Only " ; " value separator'
 #                                @@@@@   bread_crumbs   @@@@@    
   breadcrumbs:
     cart: 'cart'

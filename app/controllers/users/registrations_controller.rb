@@ -20,6 +20,7 @@ module Users
                      #{I18n.t('controllers.users.sessions.been_blocked')}"
         elsif inspected_user && (inspected_user.has_role? :inactive)
           inspected_user.remove_role :inactive
+          inspected_user.add_role :user
           return redirect_to new_user_session_path, notice: I18n.t('controllers.users.registrations.account_is_active')
         end
         return super

@@ -1,5 +1,4 @@
 <h2> <%= t('devise.registrations.new.sign_up') %> </h2>
-<%= Time.now %>
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false, turbolinks: false }) do |f| %>
   <%= f.error_notification %>
 
@@ -19,7 +18,7 @@
 
   <%= render partial: 'shared/recaptcha', locals: { action: 'signup' } %>
 
-  <div class="form-actions btn-container btn-width-400">
+  <div class="form-actions btn-container btn-width-450">
     <%= f.button :submit, t('devise.shared.links.sign_up'), class: 'submit-btn' %>
   </div>
 <% end %>

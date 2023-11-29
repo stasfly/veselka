@@ -73,7 +73,8 @@ uk:
     link_to_index: 'Повернутись до каталогу товарів'
     search: 'Пошук'
     csv_export: 'Завнтажити CSV'
-    csv_import: 'Надіслати CSV'
+    csv_import: 'Надіслати CSV*'
+    csv_sep: '*Тільки " ; " сепаратор значень'
 #                                @@@@@   bread_crumbs   @@@@@    
   breadcrumbs:
     cart: 'кошик'
