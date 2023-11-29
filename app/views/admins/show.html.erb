@@ -1,6 +1,6 @@
 <h1><%= t('.user') %></h1>
 <p><%= @user.email %></p>
 <p><%= @user.roles.pluck(:name) %></p>
-<p><%= link_to t('.edit_profile'), edit_user_registration_path %></p>
+<p><%= link_to t('.edit_profile'), edit_user_registration_path, data: { turbo: false } %></p>
 
 <%= link_to t('buttons.back'), :back %>

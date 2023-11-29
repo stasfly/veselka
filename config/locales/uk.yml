@@ -299,6 +299,7 @@ uk:
       deletion_forbidden: 'Ви не можете видалити цю категорію. Вона досі містить товари'
     users:
       registrations:
+        account_is_active: 'Ваш акаунт активовано. Авторизуйтесь, будь ласка'
       sessions:
         account_with_email: 'Account with email:'
         been_blocked: 'has been blocked. You cannot use it anymore.'

@@ -298,6 +298,7 @@ en:
       deletion_forbidden: 'You cannot delete this category. It still contains items!'
     users:
         registrations:
+          account_is_active: 'Your acount now is an active. log in please'
         sessions:
           account_with_email: 'Обліковий запис:'
           been_blocked: 'заблоковано. Ви не можете ним більше користуватись.'

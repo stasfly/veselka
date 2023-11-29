@@ -11,17 +11,18 @@ module Users
     end
 
     def create
-      # binding.pry
       yield_block = proc do
         inspected_user = User.find_by(email: params[:user][:email])
         if inspected_user && (inspected_user.has_role? :blocked)
-          redirect_to new_user_registration_path,
-            notice: "The account with email: #{inspected_user.email} has been blocked. You cannot use this email"
+          return redirect_to new_user_registration_path,
+            notice: "#{I18n.t('controllers.users.sessions.account_with_email')}
+                     #{inspected_user.email} 
+                     #{I18n.t('controllers.users.sessions.been_blocked')}"
         elsif inspected_user && (inspected_user.has_role? :inactive)
           inspected_user.remove_role :inactive
-          redirect_to new_user_session_path, notice: 'Your acount now is an active. log in please'
+          return redirect_to new_user_session_path, notice: I18n.t('controllers.users.registrations.account_is_active')
         end
-        super
+        return super
       end
       redirect_path = new_user_registration_path(user: { email: params[:user][:email] }, show_checkbox_recaptcha: true)
       recaptcha_check('signup', redirect_path, &yield_block)
@@ -33,6 +34,14 @@ module Users
     end
 
     def update
+      yield_block = proc do
+        super
+      end
+      redirect_path = edit_user_registration_path(user: { email: params[:user][:email] }, show_checkbox_recaptcha: true)
+      recaptcha_check('edit_account', redirect_path, &yield_block)
+    end
+
+    def destroy
       @user.add_role :inactive
       @user.update(updated_at: Time.now)
       sign_out @user
