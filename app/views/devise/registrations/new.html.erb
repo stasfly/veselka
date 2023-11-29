@@ -19,8 +19,8 @@
 
   <%= render partial: 'shared/recaptcha', locals: { action: 'signup' } %>
 
-  <div class="form-actions">
-    <%= f.button :submit, t('devise.shared.links.sign_up') %>
+  <div class="form-actions btn-container btn-width-400">
+    <%= f.button :submit, t('devise.shared.links.sign_up'), class: 'submit-btn' %>
   </div>
 <% end %>
 

@@ -10,8 +10,10 @@
                 input_html: { autocomplete: t('activerecord.attributes.user.email') } %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, t('devise.passwords.new.send_me_reset_password_instructions')%>
+  <%= render partial: 'shared/recaptcha', locals: { action: 'new_password' } %>
+
+  <div class="form-actions btn-container btn-width-400">
+    <%= f.button :submit, t('devise.passwords.new.send_me_reset_password_instructions'), class: 'submit-btn' %>
   </div>
 <% end %>
 

@@ -25,8 +25,8 @@
 
   <%= render partial: 'shared/recaptcha', locals: { action: 'edit_account' } %>
 
-  <div class="form-actions">
-    <%= f.button :submit, t('devise.registrations.edit.update') %>
+  <div class="form-actions btn-container btn-width-400">
+    <%= f.button :submit, t('devise.registrations.edit.update'), class: 'submit-btn' %>
   </div>
 <% end %>
 

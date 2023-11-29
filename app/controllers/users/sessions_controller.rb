@@ -12,26 +12,6 @@ module Users
 
     # POST /resource/sign_in
     def create
-      # if NewGoogleRecaptcha.human?(params[:new_google_recaptcha_token], 'login') || verify_recaptcha
-      #   inspected_user = User.find_by(email: params[:user][:email])
-      #   if inspected_user && (inspected_user.has_role? :blocked)
-      #     redirect_to(new_user_session_path,
-      #                 notice: "#{I18n.t('controllers.users.sessions.account_with_email')} 
-      #                           #{params[:user][:email]} 
-      #                           #{I18n.t('controllers.users.sessions.been_blocked')}")
-      #   elsif inspected_user && (inspected_user.has_role? :inactive)
-      #     redirect_to(new_user_registration_path,
-      #                 alert: "#{I18n.t('controllers.users.sessions.account_with_email')} 
-      #                         #{params[:user][:email]} 
-      #                         #{I18n.t('controllers.users.sessions.been_canceled')}")
-      #   else
-      #     super
-      #   end
-      # else
-      #   redirect_to new_user_session_path(user: { email: params[:user][:email] },
-      #                                     show_checkbox_recaptcha: true)
-      # end
-      
       yield_block = proc do
         inspected_user = User.find_by(email: params[:user][:email])
         if inspected_user && (inspected_user.has_role? :blocked)

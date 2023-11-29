@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     get   'csv_export',   to: 'products#csv_export'
 
     devise_for :users, controllers: {
+      confirmations:  'users/confirmations', 
+      passwords:      'users/passwords', 
       registrations:  'users/registrations',
       sessions:       'users/sessions'
     }

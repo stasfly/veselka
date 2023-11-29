@@ -2,5 +2,11 @@
 @import 'fonts';
 
 .devise-control {
+  margin-top: 1em;
+  display: inline-block;
   border: 1px solid $back1;
+}
+
+.form-actions {
+  margin-top: 1em;
 }
