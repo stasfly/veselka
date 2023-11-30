@@ -15,8 +15,8 @@ module Users
         inspected_user = User.find_by(email: params[:user][:email])
         if inspected_user && (inspected_user.has_role? :blocked)
           return redirect_to new_user_registration_path,
-            notice: "#{I18n.t('controllers.users.sessions.account_with_email')}
-                     #{inspected_user.email} 
+                             notice: "#{I18n.t('controllers.users.sessions.account_with_email')}
+                     #{inspected_user.email}
                      #{I18n.t('controllers.users.sessions.been_blocked')}"
         elsif inspected_user && (inspected_user.has_role? :inactive)
           inspected_user.remove_role :inactive

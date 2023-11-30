@@ -29,14 +29,26 @@
       </div>
       <div>
         <%= search_form.label :sort, t('search_form.sort') %>
-        <div>
-          <%= search_form.label :sort_email, t('search_form.sort_email') %>
-          <%= search_form.radio_button :sort, 'email asc', checked: 'checked' %>
-          <%= search_form.radio_button :sort, 'email desc' %>
-          <%= search_form.label :sort_reg, t('search_form.sort_registration') %>
-          <%= search_form.radio_button :sort, 'created_at asc' %>
-          <%= search_form.radio_button :sort, 'created_at desc' %>
-          
+        <div class='switch-container'>
+          <%= search_form.label :sort_email, t('search_form.sort_email'), class: 'lable-name' %>
+          <label class='arrow'>
+            <%= search_form.radio_button :sort, 'email asc', checked: 'checked' %>
+            <%= image_tag('arrow_up.svg', alt: t('buttons.arrow_up')) %>
+          </label>
+          <label class='arrow'>
+            <%= search_form.radio_button :sort, 'email desc' %>
+            <%= image_tag('arrow_down.svg', alt: t('buttons.arrow_down')) %>
+          </label>
+          <%= search_form.label :sort_reg, t('search_form.sort_registration'), class: 'lable-name' %>
+
+          <label class='arrow'>
+            <%= search_form.radio_button :sort, 'created_at asc' %>
+            <%= image_tag('arrow_up.svg', alt: t('buttons.arrow_up')) %>
+          </label>
+          <label class='arrow'>
+            <%= search_form.radio_button :sort, 'created_at desc' %>
+            <%= image_tag('arrow_down.svg', alt: t('buttons.arrow_down')) %>
+          </label>
         </div>
       </div>
     <% end %>

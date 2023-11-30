@@ -30,18 +30,36 @@
 
         <div>
           <%= search_form.label :sort, t('search_form.sort') %>
-          <div>
+          <div class='switch-container'>
             <% if current_user.has_role? :admin %>
-              <%= search_form.label :sort_email, t('search_form.sort_email'), oninput: 'this.form.requestSubmit()' %>
-              <%= search_form.radio_button :sort, 'users.email asc', checked: 'checked', oninput: 'this.form.requestSubmit()' %>
-              <%= search_form.radio_button :sort, 'users.email desc', oninput: 'this.form.requestSubmit()' %>
+              <%= search_form.label :sort_email, t('search_form.sort_email'), oninput: 'this.form.requestSubmit()', class: 'lable-name' %>
+              <label class='arrow'>
+                <%= search_form.radio_button :sort, 'users.email asc', checked: 'checked', oninput: 'this.form.requestSubmit()' %>
+                <%= image_tag('arrow_up.svg', alt: t('buttons.arrow_up')) %>
+              </label>
+              <label class='arrow'>
+                <%= search_form.radio_button :sort, 'users.email desc', oninput: 'this.form.requestSubmit()' %>
+                <%= image_tag('arrow_down.svg', alt: t('buttons.arrow_down')) %>
+              </label>
             <% end %>
-            <%= search_form.label :sort_reg, t('search_form.sort_registration') %>
-            <%= search_form.radio_button :sort, 'created_at asc', oninput: 'this.form.requestSubmit()' %>
-            <%= search_form.radio_button :sort, 'created_at desc', oninput: 'this.form.requestSubmit()' %>
-            <%= search_form.label :sort_cost, t('search_form.sort_cost') %>
-            <%= search_form.radio_button :sort, 'cost asc', oninput: 'this.form.requestSubmit()' %>
-            <%= search_form.radio_button :sort, 'cost desc', oninput: 'this.form.requestSubmit()' %>
+            <%= search_form.label :sort_reg, t('search_form.sort_registration'), class: 'lable-name' %>
+            <label class='arrow'>
+              <%= search_form.radio_button :sort, 'created_at asc', oninput: 'this.form.requestSubmit()' %>
+              <%= image_tag('arrow_up.svg', alt: t('buttons.arrow_up')) %>
+            </label>
+            <label class='arrow'>
+              <%= search_form.radio_button :sort, 'created_at desc', oninput: 'this.form.requestSubmit()' %>
+              <%= image_tag('arrow_down.svg', alt: t('buttons.arrow_down')) %>
+            </label>
+            <%= search_form.label :sort_cost, t('search_form.sort_cost'), class: 'lable-name' %>
+            <label class='arrow'>
+              <%= search_form.radio_button :sort, 'cost asc', oninput: 'this.form.requestSubmit()' %>
+              <%= image_tag('arrow_up.svg', alt: t('buttons.arrow_up')) %>
+            </label>
+            <label class='arrow'>
+              <%= search_form.radio_button :sort, 'cost desc', oninput: 'this.form.requestSubmit()' %>
+              <%= image_tag('arrow_down.svg', alt: t('buttons.arrow_down')) %>
+            </label>
           </div>
         </div>
       <% end %>

@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  def recaptcha_check(action_name, redirect_path, &given_block)
+  def recaptcha_check(action_name, redirect_path)
     if NewGoogleRecaptcha.human?(params[:new_google_recaptcha_token], action_name) || verify_recaptcha
       yield
     else

@@ -75,6 +75,8 @@ en:
     csv_export: 'Download CSV'
     csv_import: 'Upload CSV*)'
     csv_sep: '*Only " ; " value separator'
+    arrow_up: 'ascending sort'
+    arrow_down: 'descending sort'
 #                                @@@@@   bread_crumbs   @@@@@    
   breadcrumbs:
     cart: 'cart'

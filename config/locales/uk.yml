@@ -75,6 +75,8 @@ uk:
     csv_export: 'Завнтажити CSV'
     csv_import: 'Надіслати CSV*'
     csv_sep: '*Тільки " ; " сепаратор значень'
+    arrow_up: 'зростаюче сортування'
+    arrow_down: 'спадаюче сортування'
 #                                @@@@@   bread_crumbs   @@@@@    
   breadcrumbs:
     cart: 'кошик'
