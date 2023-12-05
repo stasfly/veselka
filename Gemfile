@@ -55,12 +55,14 @@ gem 'devise', '~> 4.8'
 gem 'factory_bot_rails', '~> 6.2.0'
 gem 'faker', '~>3.1.1'
 gem 'image_processing', '~> 1.2'
+gem 'new_google_recaptcha', '~>1.4.0'
 gem 'normalize-rails', '~> 8.0'
 gem 'pagy', '~> 6.0'
 gem 'pry', '~> 0.14.1'
 gem 'pundit', '~> 2.3.0'
 gem 'rails-i18n', '~> 7.0.0'
 gem 'ransack', '~> 4.0'
+gem 'recaptcha', '~> 5.16.0'
 gem 'rolify', '~> 6.0.1'
 gem 'rubocop', '~> 1.36', require: false
 gem 'simple_form', '~> 5.1'
@@ -94,8 +96,8 @@ group :test do
   gem 'webdrivers', '~> 5.1.0'
 end
 
-gem "dockerfile-rails", ">= 1.5", :group => :development
+gem 'dockerfile-rails', '>= 1.5', group: :development
 
-gem "sentry-ruby", "~> 5.12"
+gem 'sentry-ruby', '~> 5.12'
 
-gem "sentry-rails", "~> 5.12"
+gem 'sentry-rails', '~> 5.12'

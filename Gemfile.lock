@@ -187,6 +187,8 @@ GEM
       digest
       net-protocol
       timeout
+    new_google_recaptcha (1.4.0)
+      rails (>= 4.2.0)
     nio4r (2.5.8)
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
@@ -248,6 +250,7 @@ GEM
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
+    recaptcha (5.16.0)
     redis (4.8.0)
     regexp_parser (2.6.0)
     reline (0.3.1)
@@ -373,6 +376,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   letter_opener (~> 1.8.1)
+  new_google_recaptcha (~> 1.4.0)
   normalize-rails (~> 8.0)
   pagy (~> 6.0)
   pg (~> 1.1)
@@ -383,6 +387,7 @@ DEPENDENCIES
   rails-controller-testing (~> 1.0.5)
   rails-i18n (~> 7.0.0)
   ransack (~> 4.0)
+  recaptcha (~> 5.16.0)
   redis (~> 4.0)
   rolify (~> 6.0.1)
   rspec-rails (~> 5.1.2)

@@ -6,6 +6,39 @@ h1 {
   // border: 1px solid rgb(104, 15, 97);
 }
 
+.switch-container {
+  display: flex;
+}
+
+.lable-name {
+  margin: 4px 10px 0px 10px;
+}
+
+.arrow {
+  /* HIDE RADIO */
+  [type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* IMAGE STYLES */
+  [type=radio] ~ img {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    // position: absolute;
+  }
+
+  /* CHECKED STYLES */
+  [type=radio]:checked + img {
+    background-color: $mint_green;
+    border-radius: 50%;
+    // outline: 2px solid #f00;
+  }
+}
+
 .add-new-item a {
   text-decoration: none;
 }

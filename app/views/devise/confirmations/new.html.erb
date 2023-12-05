@@ -12,8 +12,10 @@
                 input_html: { autocomplete: t('activerecord.attributes.user.email') } %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, t('devise.confirmations.new.resend_confirmation_instructions') %>
+  <%= render partial: 'shared/recaptcha', locals: { action: 'new_confirmation' } %>
+
+  <div class="form-actions btn-container btn-width-450">
+    <%= f.button :submit, t('devise.confirmations.new.resend_confirmation_instructions'), class: 'submit-btn' %>
   </div>
 <% end %>
 

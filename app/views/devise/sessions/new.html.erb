@@ -1,6 +1,7 @@
-<h2><%= t('devise.sessions.new.sign_in') %></h2>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
+<h2><%= t('devise.sessions.new.sign_in') %></h2>
+<% instance_variable_names.inspect %>
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false, turbolinks: false }) do |f| %>
   <div class="form-inputs">
     <%= f.input :email,
                 required: false,
@@ -12,8 +13,10 @@
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, t('devise.shared.links.sign_in') %>
+  <%= render partial: 'shared/recaptcha', locals: { action: 'login' } %>
+
+  <div class="form-actions btn-container btn-width-450">
+    <%= f.button :submit, t('devise.shared.links.sign_in'), class: 'submit-btn' %>
   </div>
 <% end %>
 

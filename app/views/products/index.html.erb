@@ -20,21 +20,32 @@
       </div>
       <div>
         <%= search_form.label :sort, t('search_form.sort') %>
-        <div>
-          <%= search_form.label :sort_name, t('search_form.sort_name'), oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.radio_button :sort, 'name asc', checked: 'checked', oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.radio_button :sort, 'name desc', oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.label :sort_reg, t('search_form.sort_registration') %>
-          <%= search_form.radio_button :sort, 'created_at asc', oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.radio_button :sort, 'created_at desc', oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.label :sort_cost, t('search_form.sort_price') %>
-          <%= search_form.radio_button :sort, 'price asc', oninput: 'this.form.requestSubmit()' %>
-          <%= search_form.radio_button :sort, 'price desc', oninput: 'this.form.requestSubmit()' %>
+        <div class='switch-container'>
+          <%= search_form.label :sort_name, t('search_form.sort_name'), oninput: 'this.form.requestSubmit()', class: 'lable-name' %>
+          <label class='arrow'>
+            <%= search_form.radio_button :sort, 'name asc', checked: 'checked', oninput: 'this.form.requestSubmit()' %>
+            <%= image_tag('arrow_up.svg', alt: t('buttons.arrow_up')) %>
+          </label>
+          <label class='arrow'>
+            <%= search_form.radio_button :sort, 'name desc', oninput: 'this.form.requestSubmit()' %>
+            <%= image_tag('arrow_down.svg', alt: t('buttons.arrow_down')) %>
+          </label>
+
+          <%= search_form.label :sort_cost, t('search_form.sort_price'), class: 'lable-name' %>
+          <label class='arrow'>
+            <%= search_form.radio_button :sort, 'price asc', oninput: 'this.form.requestSubmit()' %>
+            <%= image_tag('arrow_up.svg', alt: t('buttons.arrow_up')) %>
+          </label>
+          <label class='arrow'>
+            <%= search_form.radio_button :sort, 'price desc', oninput: 'this.form.requestSubmit()' %><%= image_tag('arrow_down.svg', alt: t('buttons.arrow_down')) %>
+          </label>
         </div>
       </div>
       <%= search_form.hidden_field :product_category_id, value: @product_category.id %>
     <% end %>
-    <%= button_tag t('buttons.search') %>
+    <div class="btn-container">
+      <%= button_tag t('buttons.search'), class: 'submit-btn' %>
+    </div>
   <% end %>
 </div>
 

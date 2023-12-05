@@ -12,17 +12,25 @@ module Users
 
     # POST /resource/sign_in
     def create
-      # binding.pry
-      inspected_user = User.find_by(email: params[:user][:email])
-      if inspected_user && (inspected_user.has_role? :blocked)
-        redirect_to(new_user_session_path,
-                    notice: "Account with email: #{params[:user][:email]} has been blocked. You cannot use it anymore.")
-      elsif inspected_user && (inspected_user.has_role? :inactive)
-        redirect_to(new_user_registration_path,
-                    alert: "Account with email: #{params[:user][:email]} has been canceled. To restore it use sign up form.")
-      else
-        super
+      yield_block = proc do
+        inspected_user = User.find_by(email: params[:user][:email])
+        if inspected_user && (inspected_user.has_role? :blocked)
+          redirect_to(new_user_session_path,
+                      notice: "#{I18n.t('controllers.users.sessions.account_with_email')}
+                                #{params[:user][:email]}
+                                #{I18n.t('controllers.users.sessions.been_blocked')}")
+        elsif inspected_user && (inspected_user.has_role? :inactive)
+          redirect_to(new_user_registration_path,
+                      alert: "#{I18n.t('controllers.users.sessions.account_with_email')}
+                              #{params[:user][:email]}
+                              #{I18n.t('controllers.users.sessions.been_canceled')}")
+        else
+          super
+        end
       end
+      redirect_path = new_user_session_path(user: { email: params[:user][:email] },
+                                            show_checkbox_recaptcha: true)
+      recaptcha_check('login', redirect_path, &yield_block)
     end
 
     # DELETE /resource/sign_out

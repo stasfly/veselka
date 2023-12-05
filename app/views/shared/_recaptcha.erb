@@ -1,0 +1,9 @@
+<%= content_for :recaptcha_js do %>
+  <%= include_recaptcha_js %>
+<% end %>
+
+<% if params[:show_checkbox_recaptcha] %>
+  <%= recaptcha_tags %>
+<% else %>
+  <%= recaptcha_action(action) %>
+<% end %>

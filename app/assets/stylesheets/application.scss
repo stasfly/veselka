@@ -9,6 +9,7 @@
 @import 'product_categories/index';
 @import 'admins/index';
 @import 'devise/devise';
+@import 'static_pages/about_project';
 
 body {
   margin: 0 0 0 0;
@@ -86,8 +87,8 @@ a {
   }
 }
 
-.btn-width-250 {
-  width: 250px;
+.btn-width-450 {
+  width: 450px;
   justify-content: center;
 }
 
@@ -134,24 +135,9 @@ a {
 }
 
 .category {
-  display: flex;
-  height: 55px;
-  width: 100%;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
+  @include category-style;
   background-color: $back4;
-  font-size: 1.3em;
-  // border-bottom: 2px solid $back1;
- & a {
-    color: $color3;
-    text-decoration: none;
-
-    &:hover {
-      color: $color2;
-      font-size: 1.3em;
-    }
-  }
+  
 }
 
 .logo {

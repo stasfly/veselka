@@ -31,7 +31,7 @@ class Product < ApplicationRecord
       cost_from = search[:cost_from]  == '' ? 0 : search[:cost_from]
       cost_to   = search[:cost_to]    == '' ? 1_000_000_000_000 : search[:cost_to]
       product = Product.includes(:product_inventory, [:images_attachments])
-                       .where('name LIKE ?', "%#{search[:name]}%")
+                       .where('name ILIKE ?', "%#{search[:name].downcase if search[:name]}%")
                        .where('price BETWEEN ? AND ?', cost_from, cost_to)
                        .distinct
                        .order(sort_key => sort_order)

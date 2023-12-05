@@ -9,6 +9,7 @@
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag 'turbo', defer: true, "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'products' %>
+    <%= yield :recaptcha_js %>
   </head>
 
   <body>

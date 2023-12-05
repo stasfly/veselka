@@ -73,11 +73,14 @@ en:
     link_to_index: 'Back to the index'
     search: 'Search'
     csv_export: 'Download CSV'
-    csv_import: 'Upwnload CSV'
+    csv_import: 'Upload CSV*)'
+    csv_sep: '*Only " ; " value separator'
+    arrow_up: 'ascending sort'
+    arrow_down: 'descending sort'
 #                                @@@@@   bread_crumbs   @@@@@    
   breadcrumbs:
     cart: 'cart'
-    home: 'home'
+    home: 'Home'
     orders: 'orders'
     products: 'products'
     registration: 'registration'
@@ -231,6 +234,8 @@ en:
   user_mailer:
     welcome:
       title: 'Welcome!'
+  static_pages:
+    db_structure: 'App DB structure'
   
 #                                @@@@@   activerecord  @@@@@     
   activerecord:
@@ -294,3 +299,10 @@ en:
       updated: 'Category has been updated'
       deleted: 'Category has been removed'
       deletion_forbidden: 'You cannot delete this category. It still contains items!'
+    users:
+        registrations:
+          account_is_active: 'Your acount now is an active. log in please'
+        sessions:
+          account_with_email: 'Обліковий запис:'
+          been_blocked: 'заблоковано. Ви не можете ним більше користуватись.'
+          been_canceled: 'скасовано. Для його відновлення скористайтесь формою реєстрації.'

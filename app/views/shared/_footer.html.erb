@@ -3,30 +3,27 @@
     <div class="gap-footer"></div>
     <div class="footer-container">
       <div class="contacts">
-        <h3>Contacts</h3>
+        <h3>Author</h3>
         <ul>
-          <li><%= link_to 'Phone 1: 050-XX-XX-XXX', '#' %></li>
-          <li><%= link_to 'Phone 2:', '#' %></li>
-          <li><%= link_to 'Phone 3:', '#' %></li>
-          <li><%= link_to "email: #{current_user.email if !current_user.nil?}", '#' %></li>
+          <li><%= link_to 'Phone 1: +38(050)-8026-450', about_project_path %></li>
+          <li><%= link_to 'Viber, Telegram, WhatsApp', about_project_path %></li>
+          <li><%= link_to "email: s19f84@gmail.com", about_project_path %></li>
         </ul>
       </div>
       <div class="info">
         <h3>Information</h3>
         <ul>
-          <li><%= link_to 'Our schedule: Mn-Fr 9:00-18:00', '#' %></li>
-          <li><%= link_to 'How to charge', '#' %></li>
-          <li><%= link_to 'Payment & delivery', '#' %></li>
-          <li><%= link_to 'Warranty', '#' %></li>
+          <li><%= link_to 'Info I', about_project_path %></li>
+          <li><%= link_to 'Info II', about_project_path %></li>
+          <li><%= link_to 'Info III', about_project_path %></li>
         </ul>
       </div>
       <div class="service">
         <h3>Service</h3>
         <ul>
-          <li><%= link_to 'Cutting', '#' %></li>
-          <li><%= link_to 'Edge coating', '#' %></li>
-          <li><%= link_to 'Packing', '#' %></li>
-          <li><%= link_to 'Ingeneering', '#' %></li>
+          <li><%= link_to 'Service A', about_project_path %></li>
+          <li><%= link_to 'Service B', about_project_path %></li>
+          <li><%= link_to 'Service C', about_project_path %></li>
         </ul>
       </div>
       <div class="account">
@@ -38,16 +35,15 @@
             <li><%= link_to 'My account', user_path(current_user.id) %></li>
             <li><%= link_to 'Order history', orders_path %></li>
             <li><%= link_to 'Cart', cart_path(current_user.cart.id) %></li>
-            <li><%= link_to 'Advertise emainling', '#' %></li>
           </ul>
         <% end %>
       </div>
       <div class="social">
         <h3>Social networks</h3>
         <ul>
-          <li><%= link_to 'Facebook', '#' %></li>
-          <li><%= link_to 'Telegram', '#' %></li>
-          <li><%= link_to 'Instagram', '#' %></li>
+          <li><%= link_to 'Facebook', about_project_path %></li>
+          <li><%= link_to 'Telegram', about_project_path %></li>
+          <li><%= link_to 'Instagram', about_project_path %></li>
         </ul>
       </div>
     </div>

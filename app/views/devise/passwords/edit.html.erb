@@ -19,8 +19,10 @@
                 input_html: { autocomplete: t('devise.passwords.edit.confirm_new_password') } %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, t('devise.passwords.edit.change_my_password') %>
+  <%= render partial: 'shared/recaptcha', locals: { action: 'edit_password' } %>
+
+  <div class="form-actions btn-container btn-width-450">
+    <%= f.button :submit, t('devise.passwords.edit.change_my_password'), class: 'submit-btn' %>
   </div>
 <% end %>
 
