@@ -97,6 +97,10 @@
   }
 }
 
+.full-size-img {
+  width: 100%;
+}
+
 @keyframes pulse {
 	from {
 		background-color: $header-bk;
